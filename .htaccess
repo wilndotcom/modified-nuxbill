@@ -1,0 +1,23 @@
+# PHPNuxBill .htaccess
+# Enable clean URLs
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /phpnuxbill/
+    
+    # Don't rewrite files and directories that exist
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Rewrite all other requests to index.php
+    RewriteRule ^(.*)$ index.php?_route=$1 [L,QSA]
+</IfModule>
+
+# Prevent directory listing
+Options -Indexes
+
+# Protect sensitive files
+<FilesMatch "\.(sql|md|json|log|ini)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
