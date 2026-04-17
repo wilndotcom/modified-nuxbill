@@ -193,12 +193,180 @@
                     </div>
                 </div>
                 {/if}
-                            {if !empty($_json['email_invoice'])}
-                            {Lang::htmlspecialchars($_json['email_invoice'])}
-                            {else}
-                            {Lang::htmlspecialchars($_default['email_invoice'])}
-                            {/if}
-                        </textarea>
+                <div class="panel-heading" style="margin-top: 20px;">
+                    <h4><i class="fa fa-money"></i> {Lang::T('Debt Notification')}</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{Lang::T('Enable Debt Notifications')}</label>
+                        <div class="col-md-6">
+                            <select class="form-control" name="debt_notifications_enabled">
+                                <option value="1" {if $debt_settings['debt_notifications_enabled'] == '1'}selected{/if}>{Lang::T('Yes')}</option>
+                                <option value="0" {if $debt_settings['debt_notifications_enabled'] != '1'}selected{/if}>{Lang::T('No')}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{Lang::T('Notification Channels')}</label>
+                        <div class="col-md-6">
+                            <div class="checkbox">
+                                <label><input type="checkbox" name="debt_channels[]" value="SMS" {if in_array('SMS', explode(',', $debt_settings['debt_notification_channels']))}checked{/if}> {Lang::T('SMS')}</label><br>
+                                <label><input type="checkbox" name="debt_channels[]" value="WhatsApp" {if in_array('WhatsApp', explode(',', $debt_settings['debt_notification_channels']))}checked{/if}> {Lang::T('WhatsApp')}</label><br>
+                                <label><input type="checkbox" name="debt_channels[]" value="Email" {if in_array('Email', explode(',', $debt_settings['debt_notification_channels']))}checked{/if}> {Lang::T('Email')}</label><br>
+                                <label><input type="checkbox" name="debt_channels[]" value="Inbox" {if in_array('Inbox', explode(',', $debt_settings['debt_notification_channels']))}checked{/if}> {Lang::T('Customer Inbox')}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{Lang::T('Grace Period (Days)')}</label>
+                        <div class="col-md-6">
+                            <input type="number" class="form-control" name="debt_grace_period_days" value="{$debt_settings['debt_grace_period_days']}" min="1" max="90">
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{Lang::T('Auto Disconnect')}</label>
+                        <div class="col-md-6">
+                            <select class="form-control" name="debt_auto_disconnect">
+                                <option value="1" {if $debt_settings['debt_auto_disconnect'] == '1'}selected{/if}>{Lang::T('Yes')}</option>
+                                <option value="0" {if $debt_settings['debt_auto_disconnect'] != '1'}selected{/if}>{Lang::T('No')}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{Lang::T('Debt Notification (Initial)')}</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="debt_message_initial" rows="3">{$debt_settings['debt_message_initial']}</textarea>
+                        </div>
+                        <p class="col-md-4 help-block">
+                            <b>[[name]]</b> - {Lang::T('Customer Name')}.<br>
+                            <b>[[amount]]</b> - {Lang::T('Debt amount')}.<br>
+                            <b>[[days]]</b> - {Lang::T('Days remaining')}.
+                        </p>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{Lang::T('Debt Warning (3 days before)')}</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="debt_message_warning" rows="3">{$debt_settings['debt_message_warning']}</textarea>
+                        </div>
+                        <p class="col-md-4 help-block">
+                            <b>[[name]]</b> - {Lang::T('Customer Name')}.<br>
+                            <b>[[amount]]</b> - {Lang::T('Debt amount')}.<br>
+                            <b>[[days]]</b> - {Lang::T('Days remaining')}.
+                        </p>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{Lang::T('Debt Final Notice (1 day before)')}</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="debt_message_final" rows="3">{$debt_settings['debt_message_final']}</textarea>
+                        </div>
+                        <p class="col-md-4 help-block">
+                            <b>[[name]]</b> - {Lang::T('Customer Name')}.<br>
+                            <b>[[amount]]</b> - {Lang::T('Debt amount')}.
+                        </p>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{Lang::T('Debt Disconnection Notice')}</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="debt_message_disconnection" rows="3">{$debt_settings['debt_message_disconnection']}</textarea>
+                        </div>
+                        <p class="col-md-4 help-block">
+                            <b>[[name]]</b> - {Lang::T('Customer Name')}.<br>
+                            <b>[[amount]]</b> - {Lang::T('Debt amount')}.
+                        </p>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{Lang::T('PDF Invoice Template')}</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" id="email_invoice" name="email_invoice" rows="20">{if !empty($_json['email_invoice'])}{Lang::htmlspecialchars($_json['email_invoice'])}{else}<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Invoice No: [[invoice]]</title>
+    <style>
+        .invoice-box { max-width: 800px; margin: auto; padding: 30px; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); font-size: 16px; line-height: 24px; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; color: #555; }
+        .invoice-box table { width: 100%; line-height: inherit; text-align: left; }
+        .invoice-box table td { padding: 5px; vertical-align: top; }
+        .invoice-box table tr td:nth-child(2) { text-align: right; }
+        .invoice-box table tr.top table td { padding-bottom: 20px; }
+        .invoice-box table tr.top table td.title { font-size: 45px; line-height: 45px; color: #333; }
+        .invoice-box table tr.information table td { padding-bottom: 40px; }
+        .invoice-box table tr.heading td { background: #eee; border-bottom: 1px solid #ddd; font-weight: bold; }
+        .invoice-box table tr.details td { padding-bottom: 20px; }
+        .invoice-box table tr.item td { border-bottom: 1px solid #eee; }
+        .invoice-box table tr.item.last td { border-bottom: none; }
+        .invoice-box table tr.total td:nth-child(2) { border-top: 2px solid #eee; font-weight: bold; }
+        @media only screen and (max-width: 600px) { .invoice-box table tr.top table td { width: 100%; display: block; text-align: center; } .invoice-box table tr.information table td { width: 100%; display: block; text-align: center; } }
+        .invoice-box.rtl { direction: rtl; font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; }
+        .invoice-box.rtl table { text-align: right; }
+        .invoice-box.rtl table tr td:nth-child(2) { text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <img src="[[logo]]" style="max-width: 100px" />
+                            </td>
+                            <td>
+                                Invoice #: [[invoice]]<br />
+                                Created: [[created_at]]<br />
+                                Due: [[due_date]]
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                [[company_name]]<br />
+                                [[company_address]]<br />
+                                [[company_phone]]<br />
+                            </td>
+                            <td>
+                                [[fullname]]<br />
+                                [[address]] <br />
+                                [[email]] <br />
+                                [[phone]] <br />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            [[bill_rows]]
+        </table>
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 20px;">
+            <h4 style="margin: 0;">Payment Options:</h4>
+            <p style="margin: 0;">Online Portal: <a href="">https://yoursite-domain.com/[[payment_link]]</a> <br> Bank Transfer: Account # 1234-567890<br> Auto Pay: Enabled (Next payment: 2023-11-12)</p>
+        </div>
+        <footer style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 0.9em; color: #666; text-align: center;">
+            <p style="margin: 0;">Thank you for choosing [[company_name]]!<br> Late payments may result in service interruption<br> Need help? Contact support@[[company_name]].com or call [[company_phone]]</p>
+        </footer>
+    </div>
+</body>
+</html>{/if}</textarea>
                         </div>
                         <p class="col-md-4 help-block">
                             <b>[[company_name]]</b> {Lang::T('Your Company Name at Settings')}.<br>
@@ -219,11 +387,10 @@
                             <b>[[expired_date]]</b> - {Lang::T('Expired datetime')}.<br>
                             <b>[[logo]]</b> - {Lang::T('Your company logo at Settings')}.<br>
                             <b>[[due_date]]</b> - {Lang::T('Invoice Due date, 7 Days after invoice created')}.<br>
-                            <b>[[payment_link]]</b> - <a href="{$app_url}/docs/#Reminder%20with%20payment%20link"
-                                target="_blank">{Lang::T("read documentation")}</a>.
+                            <b>[[payment_link]]</b> - <a href="{$app_url}/docs/#Reminder%20with%20payment%20link" target="_blank">{Lang::T("read documentation")}</a>.
                         </p>
                     </div>
-                </div> *}
+                </div>
 
                 <div class="panel-body">
                     <div class="form-group">

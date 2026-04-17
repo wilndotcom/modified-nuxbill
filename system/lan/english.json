@@ -618,5 +618,21 @@
     "Final_Notice": "Final Notice",
     "Disconnection_Notice": "Disconnection Notice",
     "Save_Settings": "Save Settings",
-    "Back_to_List": "Back to List"
+    "Back_to_List": "Back to List",
+    "Bills_table__where_bills_are_listed": "Bills table, where bills are listed",
+    "Your_currency_code_at_localisation_Settings": "Your currency code at localisation Settings",
+    "Invoice_status": "Invoice status",
+    "Customer_email": "Customer email",
+    "Customer_phone": "Customer phone",
+    "Your_company_logo_at_Settings": "Your company logo at Settings",
+    "Invoice_Due_date__7_Days_after_invoice_created": "Invoice Due date, 7 Days after invoice created",
+    "Debt_Notification": "Debt Notification",
+    "Debt_Notification__Initial_": "Debt Notification (Initial)",
+    "Customer_Name": "Customer Name",
+    "Debt_amount": "Debt amount",
+    "Days_remaining": "Days remaining",
+    "Debt_Warning__3_days_before_": "Debt Warning (3 days before)",
+    "Debt_Final_Notice__1_day_before_": "Debt Final Notice (1 day before)",
+    "Debt_Disconnection_Notice": "Debt Disconnection Notice",
+    "PDF_Invoice_Template": "PDF Invoice Template"
 }
