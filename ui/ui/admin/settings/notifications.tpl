@@ -406,6 +406,14 @@
 </form>
 
 <script>
+// Store PHP variables in JavaScript
+var companyName = "{$_c['CompanyName']|escape:javascript}";
+var companyAddress = "{$_c['address']|escape:javascript}";
+var companyPhone = "{$_c['phone']|escape:javascript}";
+var logoUrl = "{$app_url}/{$UPLOAD_PATH}{$_c['logo']}";
+var currencyCode = "{$_c['currency_code']}";
+
+{literal}
 function previewInvoiceTemplate() {
     // Get the template content from textarea
     var templateContent = document.getElementById('email_invoice').value;
@@ -420,9 +428,9 @@ function previewInvoiceTemplate() {
     
     // Replace placeholders with sample data for preview
     var previewContent = templateContent
-        .replace(/\[\[company_name\]\]/g, "{$_c['CompanyName']|escape:javascript}")
-        .replace(/\[\[company_address\]\]/g, "{$_c['address']|escape:javascript}")
-        .replace(/\[\[company_phone\]\]/g, "{$_c['phone']|escape:javascript}")
+        .replace(/\[\[company_name\]\]/g, companyName)
+        .replace(/\[\[company_address\]\]/g, companyAddress)
+        .replace(/\[\[company_phone\]\]/g, companyPhone)
         .replace(/\[\[invoice\]\]/g, 'INV-00123')
         .replace(/\[\[created_at\]\]/g, todayStr)
         .replace(/\[\[due_date\]\]/g, dueDateStr)
@@ -431,13 +439,13 @@ function previewInvoiceTemplate() {
         .replace(/\[\[email\]\]/g, 'john@example.com')
         .replace(/\[\[phone\]\]/g, '+1234567890')
         .replace(/\[\[address\]\]/g, '123 Main St, City')
-        .replace(/\[\[logo\]\]/g, "{$app_url}/{$UPLOAD_PATH}{$_c['logo']}")
+        .replace(/\[\[logo\]\]/g, logoUrl)
         .replace(/\[\[payment_link\]\]/g, 'payment/123')
         .replace(/\[\[bill_rows\]\]/g, '<tr class="heading"><td>Item</td><td>Price</td></tr><tr class="item"><td>Internet Plan (Monthly)</td><td>$50.00</td></tr><tr class="item"><td>Installation Fee</td><td>$25.00</td></tr><tr class="total"><td></td><td>Total: $75.00</td></tr>')
         .replace(/\[\[payment_gateway\]\]/g, 'PayPal')
         .replace(/\[\[payment_channel\]\]/g, 'Credit Card')
         .replace(/\[\[status\]\]/g, 'PAID')
-        .replace(/\[\[currency\]\]/g, "{$_c['currency_code']}")
+        .replace(/\[\[currency\]\]/g, currencyCode)
         .replace(/\[\[type\]\]/g, 'Hotspot')
         .replace(/\[\[plan_name\]\]/g, 'Premium Plan')
         .replace(/\[\[plan_price\]\]/g, '$50.00')
@@ -496,5 +504,6 @@ function previewInvoiceTemplate() {
         alert('Popup blocked! Please allow popups for this website to see the preview.');
     }
 }
+{/literal}
 </script>
 {include file="sections/footer.tpl"}
