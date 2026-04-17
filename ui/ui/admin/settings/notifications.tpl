@@ -410,14 +410,22 @@ function previewInvoiceTemplate() {
     // Get the template content from textarea
     var templateContent = document.getElementById('email_invoice').value;
     
+    // Get today's date and due date
+    var today = new Date();
+    var dueDate = new Date();
+    dueDate.setDate(today.getDate() + 7);
+    
+    var todayStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+    var dueDateStr = dueDate.getFullYear() + '-' + String(dueDate.getMonth() + 1).padStart(2, '0') + '-' + String(dueDate.getDate()).padStart(2, '0');
+    
     // Replace placeholders with sample data for preview
     var previewContent = templateContent
-        .replace(/\[\[company_name\]\]/g, '{$_c['CompanyName']}')
-        .replace(/\[\[company_address\]\]/g, '{$_c['address']}')
-        .replace(/\[\[company_phone\]\]/g, '{$_c['phone']}')
+        .replace(/\[\[company_name\]\]/g, '{addslashes($_c['CompanyName'])}')
+        .replace(/\[\[company_address\]\]/g, '{addslashes($_c['address'])}')
+        .replace(/\[\[company_phone\]\]/g, '{addslashes($_c['phone'])}')
         .replace(/\[\[invoice\]\]/g, 'INV-00123')
-        .replace(/\[\[created_at\]\]/g, '{date('Y-m-d')}')
-        .replace(/\[\[due_date\]\]/g, '{date('Y-m-d', strtotime('+7 days'))}')
+        .replace(/\[\[created_at\]\]/g, todayStr)
+        .replace(/\[\[due_date\]\]/g, dueDateStr)
         .replace(/\[\[fullname\]\]/g, 'John Doe')
         .replace(/\[\[user_name\]\]/g, 'johndoe')
         .replace(/\[\[email\]\]/g, 'john@example.com')
@@ -429,12 +437,22 @@ function previewInvoiceTemplate() {
         .replace(/\[\[payment_gateway\]\]/g, 'PayPal')
         .replace(/\[\[payment_channel\]\]/g, 'Credit Card')
         .replace(/\[\[status\]\]/g, 'PAID')
-        .replace(/\[\[currency\]\]/g, '{$_c['currency_code']}');
+        .replace(/\[\[currency\]\]/g, '{$_c['currency_code']}')
+        .replace(/\[\[type\]\]/g, 'Hotspot')
+        .replace(/\[\[plan_name\]\]/g, 'Premium Plan')
+        .replace(/\[\[plan_price\]\]/g, '$50.00')
+        .replace(/\[\[footer\]\]/g, 'Thank you for your business!')
+        .replace(/\[\[note\]\]/g, 'Please pay on time to avoid service interruption.');
     
     // Open preview in new window
     var previewWindow = window.open('', '_blank', 'width=900,height=700,scrollbars=yes');
-    previewWindow.document.write(previewContent);
-    previewWindow.document.close();
+    if (previewWindow) {
+        previewWindow.document.open();
+        previewWindow.document.write(previewContent);
+        previewWindow.document.close();
+    } else {
+        alert('Popup blocked! Please allow popups for this website to see the preview.');
+    }
 }
 </script>
 {include file="sections/footer.tpl"}
