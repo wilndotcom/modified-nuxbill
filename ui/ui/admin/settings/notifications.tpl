@@ -406,7 +406,6 @@
 </form>
 
 <script>
-{literal}
 function previewInvoiceTemplate() {
     // Get the template content from textarea
     var templateContent = document.getElementById('email_invoice').value;
@@ -421,9 +420,9 @@ function previewInvoiceTemplate() {
     
     // Replace placeholders with sample data for preview
     var previewContent = templateContent
-        .replace(/\[\[company_name\]\]/g, "{$_c['CompanyName']|escape:'javascript'}")
-        .replace(/\[\[company_address\]\]/g, "{$_c['address']|escape:'javascript'}")
-        .replace(/\[\[company_phone\]\]/g, "{$_c['phone']|escape:'javascript'}")
+        .replace(/\[\[company_name\]\]/g, "{$_c['CompanyName']|escape:javascript}")
+        .replace(/\[\[company_address\]\]/g, "{$_c['address']|escape:javascript}")
+        .replace(/\[\[company_phone\]\]/g, "{$_c['phone']|escape:javascript}")
         .replace(/\[\[invoice\]\]/g, 'INV-00123')
         .replace(/\[\[created_at\]\]/g, todayStr)
         .replace(/\[\[due_date\]\]/g, dueDateStr)
@@ -497,6 +496,5 @@ function previewInvoiceTemplate() {
         alert('Popup blocked! Please allow popups for this website to see the preview.');
     }
 }
-{/literal}
 </script>
 {include file="sections/footer.tpl"}
