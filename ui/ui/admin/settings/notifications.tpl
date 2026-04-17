@@ -445,12 +445,54 @@ function previewInvoiceTemplate() {
         .replace(/\[\[footer\]\]/g, 'Thank you for your business!')
         .replace(/\[\[note\]\]/g, 'Please pay on time to avoid service interruption.');
     
+    // Create a well-structured preview HTML with header
+    var previewHtml = '<!DOCTYPE html>' +
+        '<html>' +
+        '<head>' +
+        '<meta charset="utf-8">' +
+        '<title>Invoice Template Preview</title>' +
+        '<style>' +
+        'body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }' +
+        '.preview-header { background: #3c8dbc; color: white; padding: 15px 20px; margin: -20px -20px 20px -20px; }' +
+        '.preview-header h2 { margin: 0; font-size: 18px; }' +
+        '.preview-header p { margin: 5px 0 0 0; font-size: 12px; opacity: 0.9; }' +
+        '.preview-container { background: white; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }' +
+        '.preview-info { background: #d9edf7; border: 1px solid #bce8f1; color: #31708f; padding: 15px; margin-bottom: 20px; border-radius: 4px; }' +
+        '.preview-info h4 { margin: 0 0 10px 0; }' +
+        '.preview-info ul { margin: 0; padding-left: 20px; }' +
+        '.preview-info li { margin-bottom: 3px; }' +
+        '</style>' +
+        '</head>' +
+        '<body>' +
+        '<div class="preview-header">' +
+        '<h2><i class="fa fa-eye"></i> Invoice Template Preview</h2>' +
+        '<p>This is how your invoice will look when sent to customers</p>' +
+        '</div>' +
+        '<div class="preview-info">' +
+        '<h4>Sample Data Used:</h4>' +
+        '<ul>' +
+        '<li><strong>Customer:</strong> John Doe (johndoe)</li>' +
+        '<li><strong>Invoice #:</strong> INV-00123</li>' +
+        '<li><strong>Created:</strong> ' + todayStr + '</li>' +
+        '<li><strong>Due Date:</strong> ' + dueDateStr + '</li>' +
+        '<li><strong>Items:</strong> Internet Plan ($50) + Installation ($25)</li>' +
+        '<li><strong>Total:</strong> $75.00</li>' +
+        '<li><strong>Status:</strong> PAID</li>' +
+        '</ul>' +
+        '</div>' +
+        '<div class="preview-container">' +
+        previewContent +
+        '</div>' +
+        '</body>' +
+        '</html>';
+    
     // Open preview in new window
-    var previewWindow = window.open('', '_blank', 'width=900,height=700,scrollbars=yes');
+    var previewWindow = window.open('', '_blank', 'width=1000,height=800,scrollbars=yes,resizable=yes');
     if (previewWindow) {
         previewWindow.document.open();
-        previewWindow.document.write(previewContent);
+        previewWindow.document.write(previewHtml);
         previewWindow.document.close();
+        previewWindow.document.title = 'Invoice Template Preview';
     } else {
         alert('Popup blocked! Please allow popups for this website to see the preview.');
     }
