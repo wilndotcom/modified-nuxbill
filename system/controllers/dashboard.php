@@ -46,6 +46,108 @@ if (isset($_GET['action']) && $_GET['action'] == 'online-users-refresh') {
     exit;
 }
 
+// Online Users Detailed List View
+if (isset($routes[1]) && $routes[1] == 'online-users') {
+    _admin();
+    $user_type = isset($routes[2]) ? $routes[2] : 'all';
+    
+    try {
+        $online_data = OnlineUsersHelper::getOnlineUsers();
+        $online_users = [];
+        
+        // Add type to each user and filter if needed
+        foreach ($online_data['hotspot'] as $user) {
+            $user['type'] = 'hotspot';
+            $online_users[] = $user;
+        }
+        foreach ($online_data['pppoe'] as $user) {
+            $user['type'] = 'pppoe';
+            $online_users[] = $user;
+        }
+        foreach ($online_data['static'] as $user) {
+            $user['type'] = 'static';
+            $online_users[] = $user;
+        }
+        
+        // Filter by type if specified
+        if ($user_type != 'all') {
+            $online_users = array_filter($online_users, function($user) use ($user_type) {
+                return $user['type'] == $user_type;
+            });
+        }
+        
+        $ui->assign('online_users', $online_users);
+        $ui->assign('total_count', count($online_users));
+        $ui->assign('user_type', $user_type);
+        $ui->assign('last_update', date('Y-m-d H:i:s'));
+        $ui->assign('csrf_token', Csrf::generateAndStoreToken());
+        $ui->assign('_title', Lang::T('Online Users'));
+        $ui->display('admin/dashboard/online_users_list.tpl');
+        exit;
+    } catch (Exception $e) {
+        _alert(Lang::T('Error loading online users: ') . $e->getMessage(), 'danger', 'dashboard');
+    }
+}
+
+// Kick User AJAX endpoint
+if (isset($_GET['action']) && $_GET['action'] == 'kick-user') {
+    header('Content-Type: application/json');
+    
+    $csrf_token = _req('token');
+    if (!Csrf::check($csrf_token)) {
+        echo json_encode(['success' => false, 'error' => 'Invalid token']);
+        exit;
+    }
+    
+    $username = _req('username');
+    $router_name = _req('router');
+    
+    if (empty($username) || empty($router_name)) {
+        echo json_encode(['success' => false, 'error' => 'Missing parameters']);
+        exit;
+    }
+    
+    try {
+        $router = ORM::for_table('tbl_routers')->where('name', $router_name)->find_one();
+        if (!$router) {
+            echo json_encode(['success' => false, 'error' => 'Router not found']);
+            exit;
+        }
+        
+        $client = Mikrotik::getClient($router->ip_address, $router->username, $router->password);
+        
+        // Try to remove from hotspot active
+        $hotspot_users = $client->sendSync(new RouterOS\Request('/ip/hotspot/active/print'));
+        foreach ($hotspot_users as $user) {
+            if ($user->getProperty('user') == $username) {
+                $removeReq = new RouterOS\Request('/ip/hotspot/active/remove');
+                $removeReq->setArgument('numbers', $user->getProperty('.id'));
+                $client->sendSync($removeReq);
+                echo json_encode(['success' => true]);
+                exit;
+            }
+        }
+        
+        // Try to remove from PPPoE active
+        $pppoe_users = $client->sendSync(new RouterOS\Request('/ppp/active/print'));
+        foreach ($pppoe_users as $user) {
+            if ($user->getProperty('name') == $username) {
+                $removeReq = new RouterOS\Request('/ppp/active/remove');
+                $removeReq->setArgument('numbers', $user->getProperty('.id'));
+                $client->sendSync($removeReq);
+                echo json_encode(['success' => true]);
+                exit;
+            }
+        }
+        
+        echo json_encode(['success' => false, 'error' => 'User not found in active sessions']);
+        
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+    }
+    exit;
+}
+
 $tipeUser = _req("user");
 if (empty($tipeUser)) {
     $tipeUser = 'Admin';

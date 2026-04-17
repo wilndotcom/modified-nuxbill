@@ -385,6 +385,39 @@ CREATE TABLE IF NOT EXISTS `tbl_cpe_routers` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Debt Notification System Tables
+CREATE TABLE IF NOT EXISTS `tbl_customer_debt` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `customer_id` INT NOT NULL,
+    `amount` DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+    `detected_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `deadline_date` DATETIME NOT NULL,
+    `status` ENUM('Active','Notified','Warning','Final','Disconnected','Settled') NOT NULL DEFAULT 'Active',
+    `notification_count` INT NOT NULL DEFAULT 0,
+    `last_notification_date` DATETIME NULL,
+    `settled_date` DATETIME NULL,
+    `disconnected_date` DATETIME NULL,
+    `notes` TEXT NULL,
+    PRIMARY KEY (`id`),
+    KEY `customer_id` (`customer_id`),
+    KEY `status` (`status`),
+    KEY `deadline_date` (`deadline_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `tbl_debt_notifications` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `debt_id` INT NOT NULL,
+    `customer_id` INT NOT NULL,
+    `notification_type` ENUM('Initial','Warning','Final','Disconnection') NOT NULL,
+    `channel` VARCHAR(50) NOT NULL,
+    `message_content` TEXT NULL,
+    `sent_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `status` VARCHAR(20) NOT NULL DEFAULT 'Sent',
+    PRIMARY KEY (`id`),
+    KEY `debt_id` (`debt_id`),
+    KEY `customer_id` (`customer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 ALTER TABLE `rad_acct`
   ADD PRIMARY KEY (`id`),
   ADD KEY `username` (`username`),
@@ -476,12 +509,23 @@ ALTER TABLE `tbl_user_recharges`
 ALTER TABLE `tbl_voucher`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
+ALTER TABLE `tbl_customer_debt`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `tbl_debt_notifications`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 INSERT INTO
     `tbl_appconfig` (`id`, `setting`, `value`)
-VALUES (1, 'CompanyName', 'PHPNuxBill'), (2, 'currency_code', 'Rp.'), (3, 'language', 'english'), (4, 'show-logo', '1'), (5, 'nstyle', 'blue'), (6, 'timezone', 'Asia/Jakarta'), (7, 'dec_point', ','), (8, 'thousands_sep', '.'), (9, 'rtl', '0'), (10, 'address', ''), (11, 'phone', ''), (12, 'date_format', 'd M Y'), (13, 'note', 'Thank you...');
+VALUES (1, 'CompanyName', 'PHPNuxBill'), (2, 'currency_code', 'Rp.'), (3, 'language', 'english'), (4, 'show-logo', '1'), (5, 'nstyle', 'blue'), (6, 'timezone', 'Asia/Jakarta'), (7, 'dec_point', ','), (8, 'thousands_sep', '.'), (9, 'rtl', '0'), (10, 'address', ''), (11, 'phone', ''), (12, 'date_format', 'd M Y'), (13, 'note', 'Thank you...'),
+(14, 'debt_notifications_enabled', '1'), (15, 'debt_notification_channels', 'SMS,WhatsApp,Email,Inbox'), (16, 'debt_grace_period_days', '7'), (17, 'debt_auto_disconnect', '1'), (18, 'debt_warning_days', '3'), (19, 'debt_final_notice_days', '1'),
+(20, 'debt_message_initial', 'Dear [[name]], your account has a debt of [[amount]]. Please settle within [[days]] days to avoid disconnection.'),
+(21, 'debt_message_warning', 'URGENT: Dear [[name]], your debt of [[amount]] must be paid within [[days]] days. Your service will be disconnected after deadline.'),
+(22, 'debt_message_final', 'FINAL NOTICE: Dear [[name]], your debt of [[amount]] must be paid by tomorrow. Immediate disconnection will occur after deadline.'),
+(23, 'debt_message_disconnection', 'Dear [[name]], your service has been disconnected due to unpaid debt of [[amount]]. Please settle to restore service.');
 
 
 INSERT INTO

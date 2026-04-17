@@ -12,7 +12,7 @@
         <!-- Stats Cards -->
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="small-box bg-aqua">
+                <a href="{Text::url('dashboard/online-users/hotspot')}" class="small-box bg-aqua" style="display: block; text-decoration: none;">
                     <div class="inner">
                         <h3 id="hotspot-count">{$hotspot_count|default:0}</h3>
                         <p>{Lang::T('Hotspot Users')}</p>
@@ -20,10 +20,10 @@
                     <div class="icon">
                         <i class="fa fa-wifi"></i>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="small-box bg-green">
+                <a href="{Text::url('dashboard/online-users/pppoe')}" class="small-box bg-green" style="display: block; text-decoration: none;">
                     <div class="inner">
                         <h3 id="pppoe-count">{$pppoe_count|default:0}</h3>
                         <p>{Lang::T('PPPoE Users')}</p>
@@ -31,10 +31,10 @@
                     <div class="icon">
                         <i class="fa fa-plug"></i>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="small-box bg-yellow">
+                <a href="{Text::url('dashboard/online-users/static')}" class="small-box bg-yellow" style="display: block; text-decoration: none;">
                     <div class="inner">
                         <h3 id="static-count">{$static_count|default:0}</h3>
                         <p>{Lang::T('Static Users')}</p>
@@ -42,10 +42,10 @@
                     <div class="icon">
                         <i class="fa fa-desktop"></i>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="small-box bg-red">
+                <a href="{Text::url('dashboard/online-users/all')}" class="small-box bg-red" style="display: block; text-decoration: none;">
                     <div class="inner">
                         <h3 id="total-count-box">{$online_count|default:0}</h3>
                         <p>{Lang::T('Total Online')}</p>
@@ -53,7 +53,7 @@
                     <div class="icon">
                         <i class="fa fa-users"></i>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
         
