@@ -209,7 +209,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">{Lang::T('Notification Channels')}</label>
+                        <div class="col-md-2"><strong>{Lang::T('Notification Channels')}</strong></div>
                         <div class="col-md-6">
                             <div class="checkbox">
                                 <label><input type="checkbox" name="debt_channels[]" value="SMS" {if in_array('SMS', explode(',', $debt_settings['debt_notification_channels']))}checked{/if}> {Lang::T('SMS')}</label><br>
