@@ -461,5 +461,10 @@
     "OLT_Devices": "OLT Devices",
     "ONUs": "ONUs",
     "Profiles": "Profiles",
-    "CPE_Routers": "CPE Routers"
+    "CPE_Routers": "CPE Routers",
+    "Add_OLT": "Add OLT",
+    "Brand": "Brand",
+    "Port": "Port",
+    "Actions": "Actions",
+    "No_OLT_devices_found": "No OLT devices found"
 }
