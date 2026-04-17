@@ -584,5 +584,20 @@
     "Are_you_sure_you_want_to_disconnect_this_user_": "Are you sure you want to disconnect this user?",
     "User_has_been_disconnected": "User has been disconnected",
     "Error": "Error",
-    "Failed_to_disconnect_user": "Failed to disconnect user"
+    "Failed_to_disconnect_user": "Failed to disconnect user",
+    "Select_Account": "Select Account",
+    "Select_a_customer": "Select a customer",
+    "Hotspot_Plans": "Hotspot Plans",
+    "PPPOE_Plans": "PPPOE Plans",
+    "VPN_Plans": "VPN Plans",
+    "Select_Routers": "Select Routers",
+    "Service_Plan": "Service Plan",
+    "Select_Plans": "Select Plans",
+    "Using": "Using",
+    "Postpaid_Recharge_for_the_first_time_use": "Postpaid Recharge for the first time use",
+    "Continue_the_Recharge_process": "Continue the Recharge process",
+    "Or": "Or",
+    "Online_PPPoE_Users": "Online PPPoE Users",
+    "Debt_Notifications": "Debt Notifications",
+    "Debt_List": "Debt List"
 }
