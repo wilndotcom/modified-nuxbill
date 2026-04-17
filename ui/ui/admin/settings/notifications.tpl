@@ -193,6 +193,25 @@
                     </div>
                 </div>
                 {/if}
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="account_activated">{Lang::T('Account Activated Notification')}</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" id="account_activated" name="account_activated"
+                                placeholder="{Lang::T('Hello')} [[name]], {Lang::T('your account has been activated')}."
+                                rows="4">{if $_json['account_activated']!=''}{Lang::htmlspecialchars($_json['account_activated'])}{else}{Lang::T('Hello')} [[name]], {Lang::T('your account has been activated. You can now access our services')}.{/if}</textarea>
+                        </div>
+                        <p class="help-block col-md-4">
+                            <b>[[name]]</b> - {Lang::T('will be replaced with Customer Name')}.<br>
+                            <b>[[username]]</b> - {Lang::T('will be replaced with Customer username')}.<br>
+                            <b>[[password]]</b> - {Lang::T('will be replaced with Customer password')}.<br>
+                            <b>[[url]]</b> - {Lang::T('will be replaced with Customer Portal URL')}.<br>
+                            <b>[[company]]</b> - {Lang::T('will be replaced with Company Name')}.<br>
+                            <b>[[plan]]</b> - {Lang::T('will be replaced with Package name')}.<br>
+                            <b>[[activation_date]]</b> - {Lang::T('will be replaced with Activation date')}.
+                        </p>
+                    </div>
+                </div>
                 <div class="panel-heading" style="margin-top: 20px;">
                     <h4><i class="fa fa-money"></i> {Lang::T('Debt Notification')}</h4>
                 </div>
