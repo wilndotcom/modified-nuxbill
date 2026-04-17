@@ -388,6 +388,10 @@
                             <b>[[logo]]</b> - {Lang::T('Your company logo at Settings')}.<br>
                             <b>[[due_date]]</b> - {Lang::T('Invoice Due date, 7 Days after invoice created')}.<br>
                             <b>[[payment_link]]</b> - <a href="{$app_url}/docs/#Reminder%20with%20payment%20link" target="_blank">{Lang::T("read documentation")}</a>.
+                            <br><br>
+                            <button type="button" class="btn btn-info btn-sm" onclick="previewInvoiceTemplate()">
+                                <i class="fa fa-eye"></i> {Lang::T('Preview Template')}
+                            </button>
                         </p>
                     </div>
                 </div>
@@ -400,4 +404,37 @@
             </div>
         </div>
 </form>
+
+<script>
+function previewInvoiceTemplate() {
+    // Get the template content from textarea
+    var templateContent = document.getElementById('email_invoice').value;
+    
+    // Replace placeholders with sample data for preview
+    var previewContent = templateContent
+        .replace(/\[\[company_name\]\]/g, '{$_c['CompanyName']}')
+        .replace(/\[\[company_address\]\]/g, '{$_c['address']}')
+        .replace(/\[\[company_phone\]\]/g, '{$_c['phone']}')
+        .replace(/\[\[invoice\]\]/g, 'INV-00123')
+        .replace(/\[\[created_at\]\]/g, '{date('Y-m-d')}')
+        .replace(/\[\[due_date\]\]/g, '{date('Y-m-d', strtotime('+7 days'))}')
+        .replace(/\[\[fullname\]\]/g, 'John Doe')
+        .replace(/\[\[user_name\]\]/g, 'johndoe')
+        .replace(/\[\[email\]\]/g, 'john@example.com')
+        .replace(/\[\[phone\]\]/g, '+1234567890')
+        .replace(/\[\[address\]\]/g, '123 Main St, City')
+        .replace(/\[\[logo\]\]/g, '{$app_url}/{$UPLOAD_PATH}{$_c['logo']}')
+        .replace(/\[\[payment_link\]\]/g, 'payment/123')
+        .replace(/\[\[bill_rows\]\]/g, '<tr class="heading"><td>Item</td><td>Price</td></tr><tr class="item"><td>Internet Plan (Monthly)</td><td>$50.00</td></tr><tr class="item"><td>Installation Fee</td><td>$25.00</td></tr><tr class="total"><td></td><td>Total: $75.00</td></tr>')
+        .replace(/\[\[payment_gateway\]\]/g, 'PayPal')
+        .replace(/\[\[payment_channel\]\]/g, 'Credit Card')
+        .replace(/\[\[status\]\]/g, 'PAID')
+        .replace(/\[\[currency\]\]/g, '{$_c['currency_code']}');
+    
+    // Open preview in new window
+    var previewWindow = window.open('', '_blank', 'width=900,height=700,scrollbars=yes');
+    previewWindow.document.write(previewContent);
+    previewWindow.document.close();
+}
+</script>
 {include file="sections/footer.tpl"}
