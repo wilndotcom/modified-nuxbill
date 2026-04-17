@@ -406,12 +406,12 @@
 </form>
 
 <script>
-// Store PHP variables in JavaScript
-var companyName = "{$_c['CompanyName']|escape:javascript}";
-var companyAddress = "{$_c['address']|escape:javascript}";
-var companyPhone = "{$_c['phone']|escape:javascript}";
-var logoUrl = "{$app_url}/{$UPLOAD_PATH}{$_c['logo']}";
-var currencyCode = "{$_c['currency_code']}";
+// Store PHP variables in JavaScript using json_encode for proper escaping
+var companyName = {$_c['CompanyName']|json_encode};
+var companyAddress = {$_c['address']|json_encode};
+var companyPhone = {$_c['phone']|json_encode};
+var logoUrl = {$app_url|cat:'/'|cat:$UPLOAD_PATH|cat:$_c['logo']|json_encode};
+var currencyCode = {$_c['currency_code']|json_encode};
 
 {literal}
 function previewInvoiceTemplate() {
