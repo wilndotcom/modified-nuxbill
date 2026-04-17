@@ -193,12 +193,6 @@
                     </div>
                 </div>
                 {/if}
-               {* <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">{Lang::T('PDF Invoice Template')}</label>
-                        <div class="col-md-6">
-                            <textarea class="form-control" id="email_invoice" name="email_invoice"
-                                placeholder="{Lang::T('Template for sending pdf invoice')}" rows="20">
                             {if !empty($_json['email_invoice'])}
                             {Lang::htmlspecialchars($_json['email_invoice'])}
                             {else}

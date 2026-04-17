@@ -947,6 +947,26 @@ switch ($action) {
             $ui->assign('_json', json_decode(file_get_contents($UPLOAD_PATH . DIRECTORY_SEPARATOR . 'notifications.default.json'), true));
         }
 
+        // Load debt notification settings from database
+        $debt_settings = [];
+        $debt_keys = [
+            'debt_notifications_enabled',
+            'debt_notification_channels',
+            'debt_grace_period_days',
+            'debt_auto_disconnect',
+            'debt_warning_days',
+            'debt_final_notice_days',
+            'debt_message_initial',
+            'debt_message_warning',
+            'debt_message_final',
+            'debt_message_disconnection',
+        ];
+        foreach ($debt_keys as $key) {
+            $d = ORM::for_table('tbl_appconfig')->where('setting', $key)->find_one();
+            $debt_settings[$key] = $d ? $d->value : '';
+        }
+        $ui->assign('debt_settings', $debt_settings);
+
         $csrf_token = Csrf::generateAndStoreToken();
         $ui->assign('csrf_token', $csrf_token);
         $ui->assign('_default', json_decode(file_get_contents($UPLOAD_PATH . DIRECTORY_SEPARATOR . 'notifications.default.json'), true));
@@ -964,6 +984,33 @@ switch ($action) {
             r2(getUrl('settings/notifications'), 'e', Lang::T('Invalid or Expired CSRF Token') . ".");
         }
         file_put_contents($UPLOAD_PATH . "/notifications.json", json_encode($_POST));
+        
+        // Save debt notification settings to database
+        $debt_channels = _post('debt_channels', []);
+        $debt_settings = [
+            'debt_notifications_enabled' => _post('debt_notifications_enabled', '0'),
+            'debt_notification_channels' => implode(',', $debt_channels),
+            'debt_grace_period_days' => _post('debt_grace_period_days', '7'),
+            'debt_auto_disconnect' => _post('debt_auto_disconnect', '0'),
+            'debt_message_initial' => _post('debt_message_initial', ''),
+            'debt_message_warning' => _post('debt_message_warning', ''),
+            'debt_message_final' => _post('debt_message_final', ''),
+            'debt_message_disconnection' => _post('debt_message_disconnection', ''),
+        ];
+        
+        foreach ($debt_settings as $key => $value) {
+            $d = ORM::for_table('tbl_appconfig')->where('setting', $key)->find_one();
+            if ($d) {
+                $d->value = $value;
+                $d->save();
+            } else {
+                $d = ORM::for_table('tbl_appconfig')->create();
+                $d->setting = $key;
+                $d->value = $value;
+                $d->save();
+            }
+        }
+        
         r2(getUrl('settings/notifications'), 's', Lang::T('Settings Saved Successfully'));
         break;
     case 'dbstatus':

@@ -236,23 +236,6 @@
                             {$_MENU_MESSAGE}
                         </ul>
                     </li>
-                    {if in_array($_admin['user_type'],['SuperAdmin','Admin'])}
-                        <li class="{if $_system_menu eq 'debt'}active{/if} treeview">
-                            <a href="#">
-                                <i class="fa fa-money"></i> <span>{Lang::T('Debt Notifications')}</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li {if $_routes[0] eq 'debt' and $_routes[1] eq 'list' }class="active" {/if}><a
-                                        href="{Text::url('debt/list')}">{Lang::T('Debt List')}</a></li>
-                                <li {if $_routes[0] eq 'debt' and $_routes[1] eq 'settings' }class="active" {/if}><a
-                                        href="{Text::url('debt/settings')}">{Lang::T('Settings')}</a></li>
-                                {$_MENU_DEBT}
-                            </ul>
-                        </li>
-                    {/if}
                     {$_MENU_AFTER_MESSAGE}
                     <li class="{if $_system_menu eq 'network'}active{/if} treeview">
                         <a href="#">
