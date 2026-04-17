@@ -20,6 +20,32 @@ if (isset($_GET['refresh'])) {
     r2(getUrl('dashboard'), 's', 'Data Refreshed');
 }
 
+// AJAX endpoint for online users refresh
+if (isset($_GET['action']) && $_GET['action'] == 'online-users-refresh') {
+    header('Content-Type: application/json');
+    try {
+        // Clear cache to force refresh
+        OnlineUsersHelper::clearCache('online_users_all');
+        $online_data = OnlineUsersHelper::getOnlineUsers();
+        echo json_encode([
+            'success' => true,
+            'data' => [
+                'total' => $online_data['total'],
+                'hotspot' => count($online_data['hotspot']),
+                'pppoe' => count($online_data['pppoe']),
+                'static' => count($online_data['static']),
+                'last_update' => date('Y-m-d H:i:s')
+            ]
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            'success' => false,
+            'error' => $e->getMessage()
+        ]);
+    }
+    exit;
+}
+
 $tipeUser = _req("user");
 if (empty($tipeUser)) {
     $tipeUser = 'Admin';
