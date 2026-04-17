@@ -198,9 +198,9 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">{Lang::T('Enable Debt Notifications')}</label>
+                        <label class="col-md-2 control-label" for="debt_notifications_enabled">{Lang::T('Enable Debt Notifications')}</label>
                         <div class="col-md-6">
-                            <select class="form-control" name="debt_notifications_enabled">
+                            <select class="form-control" id="debt_notifications_enabled" name="debt_notifications_enabled">
                                 <option value="1" {if $debt_settings['debt_notifications_enabled'] == '1'}selected{/if}>{Lang::T('Yes')}</option>
                                 <option value="0" {if $debt_settings['debt_notifications_enabled'] != '1'}selected{/if}>{Lang::T('No')}</option>
                             </select>
@@ -222,17 +222,17 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">{Lang::T('Grace Period (Days)')}</label>
+                        <label class="col-md-2 control-label" for="debt_grace_period_days">{Lang::T('Grace Period (Days)')}</label>
                         <div class="col-md-6">
-                            <input type="number" class="form-control" name="debt_grace_period_days" value="{$debt_settings['debt_grace_period_days']}" min="1" max="90">
+                            <input type="number" class="form-control" id="debt_grace_period_days" name="debt_grace_period_days" value="{$debt_settings['debt_grace_period_days']}" min="1" max="90">
                         </div>
                     </div>
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">{Lang::T('Auto Disconnect')}</label>
+                        <label class="col-md-2 control-label" for="debt_auto_disconnect">{Lang::T('Auto Disconnect')}</label>
                         <div class="col-md-6">
-                            <select class="form-control" name="debt_auto_disconnect">
+                            <select class="form-control" id="debt_auto_disconnect" name="debt_auto_disconnect">
                                 <option value="1" {if $debt_settings['debt_auto_disconnect'] == '1'}selected{/if}>{Lang::T('Yes')}</option>
                                 <option value="0" {if $debt_settings['debt_auto_disconnect'] != '1'}selected{/if}>{Lang::T('No')}</option>
                             </select>
@@ -241,9 +241,9 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">{Lang::T('Debt Notification (Initial)')}</label>
+                        <label class="col-md-2 control-label" for="debt_message_initial">{Lang::T('Debt Notification (Initial)')}</label>
                         <div class="col-md-6">
-                            <textarea class="form-control" name="debt_message_initial" rows="3">{$debt_settings['debt_message_initial']}</textarea>
+                            <textarea class="form-control" id="debt_message_initial" name="debt_message_initial" rows="3">{$debt_settings['debt_message_initial']}</textarea>
                         </div>
                         <p class="col-md-4 help-block">
                             <b>[[name]]</b> - {Lang::T('Customer Name')}.<br>
@@ -254,9 +254,9 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">{Lang::T('Debt Warning (3 days before)')}</label>
+                        <label class="col-md-2 control-label" for="debt_message_warning">{Lang::T('Debt Warning (3 days before)')}</label>
                         <div class="col-md-6">
-                            <textarea class="form-control" name="debt_message_warning" rows="3">{$debt_settings['debt_message_warning']}</textarea>
+                            <textarea class="form-control" id="debt_message_warning" name="debt_message_warning" rows="3">{$debt_settings['debt_message_warning']}</textarea>
                         </div>
                         <p class="col-md-4 help-block">
                             <b>[[name]]</b> - {Lang::T('Customer Name')}.<br>
@@ -267,9 +267,9 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">{Lang::T('Debt Final Notice (1 day before)')}</label>
+                        <label class="col-md-2 control-label" for="debt_message_final">{Lang::T('Debt Final Notice (1 day before)')}</label>
                         <div class="col-md-6">
-                            <textarea class="form-control" name="debt_message_final" rows="3">{$debt_settings['debt_message_final']}</textarea>
+                            <textarea class="form-control" id="debt_message_final" name="debt_message_final" rows="3">{$debt_settings['debt_message_final']}</textarea>
                         </div>
                         <p class="col-md-4 help-block">
                             <b>[[name]]</b> - {Lang::T('Customer Name')}.<br>
@@ -279,9 +279,9 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">{Lang::T('Debt Disconnection Notice')}</label>
+                        <label class="col-md-2 control-label" for="debt_message_disconnection">{Lang::T('Debt Disconnection Notice')}</label>
                         <div class="col-md-6">
-                            <textarea class="form-control" name="debt_message_disconnection" rows="3">{$debt_settings['debt_message_disconnection']}</textarea>
+                            <textarea class="form-control" id="debt_message_disconnection" name="debt_message_disconnection" rows="3">{$debt_settings['debt_message_disconnection']}</textarea>
                         </div>
                         <p class="col-md-4 help-block">
                             <b>[[name]]</b> - {Lang::T('Customer Name')}.<br>
