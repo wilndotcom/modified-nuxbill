@@ -986,7 +986,7 @@ switch ($action) {
         file_put_contents($UPLOAD_PATH . "/notifications.json", json_encode($_POST));
         
         // Save debt notification settings to database
-        $debt_channels = _post('debt_channels', []);
+        $debt_channels = isset($_POST['debt_channels']) && is_array($_POST['debt_channels']) ? $_POST['debt_channels'] : [];
         $debt_settings = [
             'debt_notifications_enabled' => _post('debt_notifications_enabled', '0'),
             'debt_notification_channels' => implode(',', $debt_channels),
