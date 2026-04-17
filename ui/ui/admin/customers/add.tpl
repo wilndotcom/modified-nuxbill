@@ -65,15 +65,29 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">{Lang::T('Service Type')}</label>
+                        <label class="col-md-3 control-label">{Lang::T('Service Type')} <span class="text-danger">*</span></label>
                         <div class="col-md-9">
-                            <select class="form-control" id="service_type" name="service_type">
+                            <select class="form-control" id="service_type" name="service_type" required>
+                                <option value="">{Lang::T('Select Service Type')}</option>
                                 <option value="Hotspot">Hotspot
                                 </option>
                                 <option value="PPPoE">PPPoE</option>
                                 <option value="VPN">VPN</option>
                                 <option value="Others">{Lang::T('Other')}</option>
                             </select>
+                            <small class="help-block text-muted">{Lang::T('Determines which plans the customer can see in their portal')}</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">{Lang::T('Router')} <span class="text-danger">*</span></label>
+                        <div class="col-md-9">
+                            <select class="form-control" id="assigned_router_id" name="assigned_router_id" required>
+                                <option value="">{Lang::T('Select Router')}</option>
+                                {foreach from=$routers item=r}
+                                <option value="{$r['id']}">{$r['name']}</option>
+                                {/foreach}
+                            </select>
+                            <small class="help-block text-muted">{Lang::T('Customer will only see plans for this router')}</small>
                         </div>
                     </div>
                     <div class="form-group">

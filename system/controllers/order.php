@@ -52,83 +52,140 @@ switch ($action) {
         if (empty($account_type)) {
             $account_type = 'Personal';
         }
+        // Get customer's service type for filtering
+        $service_type = $user['service_type'];
+        if (empty($service_type)) {
+            $service_type = 'Others';
+        }
+        
+        // Initialize plan arrays
+        $radius_pppoe = [];
+        $radius_hotspot = [];
+        $radius_vpn = [];
+        $plans_pppoe = [];
+        $plans_hotspot = [];
+        $plans_vpn = [];
+        $routers = [];
+        
         if (!empty($_SESSION['nux-router'])) {
             if ($_SESSION['nux-router'] == 'radius') {
-                $radius_pppoe = ORM::for_table('tbl_plans')
-                    ->where('plan_type', $account_type)
-                    ->where('enabled', '1')
-                    ->where('is_radius', 1)
-                    ->where('type', 'PPPOE')
-                    ->where('prepaid', 'yes')->find_many();
-                $radius_hotspot = ORM::for_table('tbl_plans')
-                    ->where('plan_type', $account_type)
-                    ->where('enabled', '1')
-                    ->where('is_radius', 1)
-                    ->where('type', 'Hotspot')
-                    ->where('prepaid', 'yes')->find_many();
+                // Radius router - filter by service type
+                if ($service_type == 'PPPoE' || $service_type == 'Others') {
+                    $radius_pppoe = ORM::for_table('tbl_plans')
+                        ->where('plan_type', $account_type)
+                        ->where('enabled', '1')
+                        ->where('is_radius', 1)
+                        ->where('type', 'PPPOE')
+                        ->where('prepaid', 'yes')->find_many();
+                }
+                if ($service_type == 'Hotspot' || $service_type == 'Others') {
+                    $radius_hotspot = ORM::for_table('tbl_plans')
+                        ->where('plan_type', $account_type)
+                        ->where('enabled', '1')
+                        ->where('is_radius', 1)
+                        ->where('type', 'Hotspot')
+                        ->where('prepaid', 'yes')->find_many();
+                }
+                if ($service_type == 'VPN' || $service_type == 'Others') {
+                    $radius_vpn = ORM::for_table('tbl_plans')
+                        ->where('plan_type', $account_type)
+                        ->where('enabled', '1')
+                        ->where('is_radius', 1)
+                        ->where('type', 'VPN')
+                        ->where('prepaid', 'yes')->find_many();
+                }
             } else {
+                // Regular router - filter by router AND service type
                 $routers = ORM::for_table('tbl_routers')->where('id', $_SESSION['nux-router'])->find_many();
                 $rs = [];
                 foreach ($routers as $r) {
                     $rs[] = $r['name'];
                 }
+                if ($service_type == 'PPPoE' || $service_type == 'Others') {
+                    $plans_pppoe = ORM::for_table('tbl_plans')
+                        ->where('plan_type', $account_type)
+                        ->where('enabled', '1')
+                        ->where_in('routers', $rs)
+                        ->where('is_radius', 0)
+                        ->where('type', 'PPPOE')
+                        ->where('prepaid', 'yes')
+                        ->find_many();
+                }
+                if ($service_type == 'Hotspot' || $service_type == 'Others') {
+                    $plans_hotspot = ORM::for_table('tbl_plans')
+                        ->where('plan_type', $account_type)
+                        ->where('enabled', '1')
+                        ->where_in('routers', $rs)
+                        ->where('is_radius', 0)
+                        ->where('type', 'Hotspot')
+                        ->where('prepaid', 'yes')
+                        ->find_many();
+                }
+                if ($service_type == 'VPN' || $service_type == 'Others') {
+                    $plans_vpn = ORM::for_table('tbl_plans')
+                        ->where('plan_type', $account_type)
+                        ->where('enabled', '1')
+                        ->where_in('routers', $rs)
+                        ->where('is_radius', 0)
+                        ->where('type', 'VPN')
+                        ->where('prepaid', 'yes')
+                        ->find_many();
+                }
+            }
+        } else {
+            // No router assigned - show all plans matching service type (backward compatibility)
+            if ($service_type == 'PPPoE' || $service_type == 'Others') {
+                $radius_pppoe = ORM::for_table('tbl_plans')
+                    ->where('plan_type', $account_type)
+                    ->where('enabled', '1')
+                    ->where('is_radius', 1)
+                    ->where('type', 'PPPOE')
+                    ->where('prepaid', 'yes')
+                    ->find_many();
                 $plans_pppoe = ORM::for_table('tbl_plans')
                     ->where('plan_type', $account_type)
                     ->where('enabled', '1')
-                    ->where_in('routers', $rs)
                     ->where('is_radius', 0)
                     ->where('type', 'PPPOE')
                     ->where('prepaid', 'yes')
                     ->find_many();
-                $plans_hotspot = ORM::for_table('tbl_plans')
+            }
+            if ($service_type == 'Hotspot' || $service_type == 'Others') {
+                $radius_hotspot = ORM::for_table('tbl_plans')
                     ->where('plan_type', $account_type)
                     ->where('enabled', '1')
-                    ->where_in('routers', $rs)
-                    ->where('is_radius', 0)
+                    ->where('is_radius', 1)
+                    ->where('type', 'Hotspot')
+                    ->where('prepaid', 'yes')
+                    ->find_many();
+                $plans_hotspot = ORM::for_table('tbl_plans')
+                    ->where('plan_type', $account_type)
+                    ->where('enabled', '1')->where('is_radius', 0)
                     ->where('type', 'Hotspot')
                     ->where('prepaid', 'yes')
                     ->find_many();
             }
-        } else {
-            $radius_pppoe = ORM::for_table('tbl_plans')
-                ->where('plan_type', $account_type)
-                ->where('enabled', '1')
-                ->where('is_radius', 1)
-                ->where('type', 'PPPOE')
-                ->where('prepaid', 'yes')
-                ->find_many();
-            $radius_hotspot = ORM::for_table('tbl_plans')
-                ->where('plan_type', $account_type)
-                ->where('enabled', '1')
-                ->where('is_radius', 1)
-                ->where('type', 'Hotspot')
-                ->where('prepaid', 'yes')
-                ->find_many();
-
+            if ($service_type == 'VPN' || $service_type == 'Others') {
+                $radius_vpn = ORM::for_table('tbl_plans')
+                    ->where('plan_type', $account_type)
+                    ->where('enabled', '1')
+                    ->where('is_radius', 1)
+                    ->where('type', 'VPN')
+                    ->where('prepaid', 'yes')
+                    ->find_many();
+                $plans_vpn = ORM::for_table('tbl_plans')
+                    ->where('plan_type', $account_type)
+                    ->where('enabled', '1')->where('is_radius', 0)
+                    ->where('type', 'VPN')
+                    ->where('prepaid', 'yes')
+                    ->find_many();
+            }
             $routers = ORM::for_table('tbl_routers')->find_many();
-            $plans_pppoe = ORM::for_table('tbl_plans')
-                ->where('plan_type', $account_type)
-                ->where('enabled', '1')
-                ->where('is_radius', 0)
-                ->where('type', 'PPPOE')
-                ->where('prepaid', 'yes')
-                ->find_many();
-            $plans_hotspot = ORM::for_table('tbl_plans')
-                ->where('plan_type', $account_type)
-                ->where('enabled', '1')->where('is_radius', 0)
-                ->where('type', 'Hotspot')
-                ->where('prepaid', 'yes')
-                ->find_many();
-            $plans_vpn = ORM::for_table('tbl_plans')
-                ->where('plan_type', $account_type)
-                ->where('enabled', '1')->where('is_radius', 0)
-                ->where('type', 'VPN')
-                ->where('prepaid', 'yes')
-                ->find_many();
         }
         $ui->assign('routers', $routers);
         $ui->assign('radius_pppoe', $radius_pppoe);
         $ui->assign('radius_hotspot', $radius_hotspot);
+        $ui->assign('radius_vpn', $radius_vpn);
         $ui->assign('plans_pppoe', $plans_pppoe);
         $ui->assign('plans_hotspot', $plans_hotspot);
         $ui->assign('plans_vpn', $plans_vpn);

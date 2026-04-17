@@ -257,7 +257,25 @@
                                 {$_MENU_NETWORK}
                             </ul>
                         </li>
-                        {$_MENU_AFTER_NETWORKS}
+                        <li class="{if $_system_menu eq 'fiber'}active{/if} treeview">
+                            <a href="#">
+                                <i class="fa fa-sitemap"></i> <span>{Lang::T('Fiber Management')}</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li {if $_routes[1] eq 'olt-devices' }class="active" {/if}><a
+                                        href="{Text::url('fiber/olt-devices')}">{Lang::T('OLT Devices')}</a></li>
+                                <li {if $_routes[1] eq 'onus' }class="active" {/if}><a
+                                        href="{Text::url('fiber/onus')}">{Lang::T('ONUs')}</a></li>
+                                <li {if $_routes[1] eq 'profiles' }class="active" {/if}><a
+                                        href="{Text::url('fiber/profiles')}">{Lang::T('Profiles')}</a></li>
+                                <li {if $_routes[1] eq 'cpe-routers' }class="active" {/if}><a
+                                        href="{Text::url('fiber/cpe-routers')}">{Lang::T('CPE Routers')}</a></li>
+                                {$_MENU_FIBER}
+                            </ul>
+                        </li>
                         {if $_c['radius_enable']}
                             <li class="{if $_system_menu eq 'radius'}active{/if} treeview">
                                 <a href="#">

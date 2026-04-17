@@ -157,6 +157,9 @@ switch ($action) {
         }
         $ui->assign('xheader', $leafletpickerHeader);
         run_hook('view_add_customer'); #HOOK
+        // Load routers for assignment dropdown
+        $routers = ORM::for_table('tbl_routers')->find_many();
+        $ui->assign('routers', $routers);
         $ui->assign('csrf_token',  Csrf::generateAndStoreToken());
         $ui->display('admin/customers/add.tpl');
         break;
@@ -406,6 +409,15 @@ switch ($action) {
             $ui->assign('d', $d);
             $ui->assign('statuses', ORM::for_table('tbl_customers')->getEnum("status"));
             $ui->assign('customFields', $customFields);
+            // Load routers and assigned router for customer
+            $routers = ORM::for_table('tbl_routers')->find_many();
+            $assigned_router = ORM::for_table('tbl_customers_fields')
+                ->where('customer_id', $id)
+                ->where('field_name', 'Router')
+                ->find_one();
+            $assigned_router_id = $assigned_router ? $assigned_router['field_value'] : '';
+            $ui->assign('routers', $routers);
+            $ui->assign('assigned_router_id', $assigned_router_id);
             $ui->assign('xheader', $leafletpickerHeader);
             $ui->assign('csrf_token',  Csrf::generateAndStoreToken());
             $ui->display('admin/customers/edit.tpl');
@@ -474,6 +486,7 @@ switch ($action) {
         $phonenumber = _post('phonenumber');
         $service_type = _post('service_type');
         $account_type = _post('account_type');
+        $assigned_router_id = _post('assigned_router_id');
         $coordinates = _post('coordinates');
         //post Customers Attributes
         $custom_field_names = (array) $_POST['custom_field_name'];
@@ -494,6 +507,12 @@ switch ($action) {
         }
         if (!Validator::Length($password, 36, 2)) {
             $msg .= 'Password should be between 3 to 35 characters' . '<br>';
+        }
+        if (empty($assigned_router_id)) {
+            $msg .= Lang::T('Please select a Router') . '<br>';
+        }
+        if (empty($service_type)) {
+            $msg .= Lang::T('Please select a Service Type') . '<br>';
         }
 
         $d = ORM::for_table('tbl_customers')->where('username', $username)->find_one();
@@ -523,6 +542,14 @@ switch ($action) {
 
             // Retrieve the customer ID of the newly created customer
             $customerId = $d->id();
+            // Save Router assignment in custom fields
+            if (!empty($assigned_router_id)) {
+                $routerField = ORM::for_table('tbl_customers_fields')->create();
+                $routerField->customer_id = $customerId;
+                $routerField->field_name = 'Router';
+                $routerField->field_value = $assigned_router_id;
+                $routerField->save();
+            }
             // Save Customers Attributes details
             if (!empty($custom_field_names) && !empty($custom_field_values)) {
                 $totalFields = min(count($custom_field_names), count($custom_field_values));
@@ -603,6 +630,7 @@ switch ($action) {
         $address = _post('address');
         $phonenumber = Lang::phoneFormat(_post('phonenumber'));
         $service_type = _post('service_type');
+        $assigned_router_id = _post('assigned_router_id');
         $coordinates = _post('coordinates');
         $status = _post('status');
         //additional information
@@ -623,6 +651,12 @@ switch ($action) {
 
         if (!$c) {
             $msg .= Lang::T('Data Not Found') . '<br>';
+        }
+        if (empty($assigned_router_id)) {
+            $msg .= Lang::T('Please select a Router') . '<br>';
+        }
+        if (empty($service_type)) {
+            $msg .= Lang::T('Please select a Service Type') . '<br>';
         }
 
         //lets find user Customers Attributes using id
@@ -739,6 +773,23 @@ switch ($action) {
             $c->zip = $zip;
             $c->save();
 
+            // Update Router assignment in custom fields
+            if (!empty($assigned_router_id)) {
+                $existingRouter = ORM::for_table('tbl_customers_fields')
+                    ->where('customer_id', $id)
+                    ->where('field_name', 'Router')
+                    ->find_one();
+                if ($existingRouter) {
+                    $existingRouter->field_value = $assigned_router_id;
+                    $existingRouter->save();
+                } else {
+                    $routerField = ORM::for_table('tbl_customers_fields')->create();
+                    $routerField->customer_id = $id;
+                    $routerField->field_name = 'Router';
+                    $routerField->field_value = $assigned_router_id;
+                    $routerField->save();
+                }
+            }
 
             // Update Customers Attributes values in tbl_customers_fields table
             foreach ($customFields as $customField) {

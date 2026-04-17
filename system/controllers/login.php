@@ -42,6 +42,14 @@ switch ($do) {
                     $token = User::setCookie($d['id']);
                     $d->last_login = date('Y-m-d H:i:s');
                     $d->save();
+                    // Auto-set session router from customer's assigned router
+                    $assigned_router = ORM::for_table('tbl_customers_fields')
+                        ->where('customer_id', $d['id'])
+                        ->where('field_name', 'Router')
+                        ->find_one();
+                    if ($assigned_router) {
+                        $_SESSION['nux-router'] = $assigned_router['field_value'];
+                    }
                     _log($username . ' ' . Lang::T('Login Successful'), 'User', $d['id']);
                     if ($isApi) {
                         if ($token) {

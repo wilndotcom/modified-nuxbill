@@ -84,15 +84,29 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">{Lang::T('Service Type')}</label>
+                        <label class="col-md-3 control-label">{Lang::T('Service Type')} <span class="text-danger">*</span></label>
                         <div class="col-md-9">
-                            <select class="form-control" id="service_type" name="service_type">
+                            <select class="form-control" id="service_type" name="service_type" required>
+                                <option value="">{Lang::T('Select Service Type')}</option>
                                 <option value="Hotspot" {if $d['service_type'] eq 'Hotspot' }selected{/if}>Hotspot
                                 </option>
                                 <option value="PPPoE" {if $d['service_type'] eq 'PPPoE' }selected{/if}>PPPoE</option>
                                 <option value="VPN" {if $d['service_type'] eq 'VPN' }selected{/if}>VPN</option>
                                 <option value="Others" {if $d['service_type'] eq 'Others' }selected{/if}>{Lang::T("Other")}</option>
                             </select>
+                            <small class="help-block text-muted">{Lang::T('Determines which plans the customer can see in their portal')}</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">{Lang::T('Router')} <span class="text-danger">*</span></label>
+                        <div class="col-md-9">
+                            <select class="form-control" id="assigned_router_id" name="assigned_router_id" required>
+                                <option value="">{Lang::T('Select Router')}</option>
+                                {foreach from=$routers item=r}
+                                <option value="{$r['id']}" {if $assigned_router_id eq $r['id']}selected{/if}>{$r['name']}</option>
+                                {/foreach}
+                            </select>
+                            <small class="help-block text-muted">{Lang::T('Customer will only see plans for this router')}</small>
                         </div>
                     </div>
                     <div class="form-group">

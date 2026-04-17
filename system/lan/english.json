@@ -456,5 +456,10 @@
     "Hotspot_Package": "Hotspot Package",
     "PPPOE_Package": "PPPOE Package",
     "VPN_Package": "VPN Package",
-    "ODPs": "ODPs"
+    "ODPs": "ODPs",
+    "Fiber_Management": "Fiber Management",
+    "OLT_Devices": "OLT Devices",
+    "ONUs": "ONUs",
+    "Profiles": "Profiles",
+    "CPE_Routers": "CPE Routers"
 }
