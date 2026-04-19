@@ -27,5 +27,28 @@ Place the extracted files in their respective directories:
 
 **Get started today!** 🔥  
 
+## Support Ticket System
+
+This version includes a **complete Support Ticket System** for managing customer support requests:
+
+### Features
+- **Customer Portal**: Customers can create, view, and reply to support tickets
+- **Admin Portal**: Admins can manage all tickets, create tickets on behalf of customers
+- **Ticket Categories**: Organize tickets by category (General, Technical, Billing, etc.)
+- **Priority Levels**: Low, Medium, High, Urgent priorities
+- **Status Tracking**: Open, In Progress, Resolved, Closed statuses
+- **Email Notifications**: Automatic notifications for ticket updates
+
+### Access URLs
+- **Customer**: `http://localhost/modified-nuxbill/?_route=customer_ticket/list`
+- **Admin**: `http://localhost/modified-nuxbill/?_route=ticket/list`
+
+### Recent Fixes (April 2025)
+- ✅ Fixed customer ticket menu redirect issue
+- ✅ Added missing database tables (tbl_tickets, tbl_ticket_replies, tbl_ticket_categories, tbl_admins)
+- ✅ Fixed controller routing and UI rendering
+- ✅ Added Create Ticket feature for admins
+- ✅ Fixed form accessibility (labels, autocomplete)
+
 ### Tags 
-PhpNuxBill Hotspot Plugin, PhpNuxBill MikroTik, Hotspot Billing Software, ISP Hotspot Management, MikroTik Hotspot, Hotspot Voucher System, Prepaid Internet Plans, Captive Portal Customization, PhpNuxBill Addon, ISP Management Software
+PhpNuxBill Hotspot Plugin, PhpNuxBill MikroTik, Hotspot Billing Software, ISP Hotspot Management, MikroTik Hotspot, Hotspot Voucher System, Prepaid Internet Plans, Captive Portal Customization, PhpNuxBill Addon, ISP Management Software, Support Ticket System, Customer Support
