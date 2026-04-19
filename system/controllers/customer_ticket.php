@@ -21,9 +21,10 @@ if (!$user || !$user->id) {
     }
 }
 
-// Final check
+// Debug: Check what's happening
 if (!$user || !$user->id) {
-    r2(getUrl('login'), 'e', 'Please login again');
+    echo "DEBUG: User not loaded. uid=" . User::getID() . ", user object=";
+    var_dump($user);
     exit;
 }
 
