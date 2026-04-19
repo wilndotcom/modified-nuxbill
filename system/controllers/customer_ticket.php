@@ -21,33 +21,11 @@ if (!$user || !$user->id) {
     }
 }
 
-// DEBUG: Check what's happening with user
+// If user still not loaded, redirect to login
 if (!$user || !$user->id) {
-    echo "<h2>DEBUG: User check failed</h2>";
-    echo "User::_info() returned: ";
-    var_dump($user);
-    echo "<br>User::getID() returned: " . User::getID() . "<br>";
-    echo "<br>Attempting to reload user from DB...<br>";
-    
-    $uid = User::getID();
-    if ($uid) {
-        $reloaded_user = ORM::for_table('tbl_customers')->find_one($uid);
-        echo "Reloaded user: ";
-        var_dump($reloaded_user);
-        
-        if ($reloaded_user && $reloaded_user->id) {
-            echo "<br><b>User found in DB! Using reloaded user.</b><br>";
-            $user = $reloaded_user;
-        } else {
-            echo "<br><span style='color:red'>User ID $uid NOT FOUND in database!</span><br>";
-            echo "<a href='?clear_session=1'>Clear session and login again</a>";
-            exit;
-        }
-    } else {
-        echo "<br>No user ID in session. Redirecting to login...<br>";
-        r2(getUrl('login'), 'e', 'Please login');
-        exit;
-    }
+    session_destroy();
+    r2(getUrl('login'), 'e', 'Session expired. Please login again.');
+    exit;
 }
 
 $ui->assign('_user', $user);
