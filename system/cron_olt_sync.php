@@ -56,6 +56,13 @@ echo "Found " . count($olts) . " active OLT device(s)\n";
 
 $updatedCount = 0;
 $errorCount = 0;
+$offlineOnus = [];
+$offlineOlts = [];
+
+// Configuration for notifications
+$notifyOfflineOnus = true;  // Set to false to disable ONU offline notifications
+$notifyOfflineOlts = true;    // Set to false to disable OLT offline notifications
+$minOfflineMinutes = 5;       // Minimum minutes offline before notification
 
 foreach ($olts as $olt) {
     echo "\nProcessing OLT: {$olt->name} ({$olt->ip_address})\n";
@@ -92,8 +99,19 @@ foreach ($olts as $olt) {
             echo "  Error: Failed to connect to OLT\n";
             
             // Update OLT status to offline
+            $wasOffline = ($olt->status == 'Offline');
             $olt->status = 'Offline';
             $olt->save();
+            
+            // Track offline OLT for notification
+            if (!$wasOffline) {
+                $offlineOlts[] = [
+                    'name' => $olt->name,
+                    'ip_address' => $olt->ip_address,
+                    'brand' => $olt->brand,
+                    'offline_since' => date('Y-m-d H:i:s')
+                ];
+            }
             
             $errorCount++;
             continue;
@@ -156,9 +174,20 @@ foreach ($olts as $olt) {
             
             // If ONU not found on OLT, mark as offline
             if (!$onuFound) {
-                if ($onu->status != 'Offline') {
+                $wasOffline = ($onu->status == 'Offline');
+                
+                if (!$wasOffline) {
                     _log("ONU {$onu->serial_number} not found on OLT {$olt->name}, marking as Offline", 'ONU');
                     echo "  ONU {$onu->serial_number}: Not found on OLT, marking as Offline\n";
+                    
+                    // Track offline ONU for notification
+                    $offlineOnus[] = [
+                        'serial_number' => $onu->serial_number,
+                        'onu_id' => $onu->onu_id,
+                        'olt_name' => $olt->name,
+                        'customer_name' => $onu->customer ? $onu->customer->fullname : null,
+                        'offline_since' => date('Y-m-d H:i:s')
+                    ];
                 }
                 
                 $onu->status = 'Offline';
@@ -185,6 +214,65 @@ echo "  OLTs processed: " . count($olts) . "\n";
 echo "  ONUs updated: {$updatedCount}\n";
 echo "  Errors: {$errorCount}\n";
 echo "  Finished: " . date('Y-m-d H:i:s') . "\n";
+
+// Send Notifications for Offline ONUs
+if ($notifyOfflineOnus && !empty($offlineOnus)) {
+    echo "\nSending notifications for " . count($offlineOnus) . " offline ONUs...\n";
+    
+    $message = "🔴 *ONU Offline Alert*\n\n";
+    $message .= "The following ONUs have gone offline:\n\n";
+    
+    foreach ($offlineOnus as $onu) {
+        $message .= "• Serial: `{$onu['serial_number']}`\n";
+        $message .= "  OLT: {$onu['olt_name']}\n";
+        if ($onu['customer_name']) {
+            $message .= "  Customer: {$onu['customer_name']}\n";
+        }
+        $message .= "  Offline since: {$onu['offline_since']}\n\n";
+    }
+    
+    $message .= "Please check the OLT and ONU status.\n";
+    $message .= "_System Time: " . date('Y-m-d H:i:s') . "_";
+    
+    // Send Telegram notification
+    try {
+        sendTelegram($message);
+        echo "  Telegram notification sent\n";
+    } catch (Throwable $e) {
+        echo "  Failed to send Telegram: " . $e->getMessage() . "\n";
+    }
+    
+    // Log the notification
+    _log("ONU Offline Alert sent for " . count($offlineOnus) . " ONUs", 'ONU');
+}
+
+// Send Notifications for Offline OLTs
+if ($notifyOfflineOlts && !empty($offlineOlts)) {
+    echo "\nSending notifications for " . count($offlineOlts) . " offline OLTs...\n";
+    
+    $message = "⚠️ *OLT Offline Alert*\n\n";
+    $message .= "The following OLTs are unreachable:\n\n";
+    
+    foreach ($offlineOlts as $olt) {
+        $message .= "• {$olt['name']}\n";
+        $message .= "  IP: {$olt['ip_address']}\n";
+        $message .= "  Brand: {$olt['brand']}\n\n";
+    }
+    
+    $message .= "Please check the OLT devices immediately.\n";
+    $message .= "_System Time: " . date('Y-m-d H:i:s') . "_";
+    
+    // Send Telegram notification
+    try {
+        sendTelegram($message);
+        echo "  Telegram notification sent\n";
+    } catch (Throwable $e) {
+        echo "  Failed to send Telegram: " . $e->getMessage() . "\n";
+    }
+    
+    // Log the notification
+    _log("OLT Offline Alert sent for " . count($offlineOlts) . " OLTs", 'OLT');
+}
 
 flock($lock, LOCK_UN);
 fclose($lock);

@@ -367,6 +367,26 @@ switch ($action) {
                     break;
             }
             $ui->assign('packages', User::_billing($customer['id']));
+            
+            // Fetch customer's ONU and CPE Router information
+            $customerOnu = ORM::for_table('tbl_onus')
+                ->select('tbl_onus.*')
+                ->select('tbl_olt_devices.name', 'olt_name')
+                ->select('tbl_olt_devices.ip_address', 'olt_ip')
+                ->left_outer_join('tbl_olt_devices', array('tbl_onus.olt_id', '=', 'tbl_olt_devices.id'))
+                ->where('tbl_onus.customer_id', $customer['id'])
+                ->find_one();
+            
+            $customerCpe = ORM::for_table('tbl_cpe_routers')
+                ->select('tbl_cpe_routers.*')
+                ->select('tbl_onus.serial_number', 'onu_serial')
+                ->left_outer_join('tbl_onus', array('tbl_cpe_routers.onu_id', '=', 'tbl_onus.id'))
+                ->where('tbl_cpe_routers.customer_id', $customer['id'])
+                ->find_one();
+            
+            $ui->assign('customerOnu', $customerOnu);
+            $ui->assign('customerCpe', $customerCpe);
+            
             $ui->assign('v', $v);
             $ui->assign('d', $customer);
             $ui->assign('customFields', $customFields);

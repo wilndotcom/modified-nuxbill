@@ -110,6 +110,104 @@
                         </li>
                     {/if}
                 </ul>
+                
+                <!-- Fiber Equipment Section -->
+                {if $customerOnu || $customerCpe}
+                <div class="box box-info" style="margin-top: 15px;">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-network-wired"></i> {Lang::T('Fiber Equipment')}</h3>
+                    </div>
+                    <div class="box-body">
+                        {if $customerOnu}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong>{Lang::T('ONU')}</strong>
+                                <a href="{Text::url('fiber/onu-edit/', $customerOnu['id'])}" class="btn btn-info btn-xs pull-right">
+                                    <i class="fa fa-edit"></i> {Lang::T('Manage')}
+                                </a>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <td><strong>{Lang::T('Serial Number')}</strong></td>
+                                        <td>{$customerOnu['serial_number']}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>{Lang::T('ONU ID')}</strong></td>
+                                        <td>{$customerOnu['onu_id']}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>{Lang::T('OLT')}</strong></td>
+                                        <td>{$customerOnu['olt_name']} ({$customerOnu['olt_ip']})</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>{Lang::T('Status')}</strong></td>
+                                        <td>
+                                            {if $customerOnu['status'] == 'Active'}
+                                                <span class="label label-success">{Lang::T('Active')}</span>
+                                            {elseif $customerOnu['status'] == 'Suspended'}
+                                                <span class="label label-warning">{Lang::T('Suspended')}</span>
+                                            {else}
+                                                <span class="label label-default">{$customerOnu['status']}</span>
+                                            {/if}
+                                        </td>
+                                    </tr>
+                                    {if $customerOnu['signal_level']}
+                                    <tr>
+                                        <td><strong>{Lang::T('Signal Level')}</strong></td>
+                                        <td>{$customerOnu['signal_level']} dBm</td>
+                                    </tr>
+                                    {/if}
+                                </table>
+                            </div>
+                        </div>
+                        {/if}
+                        
+                        {if $customerCpe}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong>{Lang::T('CPE Router')}</strong>
+                                <a href="{Text::url('fiber/cpe-status/', $customerCpe['id'])}" class="btn btn-success btn-xs pull-right">
+                                    <i class="fa fa-eye"></i> {Lang::T('Status')}
+                                </a>
+                                <a href="{Text::url('fiber/cpe-configure/', $customerCpe['id'])}" class="btn btn-primary btn-xs pull-right" style="margin-right: 5px;">
+                                    <i class="fa fa-cog"></i> {Lang::T('Configure')}
+                                </a>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <td><strong>{Lang::T('Brand/Model')}</strong></td>
+                                        <td>{$customerCpe['brand']} {$customerCpe['model']}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>{Lang::T('MAC Address')}</strong></td>
+                                        <td>{$customerCpe['mac_address']}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>{Lang::T('IP Address')}</strong></td>
+                                        <td>{$customerCpe['ip_address']}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>{Lang::T('Status')}</strong></td>
+                                        <td>
+                                            {if $customerCpe['status'] == 'Active'}
+                                                <span class="label label-success">{Lang::T('Active')}</span>
+                                            {elseif $customerCpe['status'] == 'Offline'}
+                                                <span class="label label-danger">{Lang::T('Offline')}</span>
+                                            {else}
+                                                <span class="label label-default">{$customerCpe['status']}</span>
+                                            {/if}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        {/if}
+                    </div>
+                </div>
+                {/if}
+                
                 <div class="row">
                     <div class="col-xs-4">
                         <a href="{Text::url('customers/delete/', $d['id'], '&token=', $csrf_token)}" id="{$d['id']}"
