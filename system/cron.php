@@ -241,6 +241,116 @@ if ($config['router_check']) {
     echo "Router monitoring finished checking.\n";
 }
 
+// OLT Sync - Synchronize ONU status from OLT devices
+echo "\nStarting OLT synchronization...\n";
+try {
+    $oltStartTime = microtime(true);
+    
+    // Get all active OLT devices
+    $olts = ORM::for_table('tbl_olt_devices')
+        ->where('status', 'Active')
+        ->find_many();
+    
+    if ($olts && count($olts) > 0) {
+        echo "Found " . count($olts) . " active OLT device(s)\n";
+        
+        $updatedOnus = 0;
+        $errorOlts = 0;
+        
+        foreach ($olts as $olt) {
+            echo "  Processing OLT: {$olt->name}... ";
+            
+            try {
+                // Load OLT driver
+                $driverFile = 'system/devices/olt/' . strtolower($olt->brand) . '.php';
+                $driverClass = $olt->brand;
+                
+                if (!file_exists($driverFile)) {
+                    $driverFile = 'system/devices/olt/generic_snmp.php';
+                    $driverClass = 'GenericSNMP';
+                }
+                
+                if (file_exists($driverFile)) {
+                    require_once $driverFile;
+                    
+                    if (class_exists($driverClass)) {
+                        $oltDriver = new $driverClass($olt->ip_address, $olt->port, $olt->username, $olt->password);
+                        
+                        if ($oltDriver->connect()) {
+                            // Update OLT last seen
+                            $olt->last_seen = date('Y-m-d H:i:s');
+                            $olt->save();
+                            
+                            // Get ONUs from this OLT
+                            $onus = ORM::for_table('tbl_onus')
+                                ->where('olt_id', $olt->id)
+                                ->find_many();
+                            
+                            // Get ONU list from OLT
+                            $oltOnus = $oltDriver->getOnuList();
+                            
+                            if ($oltOnus !== false) {
+                                foreach ($onus as $onu) {
+                                    $onuFound = false;
+                                    
+                                    foreach ($oltOnus as $oltOnu) {
+                                        if ($oltOnu['serial_number'] == $onu->serial_number || 
+                                            $oltOnu['onu_id'] == $onu->onu_id) {
+                                            
+                                            $onuFound = true;
+                                            $oldStatus = $onu->status;
+                                            $newStatus = $oltOnu['status'];
+                                            
+                                            $onu->status = $newStatus;
+                                            $onu->signal_level = $oltOnu['signal_level'] ?? null;
+                                            $onu->distance = $oltOnu['distance'] ?? null;
+                                            $onu->last_seen = date('Y-m-d H:i:s');
+                                            $onu->save();
+                                            
+                                            $updatedOnus++;
+                                            break;
+                                        }
+                                    }
+                                    
+                                    if (!$onuFound && $onu->status != 'Offline') {
+                                        $onu->status = 'Offline';
+                                        $onu->save();
+                                        $updatedOnus++;
+                                    }
+                                }
+                            }
+                            
+                            $oltDriver->disconnect();
+                            echo "OK ({$updatedOnus} ONUs)\n";
+                        } else {
+                            echo "Failed (Connection error)\n";
+                            $errorOlts++;
+                        }
+                    } else {
+                        echo "Failed (Driver class not found)\n";
+                        $errorOlts++;
+                    }
+                } else {
+                    echo "Skipped (No driver)\n";
+                    $errorOlts++;
+                }
+            } catch (Throwable $e) {
+                echo "Error: " . $e->getMessage() . "\n";
+                _log("OLT Sync Error for {$olt->name}: " . $e->getMessage(), 'OLT');
+                $errorOlts++;
+            }
+        }
+        
+        $oltDuration = round(microtime(true) - $oltStartTime, 2);
+        echo "OLT sync completed in {$oltDuration}s ({$updatedOnus} ONUs updated, {$errorOlts} errors)\n";
+    } else {
+        echo "No active OLT devices found.\n";
+    }
+} catch (Throwable $e) {
+    echo "OLT sync error: " . $e->getMessage() . "\n";
+    _log("OLT Sync Cron Error: " . $e->getMessage(), 'OLT');
+}
+
 flock($lock, LOCK_UN);
 fclose($lock);
 unlink($lockFile);
@@ -249,4 +359,4 @@ $timestampFile = "$UPLOAD_PATH/cron_last_run.txt";
 file_put_contents($timestampFile, time());
 
 run_hook('cronjob_end'); #HOOK
-echo "Cron job finished and completed successfully.\n";
+echo "\nCron job finished and completed successfully.\n";
