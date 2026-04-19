@@ -822,5 +822,7 @@
     "Try_Again": "Try Again",
     "Invalid_Username_or_Password": "Invalid Username or Password",
     "Register_as_Member": "Register as Member",
-    "Confirm_Password": "Confirm Password"
+    "Confirm_Password": "Confirm Password",
+    "Registration_successful": "Registration successful",
+    "Register_Success__You_can_login_now": "Register Success! You can login now"
 }
