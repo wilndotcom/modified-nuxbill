@@ -138,6 +138,12 @@
                         </a>
                     </li>
                     {$_MENU_AFTER_INBOX}
+                    <li {if $_system_menu eq 'tickets'}class="active" {/if}>
+                        <a href="{Text::url('customer_ticket/list')}">
+                            <i class="fa fa-ticket"></i>
+                            <span>{Lang::T('Support Tickets')}</span>
+                        </a>
+                    </li>
                     {if $_c['disable_voucher'] != 'yes'}
                         <li {if $_system_menu eq 'voucher'}class="active" {/if}>
                             <a href="{Text::url('voucher/activation')}">
