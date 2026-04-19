@@ -14,16 +14,16 @@
                     <input type="hidden" name="csrf_token" value="{$csrf_token}">
                     
                     <div class="form-group">
-                        <label class="col-md-3 control-label">{Lang::T('Subject')} <span class="text-danger">*</span></label>
+                        <label class="col-md-3 control-label" for="ticket_subject">{Lang::T('Subject')} <span class="text-danger">*</span></label>
                         <div class="col-md-9">
-                            <input type="text" name="subject" class="form-control" placeholder="{Lang::T('Brief description of your issue')}" required maxlength="255">
+                            <input type="text" id="ticket_subject" name="subject" class="form-control" placeholder="{Lang::T('Brief description of your issue')}" required maxlength="255" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label">{Lang::T('Category')}</label>
+                        <label class="col-md-3 control-label" for="ticket_category">{Lang::T('Category')}</label>
                         <div class="col-md-9">
-                            <select name="category" class="form-control">
+                            <select id="ticket_category" name="category" class="form-control">
                                 {foreach $categories as $cat}
                                     <option value="{$cat->name}">{$cat->name}</option>
                                 {/foreach}
@@ -33,9 +33,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label">{Lang::T('Priority')}</label>
+                        <label class="col-md-3 control-label" for="ticket_priority">{Lang::T('Priority')}</label>
                         <div class="col-md-9">
-                            <select name="priority" class="form-control">
+                            <select id="ticket_priority" name="priority" class="form-control">
                                 <option value="low">{Lang::T('Low')} - {Lang::T('General inquiry')}</option>
                                 <option value="medium" selected>{Lang::T('Medium')} - {Lang::T('Minor issue')}</option>
                                 <option value="high">{Lang::T('High')} - {Lang::T('Service affected')}</option>
@@ -45,9 +45,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label">{Lang::T('Message')} <span class="text-danger">*</span></label>
+                        <label class="col-md-3 control-label" for="ticket_message">{Lang::T('Message')} <span class="text-danger">*</span></label>
                         <div class="col-md-9">
-                            <textarea name="message" class="form-control" rows="8" placeholder="{Lang::T('Please describe your issue in detail. Include any relevant information such as error messages, steps to reproduce, etc.')}" required></textarea>
+                            <textarea id="ticket_message" name="message" class="form-control" rows="8" placeholder="{Lang::T('Please describe your issue in detail. Include any relevant information such as error messages, steps to reproduce, etc.')}" required autocomplete="off"></textarea>
                         </div>
                     </div>
 

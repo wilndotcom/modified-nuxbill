@@ -91,7 +91,7 @@
                                 <input type="hidden" name="csrf_token" value="{$csrf_token}">
                                 <input type="hidden" name="ticket_id" value="{$ticket['id']}">
                                 <div class="form-group">
-                                    <textarea name="message" class="form-control" rows="5" placeholder="{Lang::T('Type your reply here...')}" required></textarea>
+                                    <textarea id="reply_message" name="message" class="form-control" rows="5" placeholder="{Lang::T('Type your reply here...')}" required autocomplete="off"></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-reply"></i> {Lang::T('Send Reply')}
