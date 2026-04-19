@@ -12,6 +12,16 @@ $ui->assign('_system_menu', 'tickets');
 
 $action = $routes['1'] ?? 'list';
 $user = User::_info();
+
+// Debug: Check if user is properly loaded
+if (!$user || !$user->id) {
+    // Try alternative method to get user
+    $uid = User::getID();
+    if ($uid) {
+        $user = ORM::for_table('tbl_customers')->find_one($uid);
+    }
+}
+
 $ui->assign('_user', $user);
 
 switch ($action) {
@@ -21,7 +31,7 @@ switch ($action) {
         
         // Build query
         $query = ORM::for_table('tbl_tickets')
-            ->where('customer_id', $user['id'])
+            ->where('customer_id', $user->id)
             ->order_by_desc('created_at');
         
         if ($status != 'all') {
