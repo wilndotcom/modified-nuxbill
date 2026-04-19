@@ -814,5 +814,11 @@
     "Please_enter_your_email_address": "Please enter your email address",
     "Data_Change": "Data Change",
     "Face_Detect": "Face Detect",
-    "Email_Address": "Email Address"
+    "Email_Address": "Email Address",
+    "Logout_Successful": "Logout Successful",
+    "warning": "warning",
+    "Internal_Error": "Internal Error",
+    "Sorry__the_software_failed_to_process_the_request__if_it_still_happening__please_tell": "Sorry, the software failed to process the request, if it still happening, please tell",
+    "Try_Again": "Try Again",
+    "Invalid_Username_or_Password": "Invalid Username or Password"
 }

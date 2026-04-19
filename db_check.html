@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database Check</title>
+</head>
+<body>
+    <h2>Database Table Check</h2>
+    <hr>
+    <p>Please run this SQL in phpMyAdmin to check tables:</p>
+    <pre>
+SHOW TABLES;
+    </pre>
+    
+    <h3>Required Tables:</h3>
+    <ul>
+        <li>tbl_customers</li>
+        <li>tbl_tickets</li>
+        <li>tbl_ticket_replies</li>
+        <li>tbl_ticket_categories</li>
+    </ul>
+    
+    <h3>To create a test user, run this SQL:</h3>
+    <pre>
+INSERT INTO tbl_customers 
+(username, password, fullname, email, phonenumber, address, status, balance, service_type, account_type, created_at) 
+VALUES 
+('testuser', '5f4dcc3b5aa765d61d8327deb882cf99', 'Test User', 'test@test.com', '123456789', 'Test Address', 'Active', 0, 'Personal', 'Member', NOW());
+    </pre>
+    <p><b>Note:</b> Password is MD5 hash of "password"</p>
+    
+    <hr>
+    <p><a href="?_route=login">Go to Login</a></p>
+</body>
+</html>
