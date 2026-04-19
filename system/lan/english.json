@@ -820,5 +820,7 @@
     "Internal_Error": "Internal Error",
     "Sorry__the_software_failed_to_process_the_request__if_it_still_happening__please_tell": "Sorry, the software failed to process the request, if it still happening, please tell",
     "Try_Again": "Try Again",
-    "Invalid_Username_or_Password": "Invalid Username or Password"
+    "Invalid_Username_or_Password": "Invalid Username or Password",
+    "Register_as_Member": "Register as Member",
+    "Confirm_Password": "Confirm Password"
 }
