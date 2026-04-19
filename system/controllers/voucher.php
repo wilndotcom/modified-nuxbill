@@ -66,6 +66,31 @@ switch ($action) {
                 $v1->used_date = date('Y-m-d H:i:s');
                 $v1->user = $user['username'];
                 $v1->save();
+
+                // Send Account Activation Notification
+                global $config;
+                if (isset($config['user_notification_activation']) && $config['user_notification_activation'] != 'none') {
+                    // Get customer object
+                    $customer = ORM::for_table('tbl_customers')->find_one($user['id']);
+                    // Get plan details
+                    $plan = ORM::for_table('tbl_plans')->find_one($v1['id_plan']);
+                    // Get expiry date from the transaction
+                    $transaction = ORM::for_table('tbl_transactions')
+                        ->where('user_id', $user['id'])
+                        ->order_by_desc('id')
+                        ->find_one();
+                    $expiryDate = $transaction ? $transaction->exp_date : date('Y-m-d H:i:s', strtotime('+30 days'));
+
+                    if ($customer && $plan) {
+                        Message::sendActivationNotification(
+                            $customer,
+                            $plan,
+                            $expiryDate,
+                            $config['user_notification_activation']
+                        );
+                    }
+                }
+
                 r2(getUrl('voucher/list-activated'), 's', Lang::T('Activation Vouchers Successfully'));
             } else {
                 r2(getUrl('voucher/activation'), 'e', "Failed to refill account");

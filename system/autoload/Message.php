@@ -425,4 +425,84 @@ class Message
         $log->error_message = $errorMessage;
         $log->save();
     }
+
+    /**
+     * Send Account Activation Notification to customer
+     * Called after successful voucher activation or account activation
+     *
+     * @param object $customer Customer object from tbl_customers
+     * @param object $plan Plan object from tbl_plans
+     * @param string $expiryDate Formatted expiration date
+     * @param string $via Notification channel (sms, wa, email, inbox)
+     * @return void
+     */
+    public static function sendActivationNotification($customer, $plan, $expiryDate, $via)
+    {
+        global $config, $ui;
+
+        // Load notification templates
+        $notificationPath = $ui->getTemplatePath() . '/../system/uploads/notifications.json';
+        $defaultNotificationPath = $ui->getTemplatePath() . '/../system/uploads/notifications.default.json';
+
+        if (file_exists($notificationPath)) {
+            $notificationData = json_decode(file_get_contents($notificationPath), true);
+        } elseif (file_exists($defaultNotificationPath)) {
+            $notificationData = json_decode(file_get_contents($defaultNotificationPath), true);
+        } else {
+            $notificationData = [];
+        }
+
+        // Get the account activation message template
+        $messageTemplate = isset($notificationData['account_activated']) ? $notificationData['account_activated'] : '';
+
+        // Use default message if template is empty
+        if (empty($messageTemplate)) {
+            $messageTemplate = "Hello [[name]], your account has been activated. You can now access our services.";
+        }
+
+        // Prepare replacement data
+        $name = !empty($customer->fullname) ? $customer->fullname : $customer->username;
+        $username = $customer->username;
+        $password = $customer->password;
+        $package = $plan ? $plan->name : '';
+        $company = $config['CompanyName'];
+        $url = $config['app_url'] . '/index.php?_route=login';
+        $activationDate = date('Y-m-d H:i:s');
+
+        // Replace placeholders
+        $message = str_replace(
+            ['[[name]]', '[[username]]', '[[password]]', '[[package]]', '[[plan]]', '[[company]]', '[[url]]', '[[activation_date]]', '[[expiry_date]]'],
+            [$name, $username, $password, $package, $package, $company, $url, $activationDate, $expiryDate],
+            $messageTemplate
+        );
+
+        // Send via appropriate channel
+        switch ($via) {
+            case 'sms':
+                if (!empty($customer->phonenumber) && strlen($customer->phonenumber) > 5) {
+                    self::sendSMS($customer->phonenumber, $message);
+                    self::logMessage('SMS', $customer->phonenumber, $message, 'Success');
+                }
+                break;
+
+            case 'wa':
+            case 'whatsapp':
+                if (!empty($customer->phonenumber) && strlen($customer->phonenumber) > 5) {
+                    self::sendWhatsapp($customer->phonenumber, $message);
+                    self::logMessage('WhatsApp', $customer->phonenumber, $message, 'Success');
+                }
+                break;
+
+            case 'email':
+                if (!empty($customer->email) && filter_var($customer->email, FILTER_VALIDATE_EMAIL)) {
+                    self::sendEmail($customer->email, '[' . $company . '] ' . Lang::T('Account Activated'), $message);
+                    self::logMessage('Email', $customer->email, $message, 'Success');
+                }
+                break;
+
+            case 'inbox':
+                self::addToInbox($customer->id, Lang::T('Account Activated'), $message);
+                break;
+        }
+    }
 }

@@ -946,6 +946,24 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-md-3 control-label">{Lang::T('Account Activation Notification')}</label>
+                    <div class="col-md-5">
+                        <select name="user_notification_activation" id="user_notification_activation" class="form-control">
+                            <option value="none">{Lang::T('None')}</option>
+                            <option value="wa" {if $_c['user_notification_activation']=='wa' }selected="selected" {/if}>
+                                {Lang::T('By WhatsApp')}</option>
+                            <option value="sms" {if $_c['user_notification_activation']=='sms' }selected="selected" {/if}>
+                                {Lang::T('By SMS')}</option>
+                            <option value="email" {if $_c['user_notification_activation']=='email' }selected="selected"
+                                {/if}>{Lang::T('By Email')}</option>
+                            <option value="inbox" {if $_c['user_notification_activation']=='inbox' }selected="selected"
+                                {/if}>{Lang::T('By Inbox')}</option>
+                        </select>
+                    </div>
+                    <p class="help-block col-md-4">
+                        {Lang::T('User will get notification when account is activated via voucher')}</p>
+                </div>
+                <div class="form-group">
                     <label class="col-md-3 control-label">{Lang::T('Reminder Notify Intervals')}</label><br>
                     <label class="col-md-3 control-label">
                         <input type="checkbox" name="notification_reminder_1day" value="yes"

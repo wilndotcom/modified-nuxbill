@@ -218,6 +218,28 @@ switch ($do) {
                         $v1->save();
                         $user->last_login = date('Y-m-d H:i:s');
                         $user->save();
+
+                        // Send Account Activation Notification
+                        if (isset($config['user_notification_activation']) && $config['user_notification_activation'] != 'none') {
+                            // Get plan details
+                            $plan = ORM::for_table('tbl_plans')->find_one($v1['id_plan']);
+                            // Get expiry date from the transaction
+                            $transaction = ORM::for_table('tbl_transactions')
+                                ->where('user_id', $user['id'])
+                                ->order_by_desc('id')
+                                ->find_one();
+                            $expiryDate = $transaction ? $transaction->exp_date : date('Y-m-d H:i:s', strtotime('+30 days'));
+
+                            if ($plan) {
+                                Message::sendActivationNotification(
+                                    $user,
+                                    $plan,
+                                    $expiryDate,
+                                    $config['user_notification_activation']
+                                );
+                            }
+                        }
+
                         // add customer to mikrotik
                         if (!empty($_SESSION['nux-mac']) && !empty($_SESSION['nux-ip'])) {
                             try {
