@@ -44,7 +44,7 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <a class="toggle-container" href="#">
-                                <i class="toggle-icon" id="toggleIcon">🌜</i>
+                                <i class="fa fa-moon-o" id="toggleIcon"></i>
                             </a>
                         </li>
                         <li class="dropdown tasks-menu">
