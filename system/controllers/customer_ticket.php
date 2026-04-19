@@ -21,26 +21,11 @@ if (!$user || !$user->id) {
     }
 }
 
-// Debug: Check what's happening
+// If user still not loaded, redirect to login
 if (!$user || !$user->id) {
-    $uid = User::getID();
-    echo "<h2>DEBUG: User Authentication Issue</h2>";
-    echo "Session uid: $uid<br>";
-    echo "User::_info() returned: ";
-    var_dump($user);
-    
-    // Try to manually load user
-    echo "<br>Trying manual database query...<br>";
-    $test_user = ORM::for_table('tbl_customers')->find_one($uid);
-    echo "Manual query result: ";
-    var_dump($test_user);
-    
-    // Check if user exists
-    $count = ORM::for_table('tbl_customers')->where('id', $uid)->count();
-    echo "<br>Users with id=$count found in database.<br>";
-    
-    echo "<br><b>SOLUTION:</b> The user ID in session ($uid) doesn't exist in the database.<br>";
-    echo "Please logout and login again, or check the database.<br>";
+    // Clear invalid session
+    session_destroy();
+    r2(getUrl('login'), 'e', 'Session expired. Please login again.');
     exit;
 }
 
