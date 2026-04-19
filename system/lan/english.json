@@ -742,5 +742,12 @@
     "Max_30_days": "Max 30 days",
     "All_Transactions_at_Date": "All Transactions at Date",
     "Information": "Information",
-    "Export_and_Print_will_show_all_data_without_pagination": "Export and Print will show all data without pagination"
+    "Export_and_Print_will_show_all_data_without_pagination": "Export and Print will show all data without pagination",
+    "This_will_sync_send_PPPOE_plan_to_Mikrotik": "This will sync\/send PPPOE plan to Mikrotik",
+    "Prepaid": "Prepaid",
+    "Postpaid": "Postpaid",
+    "Category": "Category",
+    "Device": "Device",
+    "Disable": "Disable",
+    "New_Service_Plan": "New Service Plan"
 }
