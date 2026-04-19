@@ -13,13 +13,18 @@ $ui->assign('_system_menu', 'tickets');
 $action = $routes['1'] ?? 'list';
 $user = User::_info();
 
-// Debug: Check if user is properly loaded
+// Fix: User::_info() may return false, so reload using getID
 if (!$user || !$user->id) {
-    // Try alternative method to get user
     $uid = User::getID();
     if ($uid) {
         $user = ORM::for_table('tbl_customers')->find_one($uid);
     }
+}
+
+// Final check
+if (!$user || !$user->id) {
+    r2(getUrl('login'), 'e', 'Please login again');
+    exit;
 }
 
 $ui->assign('_user', $user);
