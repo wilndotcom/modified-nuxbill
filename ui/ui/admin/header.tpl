@@ -236,7 +236,7 @@
                             {$_MENU_MESSAGE}
                         </ul>
                     </li>
-                    <li class="{if $_system_menu eq 'ticket'}active{/if} treeview">
+                    <li {if $_system_menu eq 'ticket'}class="active" {/if}>
                         <a href="{Text::url('ticket/list')}">
                             <i class="fa fa-ticket"></i> <span>{Lang::T('Support Tickets')}</span>
                             <span class="pull-right-container">
