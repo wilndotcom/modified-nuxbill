@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Force Cache Clear</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+</head>
+<body>
+    <h2>Clearing Browser Cache...</h2>
+    <p>This will clear localStorage and cache, then redirect you.</p>
+    <script>
+        // Clear localStorage
+        localStorage.clear();
+        sessionStorage.clear();
+        
+        // Clear cookies
+        document.cookie.split(";").forEach(function(c) { 
+            document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+        });
+        
+        // Redirect after clearing
+        setTimeout(function() {
+            window.location.href = '?_route=customer_ticket/list&nocache=' + Date.now();
+        }, 1000);
+    </script>
+</body>
+</html>
