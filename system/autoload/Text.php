@@ -68,6 +68,14 @@ class Text
         return preg_match("/<[^<]+>/", $string, $m) != 0;
     }
 
+    public static function truncate($text, $length = 100, $suffix = '...')
+    {
+        if (strlen($text) <= $length) {
+            return $text;
+        }
+        return substr($text, 0, $length) . $suffix;
+    }
+
     public static function convertDataUnit($datalimit, $unit = 'MB')
     {
         $unit = strtoupper($unit);

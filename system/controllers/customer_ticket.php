@@ -6,6 +6,9 @@
  * Handles ticket management for customers in their portal
  */
 
+// Get global UI instance from boot.php
+$ui = $GLOBALS['ui'];
+
 _auth();
 $ui->assign('_title', Lang::T('My Support Tickets'));
 $ui->assign('_system_menu', 'tickets');
@@ -94,8 +97,36 @@ switch ($action) {
 
     // Create new ticket form
     case 'create':
-        $categories = ORM::for_table('tbl_ticket_categories')->where('enabled', 1)->find_many();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validate CSRF
+            if (!Csrf::check($_POST['csrf_token'] ?? '')) {
+                r2(getUrl('customer_ticket/create'), 'e', Lang::T('Security token expired. Please try again.'));
+            }
+            
+            $subject = trim($_POST['subject'] ?? '');
+            $message = trim($_POST['message'] ?? '');
+            $category = $_POST['category'] ?? 'General';
+            $priority = $_POST['priority'] ?? 'medium';
+            
+            if (empty($subject) || empty($message)) {
+                r2(getUrl('customer_ticket/create'), 'e', Lang::T('Subject and message are required'));
+            }
+            
+            // Create ticket
+            $ticket = ORM::for_table('tbl_tickets')->create();
+            $ticket->customer_id = $user->id;
+            $ticket->subject = $subject;
+            $ticket->message = $message;
+            $ticket->category = $category;
+            $ticket->priority = $priority;
+            $ticket->status = 'open';
+            $ticket->created_at = date('Y-m-d H:i:s');
+            $ticket->save();
+            
+            r2(getUrl('customer_ticket/list'), 's', Lang::T('Ticket created successfully'));
+        }
         
+        $categories = ORM::for_table('tbl_ticket_categories')->where('enabled', 1)->find_many();
         $ui->assign('categories', $categories);
         $ui->assign('csrf_token', Csrf::generateAndStoreToken());
         $ui->display('customer/ticket_create.tpl');
