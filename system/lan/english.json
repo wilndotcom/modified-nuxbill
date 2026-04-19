@@ -807,5 +807,8 @@
     "Ticket_ID": "Ticket ID",
     "Create_New_Support_Ticket": "Create New Support Ticket",
     "Message": "Message",
-    "Please_describe_your_issue_in_detail__Include_any_relevant_information_such_as_error_messages__steps_to_reproduce__etc_": "Please describe your issue in detail. Include any relevant information such as error messages, steps to reproduce, etc."
+    "Please_describe_your_issue_in_detail__Include_any_relevant_information_such_as_error_messages__steps_to_reproduce__etc_": "Please describe your issue in detail. Include any relevant information such as error messages, steps to reproduce, etc.",
+    "No_email_found_": "No email found.",
+    "Ticket_Categories": "Ticket Categories",
+    "Color": "Color"
 }

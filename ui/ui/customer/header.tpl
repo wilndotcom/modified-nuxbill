@@ -123,7 +123,7 @@
 
         <aside class="main-sidebar" style="position:fixed;">
             <section class="sidebar">
-                <ul class="sidebar-menu" data-widget="tree">
+                <ul class="sidebar-menu">
                     <li {if $_system_menu eq 'home'}class="active" {/if}>
                         <a href="{Text::url('home')}">
                             <i class="ion ion-monitor"></i>
