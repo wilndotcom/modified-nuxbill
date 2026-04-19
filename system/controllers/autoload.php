@@ -46,6 +46,12 @@ switch ($action) {
 
         $ui->display('admin/autoload/server.tpl');
         break;
+
+    case 'olt-devices':
+        $d = ORM::for_table('tbl_olt_devices')->where('status', 'Active')->find_many();
+        $ui->assign('d', $d);
+        $ui->display('admin/autoload/server.tpl');
+        break;
     case 'pppoe_ip_used':
         if (!empty(_get('ip'))) {
             $cs = ORM::for_table('tbl_customers')
@@ -83,7 +89,15 @@ switch ($action) {
                 case '':
                     break;
                 default:
-                    $d = ORM::for_table('tbl_plans')->where('routers', $server)->where('type', $jenis)->find_many();
+                    // For OLT type, load plans by OLT device ID
+                    if ($jenis == 'OLT') {
+                        $d = ORM::for_table('tbl_plans')
+                            ->where('type', 'OLT')
+                            ->where('routers', $server)
+                            ->find_many();
+                    } else {
+                        $d = ORM::for_table('tbl_plans')->where('routers', $server)->where('type', $jenis)->find_many();
+                    }
                     break;
             }
         } else {
@@ -94,7 +108,15 @@ switch ($action) {
                 case '':
                     break;
                 default:
-                    $d = ORM::for_table('tbl_plans')->where('routers', $server)->where('type', $jenis)->find_many();
+                    // For OLT type, load plans by OLT device ID
+                    if ($jenis == 'OLT') {
+                        $d = ORM::for_table('tbl_plans')
+                            ->where('type', 'OLT')
+                            ->where('routers', $server)
+                            ->find_many();
+                    } else {
+                        $d = ORM::for_table('tbl_plans')->where('routers', $server)->where('type', $jenis)->find_many();
+                    }
                     break;
             }
         }

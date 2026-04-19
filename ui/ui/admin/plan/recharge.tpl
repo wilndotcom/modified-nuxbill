@@ -27,6 +27,7 @@
                             <label><input type="radio" id="POE" name="type" value="PPPOE">
                                 {Lang::T('PPPOE Plans')}</label>
                             <label><input type="radio" id="VPN" name="type" value="VPN"> {Lang::T('VPN Plans')}</label>
+                            <label><input type="radio" id="OLT" name="type" value="OLT"> {Lang::T('OLT/Fiber Plans')}</label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -77,5 +78,117 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Handle type change for OLT
+    var typeRadios = document.querySelectorAll('input[name="type"]');
+    var serverSelect = document.getElementById('server');
+    var planSelect = document.getElementById('plan');
+    var serverLabel = document.querySelector('label[for="server"]') || document.querySelector('label:contains("Routers")');
+
+    function updateServerLabel(type) {
+        var label = document.querySelector('label.col-md-2.control-label');
+        var labels = document.querySelectorAll('label.col-md-2.control-label');
+        for (var i = 0; i < labels.length; i++) {
+            if (labels[i].textContent.indexOf('Routers') !== -1 || labels[i].textContent.indexOf('OLT') !== -1) {
+                if (type === 'OLT') {
+                    labels[i].textContent = 'OLT Device';
+                } else {
+                    labels[i].textContent = 'Routers';
+                }
+                break;
+            }
+        }
+    }
+
+    function loadServers(type) {
+        serverSelect.innerHTML = '<option value="">{Lang::T('Select ')}' + (type === 'OLT' ? 'OLT Device' : 'Routers') + '</option>';
+
+        if (type === 'OLT') {
+            // Load OLT devices
+            fetch('{Text::url('')}autoload/olt-devices')
+                .then(response => response.text())
+                .then(html => {
+                    var temp = document.createElement('div');
+                    temp.innerHTML = html;
+                    var options = temp.querySelectorAll('option');
+                    options.forEach(function(opt) {
+                        if (opt.value) {
+                            var newOpt = document.createElement('option');
+                            newOpt.value = opt.value;
+                            newOpt.textContent = opt.textContent;
+                            serverSelect.appendChild(newOpt);
+                        }
+                    });
+                });
+        } else {
+            // Load regular routers
+            fetch('{Text::url('')}autoload/server')
+                .then(response => response.text())
+                .then(html => {
+                    var temp = document.createElement('div');
+                    temp.innerHTML = html;
+                    var options = temp.querySelectorAll('option');
+                    options.forEach(function(opt) {
+                        if (opt.value) {
+                            var newOpt = document.createElement('option');
+                            newOpt.value = opt.value;
+                            newOpt.textContent = opt.textContent;
+                            serverSelect.appendChild(newOpt);
+                        }
+                    });
+                });
+        }
+    }
+
+    function loadPlans(server, type) {
+        planSelect.innerHTML = '<option value="">{Lang::T('Select Plans')}</option>';
+        if (!server) return;
+
+        var formData = new FormData();
+        formData.append('server', server);
+        formData.append('jenis', type);
+
+        fetch('{Text::url('')}autoload/plan', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(html => {
+            var temp = document.createElement('div');
+            temp.innerHTML = html;
+            var options = temp.querySelectorAll('option');
+            options.forEach(function(opt) {
+                if (opt.value) {
+                    var newOpt = document.createElement('option');
+                    newOpt.value = opt.value;
+                    newOpt.textContent = opt.textContent;
+                    planSelect.appendChild(newOpt);
+                }
+            });
+        });
+    }
+
+    // Type change handler
+    typeRadios.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            if (this.checked) {
+                updateServerLabel(this.value);
+                loadServers(this.value);
+                planSelect.innerHTML = '<option value="">{Lang::T('Select Plans')}</option>';
+            }
+        });
+    });
+
+    // Server change handler
+    serverSelect.addEventListener('change', function() {
+        var selectedType = document.querySelector('input[name="type"]:checked');
+        if (selectedType && this.value) {
+            loadPlans(this.value, selectedType.value);
+        }
+    });
+});
+</script>
 
 {include file="sections/footer.tpl"}

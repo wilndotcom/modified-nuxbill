@@ -107,6 +107,9 @@
                                                 api-get-text="{Text::url('')}autoload/customer_is_active/{$ds['username']}/{$ds['plan_id']}"></span>
                                         {elseif $ds['type'] == 'VPN'}
                                             <a href="{Text::url('')}services/vpn-edit/{$ds['plan_id']}">{$ds['namebp']}</a>
+                                        {elseif $ds['type'] == 'OLT'}
+                                            <a href="{Text::url('')}fiber/onus">{$ds['namebp']}</a>
+                                            <span class="label label-info">{Lang::T('Fiber')}</span>
                                         {/if}
 
                                     </td>

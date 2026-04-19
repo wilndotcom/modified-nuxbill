@@ -644,6 +644,9 @@
     "By_Inbox": "By Inbox",
     "Account_Activated": "Account Activated",
     "User_will_get_notification_when_account_is_activated_via_voucher": "User will get notification when account is activated via voucher",
+    "OLT_Fiber_Plans": "OLT/Fiber Plans",
+    "OLT_Device": "OLT Device",
+    "Fiber": "Fiber",
     "This_will_sync_send_IP_port_to_Mikrotik": "This will sync\/send IP port to Mikrotik",
     "Port_Pool": "Port Pool",
     "New_port": "New port",
@@ -662,5 +665,6 @@
     "Template_A": "Template A",
     "Template_B": "Template B",
     "Template_C": "Template C",
-    "Template_D": "Template D"
+    "Template_D": "Template D",
+    "Account_Activation_Notification": "Account Activation Notification"
 }
