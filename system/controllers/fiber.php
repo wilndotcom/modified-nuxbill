@@ -186,17 +186,19 @@ switch ($action) {
             _alert(Lang::T('You do not have permission to access this page'), 'danger', "dashboard");
         }
         
-        $onus = ORM::for_table('tbl_onus')
+        $query = ORM::for_table('tbl_onus')
             ->select('tbl_onus.*')
             ->select('tbl_olt_devices.name', 'olt_name')
             ->select('tbl_customers.username', 'customer_username')
             ->select('tbl_customers.fullname', 'customer_fullname')
             ->left_outer_join('tbl_olt_devices', array('tbl_onus.olt_id', '=', 'tbl_olt_devices.id'))
             ->left_outer_join('tbl_customers', array('tbl_onus.customer_id', '=', 'tbl_customers.id'))
-            ->order_by_desc('tbl_onus.created_at')
-            ->find_many();
+            ->order_by_desc('tbl_onus.created_at');
+        
+        $onus = Paginator::findMany($query);
         
         $ui->assign('onus', $onus);
+        $ui->assign('paginator', $paginator);
         $ui->assign('_title', Lang::T('ONUs'));
         $ui->display('admin/fiber/onus.tpl');
         break;
@@ -412,14 +414,16 @@ switch ($action) {
             _alert(Lang::T('You do not have permission to access this page'), 'danger', "dashboard");
         }
         
-        $profiles = ORM::for_table('tbl_olt_profiles')
+        $query = ORM::for_table('tbl_olt_profiles')
             ->select('tbl_olt_profiles.*')
             ->select('tbl_olt_devices.name', 'olt_name')
             ->left_outer_join('tbl_olt_devices', array('tbl_olt_profiles.olt_id', '=', 'tbl_olt_devices.id'))
-            ->order_by_asc('tbl_olt_profiles.name')
-            ->find_many();
+            ->order_by_asc('tbl_olt_profiles.name');
+        
+        $profiles = Paginator::findMany($query);
         
         $ui->assign('profiles', $profiles);
+        $ui->assign('paginator', $paginator);
         $ui->assign('_title', Lang::T('OLT Profiles'));
         $ui->display('admin/fiber/profiles.tpl');
         break;
@@ -579,17 +583,19 @@ switch ($action) {
             _alert(Lang::T('You do not have permission to access this page'), 'danger', "dashboard");
         }
         
-        $routers = ORM::for_table('tbl_cpe_routers')
+        $query = ORM::for_table('tbl_cpe_routers')
             ->select('tbl_cpe_routers.*')
             ->select('tbl_customers.username', 'customer_username')
             ->select('tbl_customers.fullname', 'customer_fullname')
             ->select('tbl_onus.serial_number', 'onu_serial')
             ->left_outer_join('tbl_customers', array('tbl_cpe_routers.customer_id', '=', 'tbl_customers.id'))
             ->left_outer_join('tbl_onus', array('tbl_cpe_routers.onu_id', '=', 'tbl_onus.id'))
-            ->order_by_desc('tbl_cpe_routers.created_at')
-            ->find_many();
+            ->order_by_desc('tbl_cpe_routers.created_at');
+        
+        $routers = Paginator::findMany($query);
         
         $ui->assign('routers', $routers);
+        $ui->assign('paginator', $paginator);
         $ui->assign('_title', Lang::T('CPE Routers'));
         $ui->display('admin/fiber/cpe-routers.tpl');
         break;

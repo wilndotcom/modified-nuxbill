@@ -644,7 +644,7 @@
     "By_Inbox": "By Inbox",
     "Account_Activated": "Account Activated",
     "User_will_get_notification_when_account_is_activated_via_voucher": "User will get notification when account is activated via voucher",
-    "OLT_Fiber_Plans": "OLT/Fiber Plans",
+    "OLT_Fiber_Plans": "OLT\/Fiber Plans",
     "OLT_Device": "OLT Device",
     "Fiber": "Fiber",
     "Configure": "Configure",
@@ -686,7 +686,7 @@
     "Connection_History": "Connection History",
     "Network_Interfaces": "Network Interfaces",
     "Status_information_is_not_available": "Status information is not available. The router may be offline or status retrieval is not supported for this device type.",
-    "This_will_sync_send_IP_port_to_Mikrotik": "This will sync/send IP port to Mikrotik",
+    "This_will_sync_send_IP_port_to_Mikrotik": "This will sync\/send IP port to Mikrotik",
     "Port_Pool": "Port Pool",
     "New_port": "New port",
     "Port_Name": "Port Name",
@@ -711,5 +711,12 @@
     "Select_ONU__Optional_": "Select ONU (Optional)",
     "Model": "Model",
     "Protocol": "Protocol",
-    "Offline": "Offline"
+    "Offline": "Offline",
+    "Dashboard_Widgets": "Dashboard Widgets",
+    "Structure": "Structure",
+    "Area_Fields": "Area Fields",
+    "Sequence": "Sequence",
+    "Delete_this_widget_": "Delete this widget?",
+    "Save_sequence": "Save sequence",
+    "Add_new_widget": "Add new widget"
 }

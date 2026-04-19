@@ -79,6 +79,7 @@
                         </tbody>
                     </table>
                 </div>
+                {include file="pagination.tpl"}
             </div>
         </div>
     </div>
