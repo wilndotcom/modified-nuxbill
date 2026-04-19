@@ -236,7 +236,14 @@
                             {$_MENU_MESSAGE}
                         </ul>
                     </li>
-                    {$_MENU_AFTER_MESSAGE}
+                    <li class="{if $_system_menu eq 'ticket'}active{/if} treeview">
+                        <a href="{Text::url('ticket/list')}">
+                            <i class="fa fa-ticket"></i> <span>{Lang::T('Support Tickets')}</span>
+                            <span class="pull-right-container">
+                                <span class="label label-success" id="ticketCountBadge" style="display: none;">0</span>
+                            </span>
+                        </a>
+                    </li>
                     <li class="{if $_system_menu eq 'network'}active{/if} treeview">
                         <a href="#">
                             <i class="ion ion-network"></i> <span>{Lang::T('Network')}</span>
