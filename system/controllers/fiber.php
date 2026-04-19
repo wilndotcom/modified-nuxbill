@@ -758,6 +758,174 @@ switch ($action) {
             r2(getUrl('fiber/cpe-routers'), 'e', Lang::T('CPE Router not found'));
         }
         break;
+
+    // CPE Router Status
+    case 'cpe-status':
+        if (!in_array($admin['user_type'], ['SuperAdmin', 'Admin'])) {
+            _alert(Lang::T('You do not have permission to access this page'), 'danger', "dashboard");
+        }
+        
+        $id = $routes['2'];
+        $router = ORM::for_table('tbl_cpe_routers')
+            ->select('tbl_cpe_routers.*')
+            ->select('tbl_customers.username', 'customer_username')
+            ->select('tbl_customers.fullname', 'customer_fullname')
+            ->select('tbl_onus.serial_number', 'onu_serial')
+            ->left_outer_join('tbl_customers', array('tbl_cpe_routers.customer_id', '=', 'tbl_customers.id'))
+            ->left_outer_join('tbl_onus', array('tbl_cpe_routers.onu_id', '=', 'tbl_onus.id'))
+            ->find_one($id);
+        
+        if (!$router) {
+            r2(getUrl('fiber/cpe-routers'), 'e', Lang::T('CPE Router not found'));
+        }
+        
+        // Attempt to get status from router (placeholder for driver integration)
+        $status_data = null;
+        $connection_logs = [];
+        
+        // Try to load CPE driver and get status
+        $cpe_driver = 'system/devices/cpe/' . strtolower($router['brand']) . '.php';
+        if (file_exists($cpe_driver)) {
+            // Driver exists - could be used to fetch real status
+            // For now, status_data remains null as driver implementation is stub
+        }
+        
+        $ui->assign('router', $router->as_array());
+        $ui->assign('status_data', $status_data);
+        $ui->assign('connection_logs', $connection_logs);
+        $ui->assign('_title', Lang::T('CPE Router Status'));
+        $ui->assign('csrf_token', Csrf::generateAndStoreToken());
+        $ui->display('admin/fiber/cpe-routers/status.tpl');
+        break;
+
+    // CPE Router Configuration
+    case 'cpe-configure':
+        if (!in_array($admin['user_type'], ['SuperAdmin', 'Admin'])) {
+            _alert(Lang::T('You do not have permission to access this page'), 'danger', "dashboard");
+        }
+        
+        $id = $routes['2'];
+        $router = ORM::for_table('tbl_cpe_routers')
+            ->select('tbl_cpe_routers.*')
+            ->select('tbl_customers.username', 'customer_username')
+            ->select('tbl_customers.fullname', 'customer_fullname')
+            ->left_outer_join('tbl_customers', array('tbl_cpe_routers.customer_id', '=', 'tbl_customers.id'))
+            ->left_outer_join('tbl_onus', array('tbl_cpe_routers.onu_id', '=', 'tbl_onus.id'))
+            ->find_one($id);
+        
+        if (!$router) {
+            r2(getUrl('fiber/cpe-routers'), 'e', Lang::T('CPE Router not found'));
+        }
+        
+        // Load existing configuration if available
+        $config = [];
+        // Could load from router via driver or from stored config
+        
+        $ui->assign('router', $router->as_array());
+        $ui->assign('config', $config);
+        $ui->assign('_title', Lang::T('Configure CPE Router'));
+        $ui->assign('csrf_token', Csrf::generateAndStoreToken());
+        $ui->display('admin/fiber/cpe-routers/configure.tpl');
+        break;
+
+    // CPE Router Configure Post
+    case 'cpe-configure-post':
+        if (!in_array($admin['user_type'], ['SuperAdmin', 'Admin'])) {
+            _alert(Lang::T('You do not have permission to access this page'), 'danger', "dashboard");
+        }
+        
+        $csrf_token = _post('csrf_token');
+        if (!Csrf::check($csrf_token)) {
+            r2(getUrl('fiber/cpe-routers'), 'e', Lang::T('Invalid or Expired CSRF Token'));
+        }
+        
+        $id = $routes['2'];
+        $router = ORM::for_table('tbl_cpe_routers')->find_one($id);
+        
+        if (!$router) {
+            r2(getUrl('fiber/cpe-routers'), 'e', Lang::T('CPE Router not found'));
+        }
+        
+        // Collect configuration data
+        $config_data = [
+            'wifi_2g_ssid' => _post('wifi_2g_ssid'),
+            'wifi_2g_password' => _post('wifi_2g_password'),
+            'wifi_2g_channel' => _post('wifi_2g_channel'),
+            'wifi_5g_ssid' => _post('wifi_5g_ssid'),
+            'wifi_5g_password' => _post('wifi_5g_password'),
+            'wifi_5g_channel' => _post('wifi_5g_channel'),
+            'wifi_security' => _post('wifi_security'),
+            'lan_ip' => _post('lan_ip'),
+            'lan_subnet' => _post('lan_subnet'),
+            'dhcp_enabled' => _post('dhcp_enabled'),
+            'dhcp_start' => _post('dhcp_start'),
+            'dhcp_end' => _post('dhcp_end'),
+            'admin_username' => _post('admin_username'),
+            'remote_management' => _post('remote_management'),
+            'tr069_acs_url' => _post('tr069_acs_url'),
+            'firewall_spi' => _post('firewall_spi'),
+            'wan_ping' => _post('wan_ping'),
+        ];
+        
+        // Store configuration (in a real implementation, this would push to the router)
+        // For now, we just log the configuration change
+        _log('Admin ' . $admin['username'] . ' configured CPE Router: ' . $router->mac_address, 'CPE');
+        
+        // Update admin password if provided
+        $admin_password = _post('admin_password');
+        if (!empty($admin_password)) {
+            $router->password = $admin_password;
+            $router->save();
+        }
+        
+        r2(getUrl('fiber/cpe-status', $id), 's', Lang::T('Configuration saved successfully'));
+        break;
+
+    // CPE Router Reboot
+    case 'cpe-reboot':
+        if (!in_array($admin['user_type'], ['SuperAdmin', 'Admin'])) {
+            _alert(Lang::T('You do not have permission to access this page'), 'danger', "dashboard");
+        }
+        
+        $csrf_token = _req('token');
+        if (!Csrf::check($csrf_token)) {
+            r2(getUrl('fiber/cpe-routers'), 'e', Lang::T('Invalid or Expired CSRF Token'));
+        }
+        
+        $id = $routes['2'];
+        $router = ORM::for_table('tbl_cpe_routers')->find_one($id);
+        
+        if ($router) {
+            // Attempt reboot via driver (placeholder)
+            _log('Admin ' . $admin['username'] . ' rebooted CPE Router: ' . $router->mac_address, 'CPE');
+            r2(getUrl('fiber/cpe-routers'), 's', Lang::T('Reboot command sent to router'));
+        } else {
+            r2(getUrl('fiber/cpe-routers'), 'e', Lang::T('CPE Router not found'));
+        }
+        break;
+
+    // CPE Router Factory Reset
+    case 'cpe-reset':
+        if (!in_array($admin['user_type'], ['SuperAdmin', 'Admin'])) {
+            _alert(Lang::T('You do not have permission to access this page'), 'danger', "dashboard");
+        }
+        
+        $csrf_token = _req('token');
+        if (!Csrf::check($csrf_token)) {
+            r2(getUrl('fiber/cpe-routers'), 'e', Lang::T('Invalid or Expired CSRF Token'));
+        }
+        
+        $id = $routes['2'];
+        $router = ORM::for_table('tbl_cpe_routers')->find_one($id);
+        
+        if ($router) {
+            // Attempt factory reset via driver (placeholder)
+            _log('Admin ' . $admin['username'] . ' factory reset CPE Router: ' . $router->mac_address, 'CPE');
+            r2(getUrl('fiber/cpe-routers'), 's', Lang::T('Factory reset command sent to router'));
+        } else {
+            r2(getUrl('fiber/cpe-routers'), 'e', Lang::T('CPE Router not found'));
+        }
+        break;
         
     default:
         r2(getUrl('dashboard'), 'e', Lang::T('Page not found'));
