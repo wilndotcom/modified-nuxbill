@@ -749,5 +749,9 @@
     "Category": "Category",
     "Device": "Device",
     "Disable": "Disable",
-    "New_Service_Plan": "New Service Plan"
+    "New_Service_Plan": "New Service Plan",
+    "View_OLTs": "View OLTs",
+    "Online": "Online",
+    "OLTs": "OLTs",
+    "CPEs": "CPEs"
 }
