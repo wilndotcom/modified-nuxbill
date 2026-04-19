@@ -28,12 +28,6 @@ if (!$user || !$user->id) {
     exit;
 }
 
-// DEBUG: Trace execution
-echo "<h2>DEBUG: customer_ticket controller</h2>";
-echo "Action: $action<br>";
-echo "User ID: {$user->id}<br>";
-echo "User Username: {$user->username}<br>";
-
 $ui->assign('_user', $user);
 
 switch ($action) {
@@ -209,9 +203,9 @@ switch ($action) {
         }
         break;
 
-    // Default - redirect
+    // Default
     default:
-        echo "DEBUG: Default case hit - redirecting to customer_ticket/list<br>";
+        // Default to list
         r2(getUrl('customer_ticket/list'));
         break;
 }

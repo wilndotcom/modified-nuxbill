@@ -1,4 +1,4 @@
-{include file="sections/header.tpl"}
+{include file="customer/header.tpl"}
 
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2">
@@ -67,4 +67,4 @@
     </div>
 </div>
 
-{include file="sections/footer.tpl"}
+{include file="customer/footer.tpl"}
