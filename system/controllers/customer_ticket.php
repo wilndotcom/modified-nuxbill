@@ -32,10 +32,10 @@ switch ($action) {
         
         // Get counts
         $counts = [
-            'all' => ORM::for_table('tbl_tickets')->where('customer_id', $user['id'])->count(),
-            'open' => ORM::for_table('tbl_tickets')->where('customer_id', $user['id'])->where('status', 'open')->count(),
-            'pending' => ORM::for_table('tbl_tickets')->where('customer_id', $user['id'])->where('status', 'pending')->count(),
-            'closed' => ORM::for_table('tbl_tickets')->where('customer_id', $user['id'])->where('status', 'closed')->count(),
+            'all' => ORM::for_table('tbl_tickets')->where('customer_id', $user->id)->count(),
+            'open' => ORM::for_table('tbl_tickets')->where('customer_id', $user->id)->where('status', 'open')->count(),
+            'pending' => ORM::for_table('tbl_tickets')->where('customer_id', $user->id)->where('status', 'pending')->count(),
+            'closed' => ORM::for_table('tbl_tickets')->where('customer_id', $user->id)->where('status', 'closed')->count(),
         ];
         
         // Get categories
@@ -54,7 +54,7 @@ switch ($action) {
         $id = $routes['2'] ?? 0;
         
         $ticket = ORM::for_table('tbl_tickets')
-            ->where('customer_id', $user['id'])
+            ->where('customer_id', $user->id)
             ->find_one($id);
         
         if (!$ticket) {
@@ -103,7 +103,7 @@ switch ($action) {
         
         // Create ticket
         $ticket = ORM::for_table('tbl_tickets')->create();
-        $ticket->customer_id = $user['id'];
+        $ticket->customer_id = $user->id;
         $ticket->subject = $subject;
         $ticket->message = $message;
         $ticket->category = $category;
@@ -115,7 +115,7 @@ switch ($action) {
         // Notify admins (optional - can be implemented later)
         // Message::sendNewTicketNotification($ticket);
         
-        _log('Customer ' . $user['username'] . ' created ticket #' . $ticket->id, 'Ticket');
+        _log('Customer ' . $user->username . ' created ticket #' . $ticket->id, 'Ticket');
         r2(getUrl('customer_ticket/view/', $ticket->id), 's', Lang::T('Ticket created successfully'));
         break;
 
@@ -134,7 +134,7 @@ switch ($action) {
         }
         
         $ticket = ORM::for_table('tbl_tickets')
-            ->where('customer_id', $user['id'])
+            ->where('customer_id', $user->id)
             ->find_one($id);
         
         if (!$ticket) {
@@ -172,7 +172,7 @@ switch ($action) {
         }
         
         $ticket = ORM::for_table('tbl_tickets')
-            ->where('customer_id', $user['id'])
+            ->where('customer_id', $user->id)
             ->find_one($id);
         
         if ($ticket) {
@@ -180,7 +180,7 @@ switch ($action) {
             $ticket->closed_at = date('Y-m-d H:i:s');
             $ticket->save();
             
-            _log('Customer ' . $user['username'] . ' closed ticket #' . $id, 'Ticket');
+            _log('Customer ' . $user->username . ' closed ticket #' . $id, 'Ticket');
             r2(getUrl('customer_ticket/list'), 's', Lang::T('Ticket closed'));
         } else {
             r2(getUrl('customer_ticket/list'), 'e', Lang::T('Ticket not found'));
