@@ -6,6 +6,9 @@
             <div class="panel-heading">
                 {Lang::T('Support Tickets')}
                 <div class="panel-title pull-right">
+                    <a href="{Text::url('ticket/create')}" class="btn btn-xs btn-primary" style="margin-right: 10px;">
+                        <i class="fa fa-plus"></i> {Lang::T('Create Ticket')}
+                    </a>
                     <a href="{Text::url('ticket/list')}" class="btn btn-xs btn-default {if $current_status=='all'}active{/if}">
                         {Lang::T('All')} <span class="badge">{$counts.all}</span>
                     </a>

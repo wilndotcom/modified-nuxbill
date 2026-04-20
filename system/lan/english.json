@@ -826,5 +826,20 @@
     "Registration_successful": "Registration successful",
     "Register_Success__You_can_login_now": "Register Success! You can login now",
     "Are_you_sure_you_want_to_close_this_ticket_": "Are you sure you want to close this ticket?",
-    "Are_you_sure_you_want_to_delete_this_ticket_": "Are you sure you want to delete this ticket?"
+    "Are_you_sure_you_want_to_delete_this_ticket_": "Are you sure you want to delete this ticket?",
+    "You": "You",
+    "Your_Reply": "Your Reply",
+    "Type_your_reply_here___": "Type your reply here...",
+    "Need_Help_": "Need Help?",
+    "Our_support_team_typically_responds_within_24_hours_": "Our support team typically responds within 24 hours.",
+    "For_urgent_issues__please_call_our_hotline_": "For urgent issues, please call our hotline.",
+    "Last_Updated": "Last Updated",
+    "View_Customer": "View Customer",
+    "Are_you_sure_you_want_to_delete_this_ticket__This_action_cannot_be_undone_": "Are you sure you want to delete this ticket? This action cannot be undone.",
+    "Delete_Ticket": "Delete Ticket",
+    "Customer_Information": "Customer Information",
+    "Create_Ticket": "Create Ticket",
+    "Create_Support_Ticket": "Create Support Ticket",
+    "Brief_description_of_the_issue": "Brief description of the issue",
+    "Please_describe_the_issue_in_detail__Include_any_relevant_information_such_as_error_messages__steps_to_reproduce__etc_": "Please describe the issue in detail. Include any relevant information such as error messages, steps to reproduce, etc."
 }

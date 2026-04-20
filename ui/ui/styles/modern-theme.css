@@ -1,0 +1,466 @@
+/**
+ * Modern Colorful Theme for PhpNuxBill
+ * 
+ * To activate: Add this line to ui/ui/admin/header.tpl and customer/header.tpl
+ * <link rel="stylesheet" href="{$app_url}/ui/ui/styles/modern-theme.css">
+ */
+
+/* ===== COLOR VARIABLES ===== */
+:root {
+    --primary-color: #667eea;
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-color: #f093fb;
+    --accent-color: #4facfe;
+    --success-color: #43e97b;
+    --warning-color: #fa709a;
+    --danger-color: #ff6b6b;
+    --dark-bg: #1a1a2e;
+    --card-bg: #16213e;
+    --text-light: #eaeaea;
+    --text-muted: #a0a0a0;
+}
+
+/* ===== MAIN BACKGROUND ===== */
+body.modern-skin-dark {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background-attachment: fixed;
+}
+
+/* ===== SIDEBAR STYLING ===== */
+.main-sidebar {
+    background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%) !important;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+}
+
+.sidebar-menu > li > a {
+    color: #a0a0a0 !important;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.sidebar-menu > li:hover > a,
+.sidebar-menu > li.active > a {
+    color: #fff !important;
+    background: linear-gradient(90deg, rgba(102,126,234,0.2) 0%, transparent 100%) !important;
+    border-left-color: #667eea;
+}
+
+.sidebar-menu > li.active > a {
+    background: var(--primary-gradient) !important;
+}
+
+/* ===== HEADER STYLING ===== */
+.main-header {
+    background: var(--primary-gradient) !important;
+    box-shadow: 0 4px 20px rgba(102,126,234,0.4);
+}
+
+.main-header .logo {
+    background: rgba(0,0,0,0.2) !important;
+}
+
+/* ===== CARD STYLING ===== */
+.panel {
+    background: rgba(255,255,255,0.05) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.panel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+.panel-heading {
+    background: var(--primary-gradient) !important;
+    border-radius: 15px 15px 0 0 !important;
+    border-bottom: none !important;
+    color: #fff !important;
+}
+
+.panel-default > .panel-heading {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.panel-primary > .panel-heading {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+}
+
+.panel-success > .panel-heading {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+}
+
+.panel-warning > .panel-heading {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+}
+
+.panel-danger > .panel-heading {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%) !important;
+}
+
+.panel-info > .panel-heading {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%) !important;
+    color: #333 !important;
+}
+
+/* ===== BUTTON STYLING ===== */
+.btn {
+    border-radius: 25px;
+    border: none;
+    padding: 8px 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.btn-primary {
+    background: var(--primary-gradient) !important;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%) !important;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+}
+
+.btn-default {
+    background: rgba(255,255,255,0.1) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+}
+
+/* ===== FORM STYLING ===== */
+.form-control {
+    background: rgba(255,255,255,0.05) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 10px;
+    color: #fff !important;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    background: rgba(255,255,255,0.1) !important;
+    border-color: #667eea !important;
+    box-shadow: 0 0 20px rgba(102,126,234,0.3) !important;
+}
+
+/* ===== TABLE STYLING ===== */
+.table {
+    background: transparent;
+}
+
+.table > thead > tr > th {
+    background: rgba(102,126,234,0.2) !important;
+    color: #fff !important;
+    border-bottom: 2px solid #667eea !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.table > tbody > tr {
+    transition: all 0.3s ease;
+}
+
+.table > tbody > tr:hover {
+    background: rgba(102,126,234,0.1) !important;
+}
+
+.table > tbody > tr > td {
+    border-top: 1px solid rgba(255,255,255,0.05) !important;
+    color: #eaeaea !important;
+}
+
+/* ===== LABEL/BADGE STYLING ===== */
+.label {
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-weight: 500;
+}
+
+.label-success {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+}
+
+.label-warning {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+}
+
+.label-danger {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%) !important;
+}
+
+.label-primary {
+    background: var(--primary-gradient) !important;
+}
+
+.label-info {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+}
+
+/* ===== CONTENT BOXES ===== */
+.box {
+    background: rgba(255,255,255,0.05) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.box-header {
+    background: rgba(102,126,234,0.2) !important;
+    border-radius: 15px 15px 0 0 !important;
+}
+
+/* ===== NAV TABS ===== */
+.nav-tabs {
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.nav-tabs > li > a {
+    color: #a0a0a0 !important;
+    border: none !important;
+    background: transparent !important;
+    transition: all 0.3s ease;
+}
+
+.nav-tabs > li > a:hover {
+    color: #fff !important;
+    background: rgba(102,126,234,0.1) !important;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover {
+    color: #fff !important;
+    background: var(--primary-gradient) !important;
+    border-radius: 10px 10px 0 0 !important;
+}
+
+/* ===== MODAL STYLING ===== */
+.modal-content {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.modal-header {
+    background: var(--primary-gradient) !important;
+    border-radius: 15px 15px 0 0 !important;
+    border-bottom: none !important;
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+/* ===== ALERT STYLING ===== */
+.alert {
+    border: none !important;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.alert-success {
+    background: linear-gradient(135deg, rgba(67,233,123,0.2) 0%, rgba(56,249,215,0.2) 100%) !important;
+    color: #43e97b !important;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, rgba(250,112,154,0.2) 0%, rgba(254,225,64,0.2) 100%) !important;
+    color: #fa709a !important;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, rgba(255,107,107,0.2) 0%, rgba(255,168,168,0.2) 100%) !important;
+    color: #ff6b6b !important;
+}
+
+.alert-info {
+    background: linear-gradient(135deg, rgba(79,172,254,0.2) 0%, rgba(0,242,254,0.2) 100%) !important;
+    color: #4facfe !important;
+}
+
+/* ===== PAGINATION ===== */
+.pagination > li > a {
+    background: rgba(255,255,255,0.05) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    color: #a0a0a0 !important;
+    border-radius: 5px;
+    margin: 0 2px;
+}
+
+.pagination > li > a:hover {
+    background: rgba(102,126,234,0.2) !important;
+    color: #fff !important;
+}
+
+.pagination > .active > a {
+    background: var(--primary-gradient) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+}
+
+/* ===== DROPDOWN MENU ===== */
+.dropdown-menu {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+.dropdown-menu > li > a {
+    color: #a0a0a0 !important;
+    transition: all 0.3s ease;
+}
+
+.dropdown-menu > li > a:hover {
+    background: rgba(102,126,234,0.2) !important;
+    color: #fff !important;
+}
+
+/* ===== INFO BOXES (Dashboard) ===== */
+.info-box {
+    background: rgba(255,255,255,0.05) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.info-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.info-box-icon {
+    border-radius: 15px 0 0 15px !important;
+}
+
+/* ===== SELECT2 STYLING ===== */
+.select2-container--default .select2-selection--single {
+    background: rgba(255,255,255,0.05) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 10px !important;
+    color: #fff !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #fff !important;
+}
+
+.select2-dropdown {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 10px !important;
+}
+
+.select2-results__option {
+    color: #a0a0a0 !important;
+}
+
+.select2-results__option--highlighted {
+    background: rgba(102,126,234,0.3) !important;
+    color: #fff !important;
+}
+
+/* ===== TEXT COLORS ===== */
+.text-primary { color: #667eea !important; }
+.text-success { color: #43e97b !important; }
+.text-warning { color: #fa709a !important; }
+.text-danger { color: #ff6b6b !important; }
+.text-info { color: #4facfe !important; }
+.text-muted { color: #a0a0a0 !important; }
+
+/* ===== LINK STYLING ===== */
+a {
+    color: #667eea;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #764ba2;
+    text-decoration: none;
+}
+
+/* ===== SCROLLBAR STYLING ===== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-gradient);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.panel {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* ===== TICKET STATUS BADGES ===== */
+.label-success[title="Open"],
+.label-success:contains("Open") {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+}
+
+.label-warning[title="In Progress"],
+.label-warning:contains("In Progress") {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+}
+
+.label-info[title="Resolved"],
+.label-info:contains("Resolved") {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+}
+
+.label-default[title="Closed"],
+.label-default:contains("Closed") {
+    background: linear-gradient(135deg, #a0a0a0 0%, #666 100%) !important;
+}
+
+/* ===== RESPONSIVE FIXES ===== */
+@media (max-width: 768px) {
+    .panel {
+        margin-bottom: 15px;
+    }
+    
+    .btn {
+        padding: 6px 15px;
+        font-size: 12px;
+    }
+}

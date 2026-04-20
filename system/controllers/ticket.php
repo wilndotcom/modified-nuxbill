@@ -65,9 +65,60 @@ switch ($action) {
         $ui->assign('categories', $categories);
         $ui->assign('current_status', $status);
         $ui->assign('current_priority', $priority);
-        $ui->assign('current_category', $category);
+        $ui->assign('categories', $categories);
         $ui->assign('csrf_token', Csrf::generateAndStoreToken());
         $ui->display('admin/ticket/list.tpl');
+        break;
+
+    // Create new ticket (admin creates on behalf of customer)
+    case 'create':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validate CSRF
+            if (!Csrf::check($_POST['csrf_token'] ?? '')) {
+                r2(getUrl('ticket/create'), 'e', Lang::T('Security token expired. Please try again.'));
+            }
+            
+            $customer_id = intval($_POST['customer_id'] ?? 0);
+            $subject = trim($_POST['subject'] ?? '');
+            $message = trim($_POST['message'] ?? '');
+            $category = $_POST['category'] ?? 'General';
+            $priority = $_POST['priority'] ?? 'medium';
+            
+            if (empty($customer_id) || empty($subject) || empty($message)) {
+                r2(getUrl('ticket/create'), 'e', Lang::T('Customer, subject and message are required'));
+            }
+            
+            // Verify customer exists
+            $customer = ORM::for_table('tbl_customers')->find_one($customer_id);
+            if (!$customer) {
+                r2(getUrl('ticket/create'), 'e', Lang::T('Customer not found'));
+            }
+            
+            // Create ticket
+            $ticket = ORM::for_table('tbl_tickets')->create();
+            $ticket->customer_id = $customer_id;
+            $ticket->subject = $subject;
+            $ticket->message = $message;
+            $ticket->category = $category;
+            $ticket->priority = $priority;
+            $ticket->status = 'open';
+            $ticket->created_at = date('Y-m-d H:i:s');
+            $ticket->save();
+            
+            r2(getUrl('ticket/list'), 's', Lang::T('Ticket created successfully'));
+        }
+        
+        // Get customers for dropdown
+        $customers = ORM::for_table('tbl_customers')->where('status', 'Active')->order_by_asc('fullname')->find_many();
+        
+        // Get admins for assignment dropdown
+        $admins = ORM::for_table('tbl_admins')->where_in('user_type', ['SuperAdmin', 'Admin'])->find_many();
+        
+        $ui->assign('customers', $customers);
+        $ui->assign('admins', $admins);
+        $ui->assign('categories', $categories);
+        $ui->assign('csrf_token', Csrf::generateAndStoreToken());
+        $ui->display('admin/ticket/create.tpl');
         break;
 
     // View single ticket
@@ -103,7 +154,7 @@ switch ($action) {
         $categories = ORM::for_table('tbl_ticket_categories')->where('enabled', 1)->find_many();
         
         // Get admins for assignment
-        $admins = ORM::for_table('tbl_admins')->where('user_type', ['SuperAdmin', 'Admin'])->find_many();
+        $admins = ORM::for_table('tbl_admins')->where_in('user_type', ['SuperAdmin', 'Admin'])->find_many();
         
         $ui->assign('ticket', $ticket);
         $ui->assign('replies', $replies);
