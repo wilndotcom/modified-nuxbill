@@ -17,18 +17,43 @@
     <link rel="stylesheet" href="{$app_url}/ui/ui/styles/modern-AdminLTE.min.css">
     <link rel="stylesheet" href="{$app_url}/ui/ui/styles/select2.min.css" />
     <link rel="stylesheet" href="{$app_url}/ui/ui/styles/select2-bootstrap.min.css" />
-    <link rel="stylesheet" href="{$app_url}/ui/ui/styles/sweetalert2.min.css" />
-    <link rel="stylesheet" href="{$app_url}/ui/ui/styles/plugins/pace.css" />
-    <link rel="stylesheet" href="{$app_url}/ui/ui/summernote/summernote.min.css" />
-    <link rel="stylesheet" href="{$app_url}/ui/ui/styles/phpnuxbill.css?2025.2.4" />
-    <link rel="stylesheet" href="{$app_url}/ui/ui/styles/7.css" />
-    <!-- Colorful Modern Theme -->
-    <link rel="stylesheet" href="{$app_url}/ui/ui/styles/colorful-theme.css" />
+    <link rel="stylesheet" href="{$app_url}/ui/ui/styles/sweetalert2.min.css?v=2" />
+    <link rel="stylesheet" href="{$app_url}/ui/ui/styles/plugins/pace.css?v=2" />
+    <link rel="stylesheet" href="{$app_url}/ui/ui/summernote/summernote.min.css?v=2" />
+    <link rel="stylesheet" href="{$app_url}/ui/ui/styles/phpnuxbill.css?2025.2.4?v=2" />
+    <link rel="stylesheet" href="{$app_url}/ui/ui/styles/7.css?v=2" />
+    <!-- Colorful Modern Theme - v2 -->
+    <link rel="stylesheet" href="{$app_url}/ui/ui/styles/colorful-theme.css?v=2" />
 
     <script src="{$app_url}/ui/ui/scripts/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <style>
-
+        /* Force Colorful Sidebar */
+        .main-sidebar {
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important;
+        }
+        .sidebar-menu > li > a {
+            color: #fff !important;
+            font-weight: 600;
+        }
+        .sidebar-menu > li:hover > a {
+            background: rgba(255,255,255,0.2) !important;
+            border-radius: 0 25px 25px 0;
+            margin-right: 15px;
+        }
+        .sidebar-menu > li.active > a {
+            background: #fff !important;
+            color: #667eea !important;
+            border-radius: 0 25px 25px 0;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .treeview-menu {
+            background: rgba(255,255,255,0.15) !important;
+        }
+        .treeview-menu > li > a {
+            color: #fff !important;
+        }
     </style>
     {if isset($xheader)}
         {$xheader}
