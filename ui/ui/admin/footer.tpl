@@ -190,6 +190,44 @@
     </script>
 {/literal}
 
+<script>
+    (function() {
+        function colorSidebar() {
+            $('.main-sidebar').css({
+                'background': 'linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important',
+                'color': '#fff !important'
+            });
+            $('.sidebar-menu > li > a').css({
+                'color': '#fff !important',
+                'font-weight': '600 !important'
+            });
+            $('.sidebar-menu > li.active > a').css({
+                'background': '#fff !important',
+                'color': '#667eea !important',
+                'border-radius': '0 25px 25px 0',
+                'margin-right': '15px'
+            });
+            $('.treeview-menu').css({
+                'background': 'rgba(255,255,255,0.15) !important'
+            });
+            $('.treeview-menu > li > a').css({
+                'color': '#fff !important'
+            });
+        }
+        // Run immediately
+        if (typeof jQuery !== 'undefined') {
+            colorSidebar();
+            $(document).ready(colorSidebar);
+            $(window).on('load', colorSidebar);
+            setTimeout(colorSidebar, 100);
+            setTimeout(colorSidebar, 500);
+            setTimeout(colorSidebar, 1000);
+        } else {
+            setTimeout(arguments.callee, 50);
+        }
+    })();
+</script>
+
 </body>
 
 </html>
