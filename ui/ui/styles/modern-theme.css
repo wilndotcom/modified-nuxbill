@@ -540,3 +540,110 @@ a:hover {
         font-size: 12px;
     }
 }
+
+/* ===== CUSTOMERS PAGE SPECIFIC FIXES ===== */
+/* Fix DataTables pagination */
+.dataTables_paginate .paginate_button {
+    color: #eaeaea !important;
+    background: rgba(255,255,255,0.1) !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+}
+
+.dataTables_paginate .paginate_button:hover {
+    color: #fff !important;
+    background: rgba(102,126,234,0.3) !important;
+}
+
+.dataTables_paginate .paginate_button.current {
+    color: #fff !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+/* Fix DataTables info/length */
+.dataTables_info, .dataTables_length, .dataTables_filter {
+    color: #eaeaea !important;
+}
+
+.dataTables_length select, .dataTables_filter input {
+    background: rgba(255,255,255,0.1) !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+    color: #fff !important;
+}
+
+/* Fix table cell links */
+.table td a {
+    color: #667eea !important;
+}
+
+.table td a:hover {
+    color: #764ba2 !important;
+}
+
+/* Fix customer status badges in table */
+.table .label {
+    display: inline-block;
+    padding: 4px 8px;
+}
+
+/* Fix input group addons */
+.input-group-addon {
+    background: rgba(102,126,234,0.2) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    color: #fff !important;
+}
+
+/* Fix select dropdowns */
+select.form-control option {
+    background: #16213e !important;
+    color: #eaeaea !important;
+}
+
+/* Fix search/filter buttons */
+.btn-default {
+    background: rgba(255,255,255,0.1) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+}
+
+.btn-default:hover {
+    background: rgba(102,126,234,0.3) !important;
+    color: #fff !important;
+}
+
+/* Fix table sorting icons */
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+    color: #fff !important;
+}
+
+/* Fix pagination disabled state */
+.dataTables_paginate .paginate_button.disabled {
+    color: #666 !important;
+    background: rgba(255,255,255,0.05) !important;
+}
+
+/* Fix all links in tables */
+.table a:not(.btn) {
+    color: #667eea !important;
+}
+
+.table a:not(.btn):hover {
+    color: #4facfe !important;
+    text-decoration: underline;
+}
+
+/* Fix panel body paragraphs and spans */
+.panel-body p, .panel-body span:not(.label):not(.badge) {
+    color: #eaeaea !important;
+}
+
+/* Fix form labels specifically */
+label {
+    color: #eaeaea !important;
+}
+
+/* Fix checkbox/radio labels */
+.checkbox label, .radio label {
+    color: #eaeaea !important;
+}
