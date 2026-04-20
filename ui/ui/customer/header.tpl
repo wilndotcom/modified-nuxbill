@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="{$app_url}/ui/ui/styles/sweetalert2.min.css" />
     <script src="{$app_url}/ui/ui/scripts/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="{$app_url}/ui/ui/styles/phpnuxbill.customer.css?2025.2.5" />
-    <!-- Modern Purple Theme -->
-    <link rel="stylesheet" href="{$app_url}/ui/ui/styles/modern-theme.css" />
+    <!-- Light Clean Theme -->
+    <link rel="stylesheet" href="{$app_url}/ui/ui/styles/light-theme.css" />
 
     <style>
 
