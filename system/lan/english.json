@@ -841,5 +841,14 @@
     "Create_Ticket": "Create Ticket",
     "Create_Support_Ticket": "Create Support Ticket",
     "Brief_description_of_the_issue": "Brief description of the issue",
-    "Please_describe_the_issue_in_detail__Include_any_relevant_information_such_as_error_messages__steps_to_reproduce__etc_": "Please describe the issue in detail. Include any relevant information such as error messages, steps to reproduce, etc."
+    "Please_describe_the_issue_in_detail__Include_any_relevant_information_such_as_error_messages__steps_to_reproduce__etc_": "Please describe the issue in detail. Include any relevant information such as error messages, steps to reproduce, etc.",
+    "Not_Active": "Not Active",
+    "New_Service_Package": "New Service Package",
+    "Limit": "Limit",
+    "Time": "Time",
+    "Data": "Data",
+    "Create_expired_Internet_Package": "Create expired Internet Package",
+    "When_customer_expired__you_can_move_it_to_Expired_Internet_Package": "When customer expired, you can move it to Expired Internet Package",
+    "Routers_Geo_Location_Information": "Routers Geo Location Information",
+    "info": "info"
 }
