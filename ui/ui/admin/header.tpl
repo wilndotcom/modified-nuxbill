@@ -22,8 +22,8 @@
     <link rel="stylesheet" href="{$app_url}/ui/ui/summernote/summernote.min.css" />
     <link rel="stylesheet" href="{$app_url}/ui/ui/styles/phpnuxbill.css?2025.2.4" />
     <link rel="stylesheet" href="{$app_url}/ui/ui/styles/7.css" />
-    <!-- Light Clean Theme -->
-    <link rel="stylesheet" href="{$app_url}/ui/ui/styles/light-theme.css" />
+    <!-- Colorful Modern Theme -->
+    <link rel="stylesheet" href="{$app_url}/ui/ui/styles/colorful-theme.css" />
 
     <script src="{$app_url}/ui/ui/scripts/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
