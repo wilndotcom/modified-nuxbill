@@ -29,29 +29,80 @@ body {
     color: var(--text-dark) !important;
 }
 
-/* ===== SIDEBAR - Dark with colorful accents ===== */
+/* ===== SIDEBAR - Colorful and Attractive ===== */
 .main-sidebar {
-    background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%) !important;
-    box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+    background: linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important;
+    box-shadow: 4px 0 30px rgba(102,126,234,0.4);
 }
 
 .sidebar-menu > li > a {
-    color: rgba(255,255,255,0.85) !important;
+    color: rgba(255,255,255,0.9) !important;
     border-left: 4px solid transparent;
     transition: all 0.3s ease;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 15px;
+}
+
+.sidebar-menu > li > a > i {
+    font-size: 18px;
+    margin-right: 10px;
+    width: 25px;
+    text-align: center;
 }
 
 .sidebar-menu > li:hover > a {
     color: #fff !important;
-    background: rgba(255,255,255,0.1) !important;
-    border-left-color: #f093fb;
+    background: rgba(255,255,255,0.2) !important;
+    border-left-color: #fff;
+    border-radius: 0 25px 25px 0;
+    margin-right: 15px;
 }
 
 .sidebar-menu > li.active > a {
+    color: #667eea !important;
+    background: #fff !important;
+    border-left-color: transparent;
+    border-radius: 0 25px 25px 0;
+    margin-right: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.sidebar-menu > li.active > a > i {
+    color: #667eea !important;
+}
+
+/* Submenu styling */
+.treeview-menu {
+    background: rgba(255,255,255,0.1) !important;
+    border-radius: 0 15px 15px 0;
+    margin-right: 15px;
+}
+
+.treeview-menu > li > a {
+    color: rgba(255,255,255,0.85) !important;
+    padding-left: 30px;
+    font-weight: 500;
+}
+
+.treeview-menu > li > a:hover {
     color: #fff !important;
-    background: linear-gradient(90deg, rgba(102,126,234,0.5) 0%, transparent 100%) !important;
-    border-left-color: #667eea;
+    background: rgba(255,255,255,0.15) !important;
+}
+
+.treeview-menu > li.active > a {
+    color: #fff !important;
+    background: rgba(255,255,255,0.2) !important;
+    font-weight: 600;
+}
+
+/* Sidebar toggle icon */
+.sidebar-toggle {
+    color: #fff !important;
+}
+
+.sidebar-toggle:hover {
+    background: rgba(255,255,255,0.2) !important;
 }
 
 /* ===== HEADER - Colorful gradient ===== */
