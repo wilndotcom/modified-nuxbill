@@ -384,6 +384,82 @@ body.modern-skin-dark {
     color: #fff !important;
 }
 
+/* ===== GLOBAL TEXT FIXES ===== */
+body, html {
+    color: #eaeaea !important;
+}
+
+p, span, div, td, th, li, label, small {
+    color: #eaeaea !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #fff !important;
+}
+
+/* Fix content areas */
+.content-wrapper, .content, .container, .row > div {
+    color: #eaeaea !important;
+}
+
+/* Fix panel bodies */
+.panel-body, .panel-body p, .panel-body span,
+.panel-body div, .panel-body td, .panel-body li {
+    color: #eaeaea !important;
+}
+
+/* Fix table text */
+.table, .table-striped, .table-bordered,
+.table td, .table th, .table tr {
+    color: #eaeaea !important;
+}
+
+/* Fix form labels and inputs */
+.form-group label, .control-label,
+.form-group span, .form-group div {
+    color: #eaeaea !important;
+}
+
+/* Fix help text */
+.help-block, .text-help {
+    color: #a0a0a0 !important;
+}
+
+/* Fix list items */
+.list-group-item, .list-unstyled li {
+    color: #eaeaea !important;
+}
+
+/* Fix well/box content */
+.well, .well p, .well div, .well span {
+    color: #eaeaea !important;
+}
+
+/* Fix info boxes */
+.info-box-content, .info-box-text, .info-box-number {
+    color: #fff !important;
+}
+
+/* Fix dashboard widgets */
+.small-box, .small-box .inner h3, .small-box .inner p {
+    color: #fff !important;
+}
+
+/* Fix modal text */
+.modal-body, .modal-body p, .modal-body div,
+.modal-body span, .modal-body td {
+    color: #eaeaea !important;
+}
+
+/* Fix breadcrumb */
+.breadcrumb, .breadcrumb a, .breadcrumb li {
+    color: #a0a0a0 !important;
+}
+
+.breadcrumb li.active {
+    color: #fff !important;
+}
+
 /* ===== TEXT COLORS ===== */
 .text-primary { color: #667eea !important; }
 .text-success { color: #43e97b !important; }
