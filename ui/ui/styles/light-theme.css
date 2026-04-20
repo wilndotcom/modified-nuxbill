@@ -1,0 +1,60 @@
+/**
+ * Light Clean Theme
+ * Modern light theme with colorful accents
+ */
+
+body.modern-skin-dark,
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%) fixed !important;
+    color: #333 !important;
+}
+
+.main-sidebar {
+    background: linear-gradient(180deg, #2c3e50 0%, #3498db 100%) !important;
+}
+
+.sidebar-menu > li > a {
+    color: rgba(255,255,255,0.8) !important;
+}
+
+.sidebar-menu > li:hover > a,
+.sidebar-menu > li.active > a {
+    color: #fff !important;
+}
+
+.main-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.panel {
+    background: #fff !important;
+    border: none !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+}
+
+.panel-heading {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: #fff !important;
+}
+
+.panel-body {
+    color: #333 !important;
+}
+
+.form-control {
+    background: #f8f9fa !important;
+    border: 1px solid #e9ecef !important;
+    color: #333 !important;
+}
+
+.table > tbody > tr > td {
+    color: #333 !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #333 !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}

@@ -1,0 +1,30 @@
+/**
+ * Ocean Blue Theme
+ * Calm, professional blue gradients
+ */
+
+:root {
+    --primary: #00b4db;
+    --secondary: #0083b0;
+    --accent: #2193b0;
+    --bg-dark: #0f2027;
+    --bg-card: #203a43;
+}
+
+body.modern-skin-dark {
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%) fixed;
+}
+
+.main-sidebar {
+    background: linear-gradient(180deg, #0f2027 0%, #203a43 100%) !important;
+}
+
+.panel-heading {
+    background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%) !important;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%) !important;
+}
+
+.text-primary { color: #00b4db !important; }

@@ -1,0 +1,30 @@
+/**
+ * Sunset Theme
+ * Warm orange and pink gradients
+ */
+
+:root {
+    --primary: #ff512f;
+    --secondary: #dd2476;
+    --accent: #ff6b6b;
+    --bg-dark: #2d132c;
+    --bg-card: #801336;
+}
+
+body.modern-skin-dark {
+    background: linear-gradient(135deg, #2d132c 0%, #801336 50%, #c72c41 100%) fixed;
+}
+
+.main-sidebar {
+    background: linear-gradient(180deg, #2d132c 0%, #801336 100%) !important;
+}
+
+.panel-heading {
+    background: linear-gradient(135deg, #ff512f 0%, #dd2476 100%) !important;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #ff512f 0%, #dd2476 100%) !important;
+}
+
+.text-primary { color: #ff6b6b !important; }
