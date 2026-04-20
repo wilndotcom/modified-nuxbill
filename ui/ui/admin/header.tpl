@@ -28,31 +28,66 @@
     <script src="{$app_url}/ui/ui/scripts/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <style>
-        /* Force Colorful Sidebar */
+        /* OVERRIDE DARK SKIN - Force Colorful Sidebar */
+        body.hold-transition.modern-skin-dark .main-sidebar,
+        body.modern-skin-dark .main-sidebar,
         .main-sidebar {
             background: linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important;
+            background-color: transparent !important;
+            color: #fff !important;
         }
+        
+        body.modern-skin-dark .sidebar-menu > li > a,
         .sidebar-menu > li > a {
             color: #fff !important;
-            font-weight: 600;
+            font-weight: 600 !important;
+            font-size: 14px !important;
         }
+        
+        body.modern-skin-dark .sidebar-menu > li:hover > a,
         .sidebar-menu > li:hover > a {
             background: rgba(255,255,255,0.2) !important;
-            border-radius: 0 25px 25px 0;
-            margin-right: 15px;
+            border-radius: 0 25px 25px 0 !important;
+            margin-right: 15px !important;
+            color: #fff !important;
         }
+        
+        body.modern-skin-dark .sidebar-menu > li.active > a,
         .sidebar-menu > li.active > a {
             background: #fff !important;
             color: #667eea !important;
-            border-radius: 0 25px 25px 0;
-            margin-right: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 0 25px 25px 0 !important;
+            margin-right: 15px !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
         }
+        
+        body.modern-skin-dark .sidebar-menu > li.active > a > i,
+        .sidebar-menu > li.active > a > i {
+            color: #667eea !important;
+        }
+        
+        body.modern-skin-dark .treeview-menu,
         .treeview-menu {
             background: rgba(255,255,255,0.15) !important;
+            border-radius: 0 15px 15px 0 !important;
+            margin-right: 15px !important;
         }
+        
+        body.modern-skin-dark .treeview-menu > li > a,
         .treeview-menu > li > a {
+            color: rgba(255,255,255,0.9) !important;
+        }
+        
+        body.modern-skin-dark .treeview-menu > li > a:hover,
+        .treeview-menu > li > a:hover {
             color: #fff !important;
+            background: rgba(255,255,255,0.1) !important;
+        }
+        
+        /* Hide any dark backgrounds */
+        .main-sidebar:before,
+        .main-sidebar:after {
+            display: none !important;
         }
     </style>
     {if isset($xheader)}
