@@ -116,7 +116,7 @@
                         </div>
                         <div id="searchOverlay" class="search-overlay">
                             <div class="search-container">
-                                <input type="text" id="searchTerm" class="searchTerm"
+                                <input type="text" id="searchTerm" name="searchTerm" class="searchTerm"
                                     placeholder="{Lang::T('Search Users')}" autocomplete="off">
                                 <div id="searchResults" class="search-results">
                                     <!-- Search results will be displayed here -->
@@ -171,7 +171,7 @@
                 </div>
             </nav>
         </header>
-        <aside class="main-sidebar">
+        <aside class="main-sidebar" style="background: linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important;">
             <section class="sidebar">
                 <ul class="sidebar-menu" data-widget="tree">
                     <li {if $_system_menu eq 'dashboard' }class="active" {/if}>
