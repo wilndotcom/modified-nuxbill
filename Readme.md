@@ -20,12 +20,34 @@
 - Whatsapp Notification to Consumer
 - Telegram Notification for Admin
 
+## Modified Features (wilndotcom Fork)
+
+- **Device Access** - CPE Device Management Dashboard with statistics and charts
+- **Fiber Management** - OLT Devices, ONU Management, CPE Routers, Profiles
+- **Support Ticket System** - Customer tickets with notifications and admin replies
+- **Customer Wallet** - Balance/debt display with sidebar menu integration
+- **M-Pesa Payment Gateways** - STK Push, Paybill/Till/Bank integration
+- **Hotspot Plugin** - MikroTik Hotspot user management
+- **CPE Device Access** - Tenda, Ubiquiti, Huawei, TP-Link device management
+- **Customer Notifications** - Sound alerts and banner notifications for new messages
+- **Ticket Notifications** - Unread ticket reply alerts for customers
+- **Form Autofill** - Improved browser autocomplete support
+- **GPL-2.0 License** - Full rights protection
+
 See [How it Works / Cara Kerja](https://github.com/hotspotbilling/phpnuxbill/wiki/How-It-Works---Cara-kerja)
 
 ## Payment Gateway And Plugin
 
-- [Payment Gateway List](https://github.com/orgs/hotspotbilling/repositories?q=payment+gateway)
-- [Plugin List](https://github.com/orgs/hotspotbilling/repositories?q=plugin)
+### Available Payment Gateways:
+- **M-Pesa STK Push** - STK push notification to customer phone
+- **M-Pesa Paybill/Till/Bank** - Paybill, Till Number, Bank Account integration
+- [More Payment Gateways](https://github.com/orgs/hotspotbilling/repositories?q=payment+gateway)
+
+### Available Plugins:
+- **Hotspot Plugin** - MikroTik Hotspot user creation and management
+- **Asset Manager** - Equipment and asset tracking
+- **Speedtest** - Network speed testing
+- [More Plugins](https://github.com/orgs/hotspotbilling/repositories?q=plugin)
 
 You can download payment gateway and Plugin from Plugin Manager
 
@@ -55,6 +77,16 @@ The problem with windows is hard to set cronjob, better Linux
 ## Installation
 
 [Installation instructions](https://github.com/hotspotbilling/phpnuxbill/wiki)
+
+### Device Access Setup
+1. Go to **Admin → Device Access** menu
+2. Run the installer or create `tbl_cpe_devices` table manually
+3. Add your CPE devices (Tenda, Ubiquiti, Huawei, TP-Link)
+
+### Payment Gateway Setup
+1. Go to **Admin → Payment Gateway**
+2. Configure M-Pesa credentials (Consumer Key, Secret, Passkey)
+3. Set your Shortcode (Paybill/Till Number)
 
 ## Freeradius
 
