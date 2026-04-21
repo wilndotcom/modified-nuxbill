@@ -6,7 +6,7 @@
 
 class wallet
 {
-    public function getWidget()
+    public function getWidget($widget = null)
     {
         global $ui, $_user, $_c;
         
@@ -15,7 +15,8 @@ class wallet
             return '';
         }
         
-        $balance = $_user['balance'] ?? 0;
+        // Get user balance from _user global
+        $balance = isset($_user['balance']) ? $_user['balance'] : 0;
         $ui->assign('wallet_balance', $balance);
         $ui->assign('wallet_is_debt', $balance < 0);
         
