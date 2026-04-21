@@ -28,6 +28,19 @@
     <script src="{$app_url}/ui/ui/scripts/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <style>
+        /* ULTRA-SPECIFIC - Force Bright White Text */
+        html body.hold-transition.modern-skin-dark.sidebar-mini div.wrapper aside.main.sidebar section.sidebar ul.sidebar-menu li a,
+        html body.modern-skin-dark div.wrapper aside.main.sidebar section.sidebar ul.sidebar-menu li a,
+        body .wrapper .main-sidebar .sidebar .sidebar-menu > li > a,
+        .sidebar-menu > li > a,
+        .sidebar-menu > li > a span,
+        .sidebar-menu > li > a i {
+            color: #ffffff !important;
+            opacity: 1 !important;
+            font-weight: 600 !important;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+        }
+        
         /* OVERRIDE DARK SKIN - Force Colorful Sidebar */
         body.hold-transition.modern-skin-dark .main-sidebar,
         body.modern-skin-dark .main-sidebar,
@@ -39,9 +52,10 @@
         
         body.modern-skin-dark .sidebar-menu > li > a,
         .sidebar-menu > li > a {
-            color: #fff !important;
+            color: #ffffff !important;
             font-weight: 600 !important;
             font-size: 14px !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
         }
         
         body.modern-skin-dark .sidebar-menu > li:hover > a,

@@ -193,25 +193,89 @@
 <script>
     (function() {
         function colorSidebar() {
+            // Main sidebar background
             $('.main-sidebar').css({
                 'background': 'linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important',
                 'color': '#fff !important'
             });
+            
+            // Menu items - beautiful design
             $('.sidebar-menu > li > a').css({
-                'color': '#fff !important',
-                'font-weight': '600 !important'
+                'color': '#ffffff !important',
+                'font-weight': '600 !important',
+                'font-size': '14px !important',
+                'border-left': '4px solid transparent',
+                'border-radius': '0 30px 30px 0',
+                'margin': '3px 15px 3px 0',
+                'padding': '12px 15px 12px 20px',
+                'transition': 'all 0.3s ease',
+                'box-shadow': '0 2px 5px rgba(0,0,0,0.1)'
             });
+            
+            // Add hover effects
+            $('.sidebar-menu > li > a').hover(function() {
+                $(this).css({
+                    'transform': 'translateX(5px)',
+                    'box-shadow': '0 4px 15px rgba(0,0,0,0.2)',
+                    'background': 'rgba(255,255,255,0.15)'
+                });
+            }, function() {
+                $(this).css({
+                    'transform': 'translateX(0)',
+                    'box-shadow': '0 2px 5px rgba(0,0,0,0.1)',
+                    'background': 'transparent'
+                });
+            });
+            
+            // Active menu item
             $('.sidebar-menu > li.active > a').css({
                 'background': '#fff !important',
                 'color': '#667eea !important',
                 'border-radius': '0 25px 25px 0',
                 'margin-right': '15px'
             });
+            
+            // Submenu
             $('.treeview-menu').css({
                 'background': 'rgba(255,255,255,0.15) !important'
             });
             $('.treeview-menu > li > a').css({
                 'color': '#fff !important'
+            });
+            
+            // Individual menu item colors
+            var colors = [
+                '#FF6B6B', // Dashboard - Red
+                '#4ECDC4', // Customer - Teal
+                '#45B7D1', // Services - Blue
+                '#96CEB4', // Internet Plan - Mint
+                '#FFEAA7', // Maps - Yellow
+                '#DDA0DD', // Reports - Plum
+                '#98D8C8', // Send Message - Sage
+                '#F7DC6F', // Support Tickets - Gold
+                '#BB8FCE', // Network - Lavender
+                '#85C1E9', // Fiber Management - Sky
+                '#F8B739', // Settings - Orange
+                '#52BE80', // Internet Speedtest - Green
+                '#EC7063', // Logs - Salmon
+                '#AF7AC5', // Documentation - Amethyst
+                '#5DADE2'  // Community - Azure
+            ];
+            
+            $('.sidebar-menu > li').each(function(index) {
+                if (index < colors.length) {
+                    var color = colors[index];
+                    $(this).find('> a').css({
+                        'border-left-color': color + ' !important'
+                    });
+                    
+                    // Add hover effect via inline style (will be overridden by CSS)
+                    $(this).hover(function() {
+                        $(this).find('> a').css('background', 'linear-gradient(90deg, ' + color + '4D 0%, transparent 100%)');
+                    }, function() {
+                        $(this).find('> a').css('background', '');
+                    });
+                }
             });
         }
         // Run immediately
@@ -225,6 +289,30 @@
         } else {
             setTimeout(arguments.callee, 50);
         }
+    })();
+</script>
+
+<!-- Immediate color application -->
+<script>
+    // Apply styles directly without waiting
+    (function applyColors() {
+        var sidebar = document.querySelector('.main-sidebar');
+        var menuItems = document.querySelectorAll('.sidebar-menu > li > a');
+        
+        if (sidebar) {
+            sidebar.style.background = 'linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%)';
+            sidebar.style.color = '#ffffff';
+        }
+        
+        menuItems.forEach(function(item) {
+            item.style.color = '#ffffff';
+            item.style.fontWeight = '600';
+            item.style.borderRadius = '0 30px 30px 0';
+            item.style.margin = '3px 15px 3px 0';
+            item.style.padding = '12px 15px 12px 20px';
+            item.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
+            item.style.transition = 'all 0.3s ease';
+        });
     })();
 </script>
 

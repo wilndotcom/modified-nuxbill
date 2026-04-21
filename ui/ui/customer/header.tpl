@@ -22,7 +22,18 @@
     <link rel="stylesheet" href="{$app_url}/ui/ui/styles/colorful-theme.css" />
 
     <style>
-
+        /* ULTRA-SPECIFIC - Force Bright White Text */
+        html body.hold-transition.modern-skin-dark.sidebar-mini div.wrapper aside.main.sidebar section.sidebar ul.sidebar-menu li a,
+        html body.modern-skin-dark div.wrapper aside.main.sidebar section.sidebar ul.sidebar-menu li a,
+        body .wrapper .main-sidebar .sidebar .sidebar-menu > li > a,
+        .sidebar-menu > li > a,
+        .sidebar-menu > li > a span,
+        .sidebar-menu > li > a i {
+            color: #ffffff !important;
+            opacity: 1 !important;
+            font-weight: 600 !important;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+        }
     </style>
 
     {if isset($xheader)}

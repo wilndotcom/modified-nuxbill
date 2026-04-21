@@ -49,6 +49,65 @@
 <script src="{$app_url}/ui/ui/scripts/plugins/select2.min.js"></script>
 <script src="{$app_url}/ui/ui/scripts/custom.js?2025.2.6"></script>
 
+<script>
+    (function() {
+        function colorSidebar() {
+            // Main sidebar background - colorful gradient
+            $('.main-sidebar').css({
+                'background': 'linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important',
+                'color': '#fff !important'
+            });
+            
+            // Menu items - beautiful design
+            $('.sidebar-menu > li > a').css({
+                'color': '#ffffff !important',
+                'font-weight': '600 !important',
+                'font-size': '14px !important',
+                'border-left': '4px solid transparent',
+                'border-radius': '0 30px 30px 0',
+                'margin': '3px 15px 3px 0',
+                'padding': '12px 15px 12px 20px',
+                'transition': 'all 0.3s ease',
+                'box-shadow': '0 2px 5px rgba(0,0,0,0.1)'
+            });
+            
+            // Add hover effects
+            $('.sidebar-menu > li > a').hover(function() {
+                $(this).css({
+                    'transform': 'translateX(5px)',
+                    'box-shadow': '0 4px 15px rgba(0,0,0,0.2)',
+                    'background': 'rgba(255,255,255,0.15)'
+                });
+            }, function() {
+                $(this).css({
+                    'transform': 'translateX(0)',
+                    'box-shadow': '0 2px 5px rgba(0,0,0,0.1)',
+                    'background': 'transparent'
+                });
+            });
+            
+            // Active menu item
+            $('.sidebar-menu > li.active > a').css({
+                'background': '#fff !important',
+                'color': '#667eea !important',
+                'border-radius': '0 25px 25px 0',
+                'margin-right': '15px'
+            });
+        }
+        // Run immediately
+        if (typeof jQuery !== 'undefined') {
+            colorSidebar();
+            $(document).ready(colorSidebar);
+            $(window).on('load', colorSidebar);
+            setTimeout(colorSidebar, 100);
+            setTimeout(colorSidebar, 500);
+            setTimeout(colorSidebar, 1000);
+        } else {
+            setTimeout(arguments.callee, 50);
+        }
+    })();
+</script>
+
 {if isset($xfooter)}
     {$xfooter}
 {/if}
