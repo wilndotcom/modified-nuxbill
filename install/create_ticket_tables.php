@@ -25,7 +25,9 @@ $tables = [
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         closed_at DATETIME DEFAULT NULL,
+        admin_read_at DATETIME DEFAULT NULL,
         INDEX idx_customer_id (customer_id),
+        INDEX idx_admin_read_at (admin_read_at),
         INDEX idx_status (status),
         INDEX idx_priority (priority),
         INDEX idx_created_at (created_at)
