@@ -344,20 +344,18 @@
                             <span>{Lang::T('Dashboard')}</span>
                         </a>
                     </li>
-                    {$_MENU_AFTER_DASHBOARD}
                     {if $_c['enable_balance'] == 'yes'}
-                        <li {if $_system_menu eq 'wallet'}class="active" {/if}>
+                        <li>
                             <a href="{Text::url('order/balance')}">
-                                <i class="fa fa-wallet"></i>
+                                <i class="fa fa-wallet" style="color: {if $_user['balance'] < 0}#dd4b39{else}#00a65a{/if};"></i>
                                 <span>{Lang::T('My Wallet')}</span>
-                                {if $_user['balance'] > 0}
-                                    <span class="badge bg-green pull-right">{Lang::moneyFormat($_user['balance'])}</span>
-                                {elseif $_user['balance'] < 0}
-                                    <span class="badge bg-red pull-right">{Lang::moneyFormat($_user['balance'])}</span>
-                                {/if}
+                                <span class="pull-right" style="background: {if $_user['balance'] < 0}#dd4b39{else}#00a65a{/if}; color: white; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: bold;">
+                                    {if $_user['balance'] < 0}-{else}+{/if}{Lang::moneyFormat(abs($_user['balance']))}
+                                </span>
                             </a>
                         </li>
                     {/if}
+                    {$_MENU_AFTER_DASHBOARD}
                     <li {if $_system_menu eq 'inbox'}class="active" {/if}>
                         <a href="{Text::url('mail')}">
                             <i class="fa fa-envelope"></i>
