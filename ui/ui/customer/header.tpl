@@ -160,10 +160,76 @@
                 });
         }
 
+        // Check for new ticket replies (from admin)
+        let lastTicketUnreadCount = 0;
+        
+        function showTicketNotification(count) {
+            const existing = document.getElementById('ticket-notification-banner');
+            if (existing) existing.remove();
+            
+            if (count > 0) {
+                const banner = document.createElement('div');
+                banner.id = 'ticket-notification-banner';
+                var ticketText = count + ' ticket' + (count > 1 ? 's' : '') + ' with new reply' + (count > 1 ? 'ies' : '');
+                banner.innerHTML = '<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; text-align: center; position: fixed; top: 50px; left: 0; right: 0; z-index: 9998; box-shadow: 0 4px 15px rgba(0,0,0,0.3); animation: slideDown 0.5s ease;">' +
+                    '<i class="fa fa-ticket" style="margin-right: 10px;"></i>' +
+                    '<strong>' + ticketText + '</strong>' +
+                    '<a href="' + appUrl + '?_route=customer_ticket/list" style="color: #fff; text-decoration: underline; margin-left: 15px;">View Tickets</a>' +
+                    '<button onclick="this.parentElement.parentElement.remove()" style="float: right; background: none; border: none; color: white; font-size: 20px; cursor: pointer;">&times;</button>' +
+                    '</div>';
+                document.body.insertBefore(banner, document.body.firstChild);
+                
+                setTimeout(function() {
+                    if (banner.parentElement) banner.remove();
+                }, 10000);
+            }
+        }
+        
+        function updateTicketBadge(count) {
+            // Update sidebar ticket badge
+            var sidebarTicketLink = document.querySelector('a[href*="customer_ticket"]');
+            if (sidebarTicketLink) {
+                var ticketBadge = sidebarTicketLink.querySelector('.badge');
+                if (!ticketBadge && count > 0) {
+                    ticketBadge = document.createElement('span');
+                    ticketBadge.className = 'badge bg-red pull-right';
+                    ticketBadge.style.cssText = 'background: #dd4b39; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px;';
+                    sidebarTicketLink.appendChild(ticketBadge);
+                }
+                if (ticketBadge) {
+                    ticketBadge.textContent = count;
+                    ticketBadge.style.display = count > 0 ? 'inline-block' : 'none';
+                }
+            }
+        }
+        
+        function checkTicketReplies() {
+            fetch(appUrl + '?_route=autoload_user/ticket_unread&_=' + Date.now())
+                .then(function(r) { return r.text(); })
+                .then(function(count) {
+                    var unread = parseInt(count) || 0;
+                    console.log('Ticket unread count:', unread);
+                    
+                    updateTicketBadge(unread);
+                    
+                    // If new ticket replies arrived, notify
+                    if (unread > lastTicketUnreadCount && unread > 0) {
+                        console.log('New ticket replies detected!');
+                        playMessageSound();
+                        showTicketNotification(unread);
+                    }
+                    
+                    lastTicketUnreadCount = unread;
+                })
+                .catch(function(e) { console.log('Ticket check failed:', e); });
+        }
+
         // Check on page load and every 30 seconds
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(checkMessages, 2000);
             setInterval(checkMessages, 30000);
+            setTimeout(checkTicketReplies, 3000);
+            setInterval(checkTicketReplies, 30000);
         });
     })();
     </script>

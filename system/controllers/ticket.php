@@ -144,9 +144,10 @@ switch ($action) {
         $reply->created_at = date('Y-m-d H:i:s');
         $reply->save();
         
-        // Update ticket status and admin read
+        // Update ticket status and mark as unread for customer
         $ticket->status = 'pending';
         $ticket->admin_read_at = date('Y-m-d H:i:s');
+        $ticket->customer_read_at = null; // Clear so customer gets notified
         $ticket->updated_at = date('Y-m-d H:i:s');
         $ticket->save();
         

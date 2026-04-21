@@ -80,6 +80,10 @@ switch ($action) {
             r2(getUrl('customer_ticket/list'), 'e', Lang::T('Ticket not found'));
         }
         
+        // Mark ticket as read by customer
+        $ticket->customer_read_at = date('Y-m-d H:i:s');
+        $ticket->save();
+        
         // Get replies
         $replies = ORM::for_table('tbl_ticket_replies')
             ->select('tbl_ticket_replies.*')

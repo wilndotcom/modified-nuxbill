@@ -61,6 +61,17 @@ switch ($action) {
             echo '<li><a href="' . getUrl('mail/view/' . $inbox['id']) . '">' . $inbox['subject'] . '<br><sub class="text-muted">' . Lang::dateTimeFormat($inbox['date_created']) . '</sub></a></li>';
         }
         die();
+    case 'ticket_unread':
+        // Count tickets with unread admin replies (status = pending means admin replied)
+        $count = ORM::for_table('tbl_tickets')
+            ->where('customer_id', $user['id'])
+            ->where('status', 'pending')
+            ->where_null('customer_read_at')
+            ->count();
+        if ($count > 0) {
+            echo $count;
+        }
+        die();
     case 'language':
         $select = _get('select');
         $folders = [];
