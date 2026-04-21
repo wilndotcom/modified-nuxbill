@@ -106,44 +106,58 @@
 
         // Check for new messages
         function checkMessages() {
+            console.log('Checking messages... appUrl=' + appUrl);
             fetch(appUrl + '?_route=autoload_user/inbox_unread&_=' + Date.now())
-                .then(function(r) { return r.text(); })
+                .then(function(r) { 
+                    console.log('Message check response:', r.status);
+                    return r.text(); 
+                })
                 .then(function(count) {
+                    console.log('Message count raw:', count);
                     var unread = parseInt(count) || 0;
+                    console.log('Message count parsed:', unread);
                     
                     // Update header inbox badge
                     var headerBadge = document.querySelector('.notifications-menu .label');
+                    console.log('Header badge found:', headerBadge ? 'yes' : 'no');
                     if (headerBadge) {
                         headerBadge.textContent = unread > 0 ? unread : '';
                         headerBadge.style.display = unread > 0 ? 'inline-block' : 'none';
+                        console.log('Header badge updated to:', unread);
                     }
                     
                     // Update sidebar inbox badge
                     var sidebarInboxLink = document.querySelector('a[href*="mail"]');
+                    console.log('Sidebar inbox link found:', sidebarInboxLink ? 'yes' : 'no');
                     if (sidebarInboxLink) {
                         var sidebarBadge = sidebarInboxLink.querySelector('.badge');
+                        console.log('Sidebar badge exists:', sidebarBadge ? 'yes' : 'no');
                         if (!sidebarBadge && unread > 0) {
                             sidebarBadge = document.createElement('span');
                             sidebarBadge.className = 'badge bg-red pull-right';
+                            sidebarBadge.style.cssText = 'background: #dd4b39; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px;';
                             sidebarInboxLink.appendChild(sidebarBadge);
+                            console.log('Created new sidebar badge');
                         }
                         if (sidebarBadge) {
                             sidebarBadge.textContent = unread;
                             sidebarBadge.style.display = unread > 0 ? 'inline-block' : 'none';
+                            console.log('Sidebar badge updated to:', unread);
                         }
                     }
                     
-                    console.log('Inbox check: ' + unread + ' unread messages');
-                    
                     // If new messages arrived, notify
                     if (unread > lastUnreadCount && unread > 0) {
+                        console.log('New messages detected! Playing sound...');
                         playMessageSound();
                         showNotificationBanner(unread);
                     }
                     
                     lastUnreadCount = unread;
                 })
-                .catch(function(e) { console.log('Message check failed:', e); });
+                .catch(function(e) { 
+                    console.log('Message check failed:', e);
+                });
         }
 
         // Check on page load and every 30 seconds
