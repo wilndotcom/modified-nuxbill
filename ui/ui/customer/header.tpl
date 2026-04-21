@@ -345,6 +345,19 @@
                         </a>
                     </li>
                     {$_MENU_AFTER_DASHBOARD}
+                    {if $_c['enable_balance'] == 'yes'}
+                        <li {if $_system_menu eq 'wallet'}class="active" {/if}>
+                            <a href="{Text::url('order/balance')}">
+                                <i class="fa fa-wallet"></i>
+                                <span>{Lang::T('My Wallet')}</span>
+                                {if $_user['balance'] > 0}
+                                    <span class="badge bg-green pull-right">{Lang::moneyFormat($_user['balance'])}</span>
+                                {elseif $_user['balance'] < 0}
+                                    <span class="badge bg-red pull-right">{Lang::moneyFormat($_user['balance'])}</span>
+                                {/if}
+                            </a>
+                        </li>
+                    {/if}
                     <li {if $_system_menu eq 'inbox'}class="active" {/if}>
                         <a href="{Text::url('mail')}">
                             <i class="fa fa-envelope"></i>
