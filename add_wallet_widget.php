@@ -27,8 +27,8 @@ try {
     
     if (!$widget) {
         // Add the wallet widget at position 1 (top)
-        $pdo->exec("INSERT INTO tbl_widgets (widget, title, user, enabled, orders, created_at) 
-                    VALUES ('wallet', 'My Wallet', 'Customer', 1, 1, NOW())");
+        $pdo->exec("INSERT INTO tbl_widgets (widget, title, user, enabled, orders) 
+                    VALUES ('wallet', 'My Wallet', 'Customer', 1, 1)");
         echo "✅ Added 'wallet' widget to customer dashboard\n";
     } else {
         // Enable it if disabled
