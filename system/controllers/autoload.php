@@ -202,6 +202,40 @@ switch ($action) {
         }
         echo json_encode(['results' => $json]);
         die();
+    case 'check-username':
+        $username = _get('username');
+        header('Content-Type: application/json');
+        
+        if (empty($username)) {
+            echo json_encode(['exists' => false, 'valid' => false]);
+            die();
+        }
+        
+        $exists = ORM::for_table('tbl_customers')->where('username', $username)->find_one();
+        echo json_encode(['exists' => $exists ? true : false, 'valid' => true]);
+        die();
+    case 'ticket-check':
+        // AJAX endpoint for ticket siren widget
+        header('Content-Type: application/json');
+        
+        $high = ORM::for_table('tbl_tickets')
+            ->where('priority', 'High')
+            ->where('status', 'Open')
+            ->where_null('admin_read_at')
+            ->count();
+            
+        $medium = ORM::for_table('tbl_tickets')
+            ->where('priority', 'Medium')
+            ->where('status', 'Open')
+            ->where_null('admin_read_at')
+            ->count();
+            
+        echo json_encode([
+            'high_priority' => $high,
+            'medium_priority' => $medium,
+            'total' => $high + $medium,
+        ]);
+        die();
     default:
         $ui->display('admin/404.tpl');
 }

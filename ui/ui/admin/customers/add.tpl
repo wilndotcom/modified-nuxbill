@@ -18,9 +18,15 @@
                                     <span class="input-group-addon" id="basic-addon1"><i
                                             class="glyphicon glyphicon-user"></i></span>
                                 {/if}
-                                <input type="text" class="form-control" name="username" required
+                                <input type="text" class="form-control" name="username" id="username" required
                                     placeholder="{if $_c['country_code_phone']!= ''}{$_c['country_code_phone']} {Lang::T('Phone Number')}{else}{Lang::T('Usernames')}{/if}">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-info" onclick="generateUsername()" title="{Lang::T('Auto Generate Username')}">
+                                        <i class="glyphicon glyphicon-refresh"></i>
+                                    </button>
+                                </span>
                             </div>
+                            <small class="help-block text-muted">{Lang::T('Click the refresh button to auto-generate a unique username')}</small>
                         </div>
                     </div>
                     <div class="form-group">
@@ -325,6 +331,33 @@
         }
         window.onload = function() {
             getLocation();
+        }
+        
+        // Auto-generate username function
+        function generateUsername() {
+            const patterns = {
+                'random': 'user' + Math.floor(Math.random() * 1000000),
+                'date': 'usr' + new Date().getFullYear() + String(Math.floor(Math.random() * 10000)).padStart(4, '0'),
+                'alphanumeric': Array.from({length: 8}, () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'.charAt(Math.floor(Math.random() * 62))).join('')
+            };
+            
+            // Use random pattern by default
+            let username = patterns.random;
+            
+            // Check if username already exists via AJAX
+            fetch(window.location.pathname + '?_route=ajax/check-username&username=' + encodeURIComponent(username))
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exists) {
+                        // If exists, try with suffix
+                        username = patterns.random + String(Math.floor(Math.random() * 100));
+                    }
+                    document.getElementById('username').value = username;
+                })
+                .catch(() => {
+                    // Fallback - just set the username without checking
+                    document.getElementById('username').value = username;
+                });
         }
     </script>
 {/literal}
