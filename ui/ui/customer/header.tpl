@@ -40,6 +40,109 @@
         {$xheader}
     {/if}
 
+    <!-- Customer Message Notification System -->
+    <script>
+    (function() {
+        let lastUnreadCount = 0;
+        let audioContext = null;
+        let notificationEnabled = localStorage.getItem("customerMsgSoundEnabled") !== "false";
+
+        // Play notification sound using Web Audio API
+        function playMessageSound() {
+            if (!notificationEnabled) return;
+            
+            try {
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Pleasant chime sound (C major chord)
+                oscillator.type = "sine";
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
+                
+                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            } catch (e) {
+                console.log("Audio notification failed:", e);
+            }
+        }
+
+        // Show notification banner
+        function showNotificationBanner(count) {
+            // Remove existing banner
+            const existing = document.getElementById('customer-msg-banner');
+            if (existing) existing.remove();
+            
+            if (count > 0) {
+                const banner = document.createElement('div');
+                banner.id = 'customer-msg-banner';
+                banner.innerHTML = `
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; text-align: center; position: fixed; top: 50px; left: 0; right: 0; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); animation: slideDown 0.5s ease;">
+                        <i class="fa fa-envelope" style="margin-right: 10px;"></i>
+                        <strong>${count} New Message${count > 1 ? 's' : ''}</strong> 
+                        <a href="${appUrl}?_route=mail" style="color: #fff; text-decoration: underline; margin-left: 15px;">View Inbox</a>
+                        <button onclick="this.parentElement.parentElement.remove()" style="float: right; background: none; border: none; color: white; font-size: 20px; cursor: pointer;">&times;</button>
+                    </div>
+                `;
+                document.body.insertBefore(banner, document.body.firstChild);
+                
+                // Auto hide after 10 seconds
+                setTimeout(() => {
+                    if (banner.parentElement) banner.remove();
+                }, 10000);
+            }
+        }
+
+        // Check for new messages
+        function checkMessages() {
+            fetch(appUrl + '?_route=autoload_user/inbox_unread&_=' + Date.now())
+                .then(r => r.text())
+                .then(count => {
+                    const unread = parseInt(count) || 0;
+                    
+                    // Update inbox badge
+                    const badge = document.querySelector('.notifications-menu .label');
+                    if (badge) {
+                        badge.textContent = unread > 0 ? unread : '';
+                        badge.style.display = unread > 0 ? 'inline' : 'none';
+                    }
+                    
+                    // If new messages arrived, notify
+                    if (unread > lastUnreadCount && unread > 0) {
+                        playMessageSound();
+                        showNotificationBanner(unread);
+                    }
+                    
+                    lastUnreadCount = unread;
+                })
+                .catch(e => console.log('Message check failed:', e));
+        }
+
+        // Check on page load and every 30 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(checkMessages, 2000);
+            setInterval(checkMessages, 30000);
+        });
+    })();
+    </script>
+    <style>
+    @keyframes slideDown {
+        from { transform: translateY(-100%); }
+        to { transform: translateY(0); }
+    }
+    </style>
+
 </head>
 
 <body class="hold-transition modern-skin-dark sidebar-mini">
