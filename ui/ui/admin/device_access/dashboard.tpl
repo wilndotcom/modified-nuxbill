@@ -145,15 +145,31 @@
                 <div class="col-md-6 text-right">
                     <!-- Sorting Links -->
                     <div class="btn-group">
-                        <a href="{Text::url('device_access/dashboard', 'category', $categoryFilter, 'sort', 'name', 'order', {if $sortField == 'name' && $sortOrder == 'asc'}desc{else}asc{/if})}" 
+                        {if $sortField == 'name' && $sortOrder == 'asc'}
+                            {assign var=name_order value='desc'}
+                        {else}
+                            {assign var=name_order value='asc'}
+                        {/if}
+                        {if $sortField == 'type' && $sortOrder == 'asc'}
+                            {assign var=type_order value='desc'}
+                        {else}
+                            {assign var=type_order value='asc'}
+                        {/if}
+                        {if $sortField == 'device_type' && $sortOrder == 'asc'}
+                            {assign var=device_type_order value='desc'}
+                        {else}
+                            {assign var=device_type_order value='asc'}
+                        {/if}
+                        
+                        <a href="{Text::url('device_access/dashboard', 'category', $categoryFilter, 'sort', 'name', 'order', $name_order)}" 
                            class="btn btn-default btn-sm {if $sortField == 'name'}active{/if}">
                             {Lang::T('Name')} {if $sortField == 'name'}{if $sortOrder == 'asc'}<i class="fa fa-arrow-up"></i>{else}<i class="fa fa-arrow-down"></i>{/if}{/if}
                         </a>
-                        <a href="{Text::url('device_access/dashboard', 'category', $categoryFilter, 'sort', 'type', 'order', {if $sortField == 'type' && $sortOrder == 'asc'}desc{else}asc{/if})}" 
+                        <a href="{Text::url('device_access/dashboard', 'category', $categoryFilter, 'sort', 'type', 'order', $type_order)}" 
                            class="btn btn-default btn-sm {if $sortField == 'type'}active{/if}">
                             {Lang::T('Type')} {if $sortField == 'type'}{if $sortOrder == 'asc'}<i class="fa fa-arrow-up"></i>{else}<i class="fa fa-arrow-down"></i>{/if}{/if}
                         </a>
-                        <a href="{Text::url('device_access/dashboard', 'category', $categoryFilter, 'sort', 'device_type', 'order', {if $sortField == 'device_type' && $sortOrder == 'asc'}desc{else}asc{/if})}" 
+                        <a href="{Text::url('device_access/dashboard', 'category', $categoryFilter, 'sort', 'device_type', 'order', $device_type_order)}" 
                            class="btn btn-default btn-sm {if $sortField == 'device_type'}active{/if}">
                             {Lang::T('Device Type')} {if $sortField == 'device_type'}{if $sortOrder == 'asc'}<i class="fa fa-arrow-up"></i>{else}<i class="fa fa-arrow-down"></i>{/if}{/if}
                         </a>
