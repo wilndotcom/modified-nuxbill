@@ -40,7 +40,8 @@
                                 <span class="input-group-addon" id="basic-addon1"><i
                                         class="glyphicon glyphicon-user"></i></span>
                             {/if}
-                            <input type="text" class="form-control" name="username"
+                            <input type="text" class="form-control" name="username" id="username"
+                                autocomplete="username"
                                 placeholder="{if $_c['country_code_phone']!= '' || $_c['registration_username'] == 'phone'}{$_c['country_code_phone']} {Lang::T('Phone Number')}{elseif $_c['registration_username'] == 'email'}{Lang::T('Email')}{else}{Lang::T('Usernames')}{/if}">
                         </div>
                     </div>
@@ -49,7 +50,8 @@
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon2"><i
                                     class="glyphicon glyphicon-lock"></i></span>
-                            <input type="password" class="form-control" name="password"
+                            <input type="password" class="form-control" name="password" id="password"
+                                autocomplete="current-password"
                                 placeholder="{Lang::T('Password')}">
                         </div>
                     </div>

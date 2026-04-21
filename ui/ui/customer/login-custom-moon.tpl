@@ -586,12 +586,13 @@
                             <form id="login-form" method="POST" action="{Text::url('login/post')}">
                                 <input type="hidden" name="csrf_token" value="{$csrf_token}">
                                 <div>
-                                    <input type="text" name="username"
+                                    <input type="text" name="username" id="username" autocomplete="username"
                                         placeholder="{if $_c['registration_username'] == 'phone'}{Lang::T('Phone Number')}{elseif $_c['registration_username'] == 'email'}{Lang::T('Email')}{else}{Lang::T('Usernames')}{/if}"
                                         required>
                                 </div>
                                 <div>
-                                    <input type="password" name="password" placeholder="{Lang::T('Password')}" required>
+                                    <input type="password" name="password" id="password" autocomplete="current-password"
+                                        placeholder="{Lang::T('Password')}" required>
                                 </div>
                                 <div class="checkbox clearfix">
                                     <!-- <div class="form-check checkbox-fg">

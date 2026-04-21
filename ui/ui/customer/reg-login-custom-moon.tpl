@@ -358,7 +358,8 @@
                                 <!-- Basic Information (Initially Visible) -->
                                 <div id="basicFields">
                                     <div class="form-group">
-                                        <input type="text" name="username"
+                                        <input type="text" name="username" id="username"
+                                            autocomplete="username"
                                             placeholder="{if $_c['country_code_phone']!= '' || $_c['registration_username'] == 'phone'}{$_c['country_code_phone']} {Lang::T('Phone Number')}{elseif $_c['registration_username'] == 'email'}{Lang::T('Email')}{else}{Lang::T('Usernames')}{/if}">
                                     </div>
                                     {if $_c['photo_register'] == 'yes'}
@@ -368,11 +369,15 @@
                                     </div>
                                     {/if}
                                     <div class="form-group">
-                                        <input type="text" name="fullname" placeholder="{Lang::T('Full Name')}"
+                                        <input type="text" name="fullname" id="fullname"
+                                            autocomplete="name"
+                                            placeholder="{Lang::T('Full Name')}"
                                         {if $_c['man_fields_fname'] neq 'no'}required{/if} >
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" name="email" placeholder="{Lang::T('Email Address')}"
+                                        <input type="email" name="email" id="email"
+                                            autocomplete="email"
+                                            placeholder="{Lang::T('Email Address')}"
                                         {if $_c['man_fields_email'] neq 'no'}required{/if}>
                                     </div>
                                     <div class="form-group">
@@ -385,15 +390,20 @@
                                 <!-- Password Fields (Initially Hidden) -->
                                 <div id="passwordFields" style="display: none;">
                                     <div class="form-group">
-                                        <input type="text" name="address" placeholder="{Lang::T('Home Address')}"
+                                        <input type="text" name="address" id="address"
+                                            autocomplete="street-address"
+                                            placeholder="{Lang::T('Home Address')}"
                                         {if $_c['man_fields_address'] neq 'no'}required{/if}>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="password" placeholder="{Lang::T('Password')}"
+                                        <input type="password" name="password" id="password"
+                                            autocomplete="new-password"
+                                            placeholder="{Lang::T('Password')}"
                                             required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="cpassword"
+                                        <input type="password" name="cpassword" id="cpassword"
+                                            autocomplete="new-password"
                                             placeholder="{Lang::T('Confirm Password')}" required>
                                     </div>
                                     <div class="form-group">

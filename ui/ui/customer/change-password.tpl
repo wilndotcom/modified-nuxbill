@@ -12,19 +12,22 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">{Lang::T('Current Password')}</label>
                         <div class="col-md-6">
-                            <input type="password" class="form-control" id="password" name="password">
+                            <input type="password" class="form-control" id="password" name="password"
+                                autocomplete="current-password">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label">{Lang::T('New Password')}</label>
                         <div class="col-md-6">
-                            <input type="password" class="form-control" id="npass" name="npass">
+                            <input type="password" class="form-control" id="npass" name="npass"
+                                autocomplete="new-password">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label">{Lang::T('Confirm New Password')}</label>
                         <div class="col-md-6">
-                            <input type="password" class="form-control" id="cnpass" name="cnpass">
+                            <input type="password" class="form-control" id="cnpass" name="cnpass"
+                                autocomplete="new-password">
                         </div>
                     </div>
 
