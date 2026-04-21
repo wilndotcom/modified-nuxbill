@@ -22,6 +22,9 @@
                                 <option value="">{Lang::T('Select Brand')}</option>
                                 <option value="Huawei">Huawei</option>
                                 <option value="ZTE">ZTE</option>
+                                <option value="VSOL">VSOL</option>
+                                <option value="BDCOM">BDCOM</option>
+                                <option value="HiOSO">HiOSO</option>
                                 <option value="FiberHome">FiberHome</option>
                                 <option value="Nokia">Nokia</option>
                                 <option value="Calix">Calix</option>

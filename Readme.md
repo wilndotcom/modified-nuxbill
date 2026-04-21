@@ -1,54 +1,110 @@
-# PhpNuxBill HOTSPOT PLUGIN – Seamless Hotspot Management for ISPs  
+[![ReadMeSupportPalestine](https://raw.githubusercontent.com/Safouene1/support-palestine-banner/master/banner-project.svg)](https://s.id/standwithpalestine)
 
-The **PhpNuxBill HOTSPOT PLUGIN** is a powerful extension designed to integrate seamlessly with **PhpNuxBill**, enabling **efficient hotspot management** for **ISPs, hotels, cafes, schools, and businesses**. This plugin allows you to **manage prepaid and postpaid hotspot users, automate account creation, generate vouchers, and track usage in real time**.  
+# PHPNuxBill - PHP Mikrotik Billing
 
-## Installation Guide  
+![PHPNuxBill](install/img/logo.png)
 
-Follow these simple steps to install and activate the **PhpNuxBill HOTSPOT PLUGIN**:  
+## Feature
 
-### Step 1: Purchase & Download  
-1. Buy the **PhpNuxBill HOTSPOT PLUGIN** from the [AlvinKiveu.Com website](https://alvinkiveu.com/script/phpnuxbill-hotspot-plugin).  
-2. Download the plugin and extract the files.  
+- Voucher Generator and Print
+- [Freeradius](https://github.com/hotspotbilling/phpnuxbill/wiki/FreeRadius)
+- Self registration
+- User Balance
+- Auto Renewal Package using Balance
+- Multi Router Mikrotik
+- Hotspot & PPPOE
+- Easy Installation
+- Multi Language
+- Payment Gateway
+- SMS validation for login
+- Whatsapp Notification to Consumer
+- Telegram Notification for Admin
 
-### Step 2: Upload Plugin Files  
-Place the extracted files in their respective directories:  
-- `CreateHotspotUser.php` → **system/plugins/**  
-- `download.php` → **main directory**
-- `hotspot_settings.php` → **system/plugins/**  
-- `hotspot_settings.tpl` → **system/plugins/ui/** 
+See [How it Works / Cara Kerja](https://github.com/hotspotbilling/phpnuxbill/wiki/How-It-Works---Cara-kerja)
 
-### Step 3: Activate the Plugin  
-1. Log in to your **PhpNuxBill** admin panel.  
-2. Navigate to **Hotspot Settings** that will appear on the menu.
-3. Fill in the required details and click **Save**.
+## Payment Gateway And Plugin
 
-## Why Choose PhpNuxBill HOTSPOT PLUGIN?  
-🚀 **Streamline your ISP hotspot business** with **automated billing, user management, and real-time monitoring**. Whether you're an **ISP, business owner, or network administrator**, this plugin helps you **enhance user experience, reduce manual work, and increase revenue**.  
+- [Payment Gateway List](https://github.com/orgs/hotspotbilling/repositories?q=payment+gateway)
+- [Plugin List](https://github.com/orgs/hotspotbilling/repositories?q=plugin)
 
-**Get started today!** 🔥  
+You can download payment gateway and Plugin from Plugin Manager
 
-## Support Ticket System
+## System Requirements
 
-This version includes a **complete Support Ticket System** for managing customer support requests:
+Most current web servers with PHP & MySQL installed will be capable of running PHPNuxBill
 
-### Features
-- **Customer Portal**: Customers can create, view, and reply to support tickets
-- **Admin Portal**: Admins can manage all tickets, create tickets on behalf of customers
-- **Ticket Categories**: Organize tickets by category (General, Technical, Billing, etc.)
-- **Priority Levels**: Low, Medium, High, Urgent priorities
-- **Status Tracking**: Open, In Progress, Resolved, Closed statuses
-- **Email Notifications**: Automatic notifications for ticket updates
+Minimum Requirements
 
-### Access URLs
-- **Customer**: `http://localhost/modified-nuxbill/?_route=customer_ticket/list`
-- **Admin**: `http://localhost/modified-nuxbill/?_route=ticket/list`
+- Linux or Windows OS
+- Minimum PHP Version 8.2
+- Both PDO & MySQLi Support
+- PHP-GD2 Image Library
+- PHP-CURL
+- PHP-ZIP
+- PHP-Mbstring
+- MySQL Version 4.1.x and above
 
-### Recent Fixes (April 2025)
-- ✅ Fixed customer ticket menu redirect issue
-- ✅ Added missing database tables (tbl_tickets, tbl_ticket_replies, tbl_ticket_categories, tbl_admins)
-- ✅ Fixed controller routing and UI rendering
-- ✅ Added Create Ticket feature for admins
-- ✅ Fixed form accessibility (labels, autocomplete)
+can be Installed in Raspberry Pi Device.
 
-### Tags 
-PhpNuxBill Hotspot Plugin, PhpNuxBill MikroTik, Hotspot Billing Software, ISP Hotspot Management, MikroTik Hotspot, Hotspot Voucher System, Prepaid Internet Plans, Captive Portal Customization, PhpNuxBill Addon, ISP Management Software, Support Ticket System, Customer Support
+The problem with windows is hard to set cronjob, better Linux
+
+## Changelog
+
+[CHANGELOG.md](CHANGELOG.md)
+
+## Installation
+
+[Installation instructions](https://github.com/hotspotbilling/phpnuxbill/wiki)
+
+## Freeradius
+
+Support [Freeradius with Database](https://github.com/hotspotbilling/phpnuxbill/wiki/FreeRadius)
+
+## Community Support
+
+- [Github Discussion](https://github.com/hotspotbilling/phpnuxbill/discussions)
+- [Telegram Group](https://t.me/phpmixbill)
+
+## Technical Support
+
+This Software is Free and Open Source, Without any Warranty.
+
+Even if the software is free, but Technical Support is not,
+Technical Support Start from Rp 500.000 or $50
+
+If you chat me for any technical support,
+you need to pay,
+
+ask anything for free in the [discussion](/hotspotbilling/phpnuxbill/discussions) page or [Telegram Group](https://t.me/phpnuxbill)
+
+Contact me at [Telegram](https://t.me/ibnux)
+
+## License
+
+GNU General Public License version 2 or later
+
+see [LICENSE](LICENSE) file
+
+
+## Donate to ibnux
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/ibnux)
+
+BCA: 5410454825
+
+Mandiri: 163-000-1855-793
+
+a.n Ibnu Maksum
+
+## SPONSORS
+
+- [mixradius.com](https://mixradius.com/) Paid Services Billing Radius
+- [mlink.id](https://mlink.id)
+- [https://github.com/sonyinside](https://github.com/sonyinside)
+
+## Thanks
+We appreciate all people who are participating in this project.
+
+<a href="https://github.com/hotspotbilling/phpnuxbill/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=hotspotbilling/phpnuxbill" />
+</a>

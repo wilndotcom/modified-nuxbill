@@ -48,6 +48,11 @@ system/devices/**
 !system/devices/MikrotikPppoe.php
 !system/devices/MikrotikPppoeCustom.php
 !system/devices/MikrotikHotspot.php
+!system/devices/MikrotikVpn.php
+!system/devices/olt/
+!system/devices/olt/*.php
+!system/devices/cpe/
+!system/devices/cpe/*.php
 /.vs
 docker-compose.yml
 docs/**

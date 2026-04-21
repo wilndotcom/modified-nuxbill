@@ -23,6 +23,9 @@
                                 <option value="">{Lang::T('Select Brand')}</option>
                                 <option value="Huawei" {if $device['brand'] == 'Huawei'}selected{/if}>Huawei</option>
                                 <option value="ZTE" {if $device['brand'] == 'ZTE'}selected{/if}>ZTE</option>
+                                <option value="VSOL" {if $device['brand'] == 'VSOL'}selected{/if}>VSOL</option>
+                                <option value="BDCOM" {if $device['brand'] == 'BDCOM'}selected{/if}>BDCOM</option>
+                                <option value="HiOSO" {if $device['brand'] == 'HiOSO'}selected{/if}>HiOSO</option>
                                 <option value="FiberHome" {if $device['brand'] == 'FiberHome'}selected{/if}>FiberHome</option>
                                 <option value="Nokia" {if $device['brand'] == 'Nokia'}selected{/if}>Nokia</option>
                                 <option value="Calix" {if $device['brand'] == 'Calix'}selected{/if}>Calix</option>
