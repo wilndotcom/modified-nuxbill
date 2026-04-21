@@ -21,6 +21,30 @@
 </div>
 {/if}
 
+<!-- Quick Access - Support Tickets (Always Visible) -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="small-box bg-purple" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;">
+            <div class="inner">
+                <h3><i class="fa fa-ticket"></i> {Lang::T('Support Tickets')}</h3>
+                <p>
+                    {if $total_urgent_tickets > 0}
+                        <span class="badge bg-red">{$total_urgent_tickets} {Lang::T('Urgent')}</span> {Lang::T('tickets require attention')}
+                    {else}
+                        {Lang::T('No urgent tickets')}
+                    {/if}
+                </p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-headphones"></i>
+            </div>
+            <a href="{Text::url('ticket/list')}" class="small-box-footer">
+                {Lang::T('View All Tickets')} <i class="fa fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
 {function showWidget pos=0}
     {foreach $widgets as $w}
         {if $w['position'] == $pos}
