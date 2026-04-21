@@ -163,7 +163,7 @@ switch ($action) {
         // Message::sendNewTicketNotification($ticket);
         
         _log('Customer ' . $user->username . ' created ticket #' . $ticket->id, 'Ticket');
-        r2(getUrl('customer_ticket/view/', $ticket->id), 's', Lang::T('Ticket created successfully'));
+        r2(getUrl('customer_ticket/view/' . $ticket->id), 's', Lang::T('Ticket created successfully'));
         break;
 
     // Add reply to ticket
@@ -173,11 +173,11 @@ switch ($action) {
         $csrf_token = _post('csrf_token');
         
         if (!Csrf::check($csrf_token)) {
-            r2(getUrl('customer_ticket/view/', $id), 'e', Lang::T('Invalid CSRF Token'));
+            r2(getUrl('customer_ticket/view/' . $id), 'e', Lang::T('Invalid CSRF Token'));
         }
         
         if (empty($message)) {
-            r2(getUrl('customer_ticket/view/', $id), 'e', Lang::T('Reply message is required'));
+            r2(getUrl('customer_ticket/view/' . $id), 'e', Lang::T('Reply message is required'));
         }
         
         $ticket = ORM::for_table('tbl_tickets')
@@ -190,7 +190,7 @@ switch ($action) {
         
         // Cannot reply to closed tickets
         if ($ticket->status == 'closed') {
-            r2(getUrl('customer_ticket/view/', $id), 'e', Lang::T('Cannot reply to closed ticket'));
+            r2(getUrl('customer_ticket/view/' . $id), 'e', Lang::T('Cannot reply to closed ticket'));
         }
         
         // Add reply
@@ -206,7 +206,7 @@ switch ($action) {
         $ticket->updated_at = date('Y-m-d H:i:s');
         $ticket->save();
         
-        r2(getUrl('customer_ticket/view/', $id), 's', Lang::T('Reply added successfully'));
+        r2(getUrl('customer_ticket/view/' . $id), 's', Lang::T('Reply added successfully'));
         break;
 
     // Close own ticket
@@ -215,7 +215,7 @@ switch ($action) {
         $csrf_token = _req('token');
         
         if (!Csrf::check($csrf_token)) {
-            r2(getUrl('customer_ticket/view/', $id), 'e', Lang::T('Invalid CSRF Token'));
+            r2(getUrl('customer_ticket/view/' . $id), 'e', Lang::T('Invalid CSRF Token'));
         }
         
         $ticket = ORM::for_table('tbl_tickets')
