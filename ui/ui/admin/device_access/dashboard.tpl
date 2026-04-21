@@ -145,15 +145,15 @@
                 <div class="col-md-6 text-right">
                     <!-- Sorting Links -->
                     <div class="btn-group">
-                        <a href="{Text::url('device_access/dashboard', 'category', $categoryFilter, 'sort', 'name', 'order', $sortField == 'name' && $sortOrder == 'asc' ? 'desc' : 'asc')}" 
+                        <a href="{Text::url('device_access/dashboard', 'category', $categoryFilter, 'sort', 'name', 'order', {if $sortField == 'name' && $sortOrder == 'asc'}desc{else}asc{/if})}" 
                            class="btn btn-default btn-sm {if $sortField == 'name'}active{/if}">
                             {Lang::T('Name')} {if $sortField == 'name'}{if $sortOrder == 'asc'}<i class="fa fa-arrow-up"></i>{else}<i class="fa fa-arrow-down"></i>{/if}{/if}
                         </a>
-                        <a href="{Text::url('device_access/dashboard', 'category', $categoryFilter, 'sort', 'type', 'order', $sortField == 'type' && $sortOrder == 'asc' ? 'desc' : 'asc')}" 
+                        <a href="{Text::url('device_access/dashboard', 'category', $categoryFilter, 'sort', 'type', 'order', {if $sortField == 'type' && $sortOrder == 'asc'}desc{else}asc{/if})}" 
                            class="btn btn-default btn-sm {if $sortField == 'type'}active{/if}">
                             {Lang::T('Type')} {if $sortField == 'type'}{if $sortOrder == 'asc'}<i class="fa fa-arrow-up"></i>{else}<i class="fa fa-arrow-down"></i>{/if}{/if}
                         </a>
-                        <a href="{Text::url('device_access/dashboard', 'category', $categoryFilter, 'sort', 'device_type', 'order', $sortField == 'device_type' && $sortOrder == 'asc' ? 'desc' : 'asc')}" 
+                        <a href="{Text::url('device_access/dashboard', 'category', $categoryFilter, 'sort', 'device_type', 'order', {if $sortField == 'device_type' && $sortOrder == 'asc'}desc{else}asc{/if})}" 
                            class="btn btn-default btn-sm {if $sortField == 'device_type'}active{/if}">
                             {Lang::T('Device Type')} {if $sortField == 'device_type'}{if $sortOrder == 'asc'}<i class="fa fa-arrow-up"></i>{else}<i class="fa fa-arrow-down"></i>{/if}{/if}
                         </a>
