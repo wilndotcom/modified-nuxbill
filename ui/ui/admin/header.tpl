@@ -56,6 +56,10 @@
             font-weight: 600 !important;
             font-size: 14px !important;
             text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
+            border-radius: 0 30px 30px 0 !important;
+            padding: 12px 15px !important;
+            margin: 2px 0 !important;
+            transition: all 0.3s ease !important;
         }
         
         body.modern-skin-dark .sidebar-menu > li:hover > a,
