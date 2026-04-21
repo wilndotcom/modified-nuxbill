@@ -89,6 +89,52 @@
         .main-sidebar:after {
             display: none !important;
         }
+        
+        /* Individual Menu Item Colors */
+        .sidebar-menu > li:nth-child(1) > a { border-left: 4px solid #FF6B6B !important; }
+        .sidebar-menu > li:nth-child(1):hover > a { background: linear-gradient(90deg, rgba(255,107,107,0.3) 0%, transparent 100%) !important; }
+        
+        .sidebar-menu > li:nth-child(2) > a { border-left: 4px solid #4ECDC4 !important; }
+        .sidebar-menu > li:nth-child(2):hover > a { background: linear-gradient(90deg, rgba(78,205,196,0.3) 0%, transparent 100%) !important; }
+        
+        .sidebar-menu > li:nth-child(3) > a { border-left: 4px solid #45B7D1 !important; }
+        .sidebar-menu > li:nth-child(3):hover > a { background: linear-gradient(90deg, rgba(69,183,209,0.3) 0%, transparent 100%) !important; }
+        
+        .sidebar-menu > li:nth-child(4) > a { border-left: 4px solid #96CEB4 !important; }
+        .sidebar-menu > li:nth-child(4):hover > a { background: linear-gradient(90deg, rgba(150,206,180,0.3) 0%, transparent 100%) !important; }
+        
+        .sidebar-menu > li:nth-child(5) > a { border-left: 4px solid #FFEAA7 !important; }
+        .sidebar-menu > li:nth-child(5):hover > a { background: linear-gradient(90deg, rgba(255,234,167,0.3) 0%, transparent 100%) !important; }
+        
+        .sidebar-menu > li:nth-child(6) > a { border-left: 4px solid #DDA0DD !important; }
+        .sidebar-menu > li:nth-child(6):hover > a { background: linear-gradient(90deg, rgba(221,160,221,0.3) 0%, transparent 100%) !important; }
+        
+        .sidebar-menu > li:nth-child(7) > a { border-left: 4px solid #98D8C8 !important; }
+        .sidebar-menu > li:nth-child(7):hover > a { background: linear-gradient(90deg, rgba(152,216,200,0.3) 0%, transparent 100%) !important; }
+        
+        .sidebar-menu > li:nth-child(8) > a { border-left: 4px solid #F7DC6F !important; }
+        .sidebar-menu > li:nth-child(8):hover > a { background: linear-gradient(90deg, rgba(247,220,111,0.3) 0%, transparent 100%) !important; }
+        
+        .sidebar-menu > li:nth-child(9) > a { border-left: 4px solid #BB8FCE !important; }
+        .sidebar-menu > li:nth-child(9):hover > a { background: linear-gradient(90deg, rgba(187,143,206,0.3) 0%, transparent 100%) !important; }
+        
+        .sidebar-menu > li:nth-child(10) > a { border-left: 4px solid #85C1E9 !important; }
+        .sidebar-menu > li:nth-child(10):hover > a { background: linear-gradient(90deg, rgba(133,193,233,0.3) 0%, transparent 100%) !important; }
+        
+        .sidebar-menu > li:nth-child(11) > a { border-left: 4px solid #F8B739 !important; }
+        .sidebar-menu > li:nth-child(11):hover > a { background: linear-gradient(90deg, rgba(248,183,57,0.3) 0%, transparent 100%) !important; }
+        
+        .sidebar-menu > li:nth-child(12) > a { border-left: 4px solid #52BE80 !important; }
+        .sidebar-menu > li:nth-child(12):hover > a { background: linear-gradient(90deg, rgba(82,190,128,0.3) 0%, transparent 100%) !important; }
+        
+        .sidebar-menu > li:nth-child(13) > a { border-left: 4px solid #EC7063 !important; }
+        .sidebar-menu > li:nth-child(13):hover > a { background: linear-gradient(90deg, rgba(236,112,99,0.3) 0%, transparent 100%) !important; }
+        
+        .sidebar-menu > li:nth-child(14) > a { border-left: 4px solid #AF7AC5 !important; }
+        .sidebar-menu > li:nth-child(14):hover > a { background: linear-gradient(90deg, rgba(175,122,197,0.3) 0%, transparent 100%) !important; }
+        
+        .sidebar-menu > li:nth-child(15) > a { border-left: 4px solid #5DADE2 !important; }
+        .sidebar-menu > li:nth-child(15):hover > a { background: linear-gradient(90deg, rgba(93,173,226,0.3) 0%, transparent 100%) !important; }
     </style>
     {if isset($xheader)}
         {$xheader}
