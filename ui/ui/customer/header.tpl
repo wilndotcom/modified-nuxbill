@@ -41,6 +41,7 @@
     {/if}
 
     <!-- Customer Message Notification System -->
+    {literal}
     <script>
     (function() {
         let lastUnreadCount = 0;
@@ -87,18 +88,17 @@
             if (count > 0) {
                 const banner = document.createElement('div');
                 banner.id = 'customer-msg-banner';
-                banner.innerHTML = `
-                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; text-align: center; position: fixed; top: 50px; left: 0; right: 0; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); animation: slideDown 0.5s ease;">
-                        <i class="fa fa-envelope" style="margin-right: 10px;"></i>
-                        <strong>${count} New Message${count > 1 ? 's' : ''}</strong> 
-                        <a href="${appUrl}?_route=mail" style="color: #fff; text-decoration: underline; margin-left: 15px;">View Inbox</a>
-                        <button onclick="this.parentElement.parentElement.remove()" style="float: right; background: none; border: none; color: white; font-size: 20px; cursor: pointer;">&times;</button>
-                    </div>
-                `;
+                var msgText = count + ' New Message' + (count > 1 ? 's' : '');
+                banner.innerHTML = '<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; text-align: center; position: fixed; top: 50px; left: 0; right: 0; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); animation: slideDown 0.5s ease;">' +
+                    '<i class="fa fa-envelope" style="margin-right: 10px;"></i>' +
+                    '<strong>' + msgText + '</strong>' +
+                    '<a href="' + appUrl + '?_route=mail" style="color: #fff; text-decoration: underline; margin-left: 15px;">View Inbox</a>' +
+                    '<button onclick="this.parentElement.parentElement.remove()" style="float: right; background: none; border: none; color: white; font-size: 20px; cursor: pointer;">&times;</button>' +
+                    '</div>';
                 document.body.insertBefore(banner, document.body.firstChild);
                 
                 // Auto hide after 10 seconds
-                setTimeout(() => {
+                setTimeout(function() {
                     if (banner.parentElement) banner.remove();
                 }, 10000);
             }
@@ -107,12 +107,12 @@
         // Check for new messages
         function checkMessages() {
             fetch(appUrl + '?_route=autoload_user/inbox_unread&_=' + Date.now())
-                .then(r => r.text())
-                .then(count => {
-                    const unread = parseInt(count) || 0;
+                .then(function(r) { return r.text(); })
+                .then(function(count) {
+                    var unread = parseInt(count) || 0;
                     
                     // Update inbox badge
-                    const badge = document.querySelector('.notifications-menu .label');
+                    var badge = document.querySelector('.notifications-menu .label');
                     if (badge) {
                         badge.textContent = unread > 0 ? unread : '';
                         badge.style.display = unread > 0 ? 'inline' : 'none';
@@ -126,7 +126,7 @@
                     
                     lastUnreadCount = unread;
                 })
-                .catch(e => console.log('Message check failed:', e));
+                .catch(function(e) { console.log('Message check failed:', e); });
         }
 
         // Check on page load and every 30 seconds
@@ -136,6 +136,7 @@
         });
     })();
     </script>
+    {/literal}
     <style>
     @keyframes slideDown {
         from { transform: translateY(-100%); }
