@@ -244,3 +244,24 @@ function paybilltillsbankmpesa_payment_notification()
     exit();
   }
 }
+
+
+function paybilltillsbankmpesa_get_status($trx, $user)
+{
+  global $config;
+  // Check transaction status from database
+  $payment = ORM::for_table('tbl_payment_gateway')
+    ->where('id', $trx['id'])
+    ->find_one();
+    
+  if ($payment) {
+    if ($payment['status'] == 2) {
+      return ['status' => 'success', 'msg' => 'Payment completed'];
+    } else if ($payment['status'] == 4) {
+      return ['status' => 'cancelled', 'msg' => 'Payment cancelled by user'];
+    } else if ($payment['status'] == 1) {
+      return ['status' => 'pending', 'msg' => 'Payment pending'];
+    }
+  }
+  return ['status' => 'pending', 'msg' => 'Waiting for payment confirmation'];
+}
