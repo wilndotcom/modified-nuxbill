@@ -169,6 +169,25 @@ $current_date = date('Y-m-d');
 $ui->assign('start_date', $start_date);
 $ui->assign('current_date', $current_date);
 
+// Add ticket statistics for Ticket Siren Widget
+$high_priority_tickets = ORM::for_table('tbl_tickets')
+    ->where('priority', 'High')
+    ->where('status', 'Open')
+    ->where_null('admin_read_at')
+    ->count();
+    
+$medium_priority_tickets = ORM::for_table('tbl_tickets')
+    ->where('priority', 'Medium')
+    ->where('status', 'Open')
+    ->where_null('admin_read_at')
+    ->count();
+    
+$total_urgent_tickets = $high_priority_tickets + $medium_priority_tickets;
+
+$ui->assign('high_priority_tickets', $high_priority_tickets);
+$ui->assign('medium_priority_tickets', $medium_priority_tickets);
+$ui->assign('total_urgent_tickets', $total_urgent_tickets);
+
 $tipeUser = $admin['user_type'];
 if (in_array($tipeUser, ['SuperAdmin', 'Admin'])) {
     $tipeUser = 'Admin';

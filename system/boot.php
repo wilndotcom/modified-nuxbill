@@ -52,6 +52,27 @@ $ui->assign('CACHE_PATH', str_replace($root_path, '',  $CACHE_PATH));
 $ui->assign('PAGES_PATH', str_replace($root_path, '',  $PAGES_PATH));
 $ui->assign('_system_menu', 'dashboard');
 
+// Global ticket counts for notification badge (available on all admin pages)
+if (isset($admin) && !empty($admin['id'])) {
+    $high_priority_tickets = ORM::for_table('tbl_tickets')
+        ->where('priority', 'High')
+        ->where('status', 'Open')
+        ->where_null('admin_read_at')
+        ->count();
+        
+    $medium_priority_tickets = ORM::for_table('tbl_tickets')
+        ->where('priority', 'Medium')
+        ->where('status', 'Open')
+        ->where_null('admin_read_at')
+        ->count();
+        
+    $total_urgent_tickets = $high_priority_tickets + $medium_priority_tickets;
+    
+    $ui->assign('high_priority_tickets', $high_priority_tickets);
+    $ui->assign('medium_priority_tickets', $medium_priority_tickets);
+    $ui->assign('total_urgent_tickets', $total_urgent_tickets);
+}
+
 function _msglog($type, $msg)
 {
     $_SESSION['ntype'] = $type;

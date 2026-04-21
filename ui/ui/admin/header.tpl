@@ -362,7 +362,9 @@
                         <a href="{Text::url('ticket/list')}">
                             <i class="fa fa-ticket"></i> <span>{Lang::T('Support Tickets')}</span>
                             <span class="pull-right-container">
-                                <span class="label label-success" id="ticketCountBadge" style="display: none;">0</span>
+                                {if $total_urgent_tickets > 0}
+                                    <span class="label label-danger">{$total_urgent_tickets}</span>
+                                {/if}
                             </span>
                         </a>
                     </li>
