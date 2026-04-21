@@ -111,12 +111,29 @@
                 .then(function(count) {
                     var unread = parseInt(count) || 0;
                     
-                    // Update inbox badge
-                    var badge = document.querySelector('.notifications-menu .label');
-                    if (badge) {
-                        badge.textContent = unread > 0 ? unread : '';
-                        badge.style.display = unread > 0 ? 'inline' : 'none';
+                    // Update header inbox badge
+                    var headerBadge = document.querySelector('.notifications-menu .label');
+                    if (headerBadge) {
+                        headerBadge.textContent = unread > 0 ? unread : '';
+                        headerBadge.style.display = unread > 0 ? 'inline-block' : 'none';
                     }
+                    
+                    // Update sidebar inbox badge
+                    var sidebarInboxLink = document.querySelector('a[href*="mail"]');
+                    if (sidebarInboxLink) {
+                        var sidebarBadge = sidebarInboxLink.querySelector('.badge');
+                        if (!sidebarBadge && unread > 0) {
+                            sidebarBadge = document.createElement('span');
+                            sidebarBadge.className = 'badge bg-red pull-right';
+                            sidebarInboxLink.appendChild(sidebarBadge);
+                        }
+                        if (sidebarBadge) {
+                            sidebarBadge.textContent = unread;
+                            sidebarBadge.style.display = unread > 0 ? 'inline-block' : 'none';
+                        }
+                    }
+                    
+                    console.log('Inbox check: ' + unread + ' unread messages');
                     
                     // If new messages arrived, notify
                     if (unread > lastUnreadCount && unread > 0) {
