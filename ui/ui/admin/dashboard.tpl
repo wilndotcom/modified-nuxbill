@@ -21,48 +21,6 @@
 </div>
 {/if}
 
-<!-- Quick Access - Support Tickets (Always Visible) -->
-<div class="row">
-    <div class="col-md-12">
-        <div class="small-box" style="background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%) !important; box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important; border-radius: 15px !important; animation: pulse-ticket 2s infinite;">
-            <div class="inner" style="padding: 25px;">
-                <h3 style="font-size: 28px; margin-bottom: 15px;">
-                    <i class="fa fa-ticket" style="font-size: 32px; margin-right: 10px;"></i> 
-                    {Lang::T('Support Tickets')}
-                </h3>
-                <p style="font-size: 18px; font-weight: 600;">
-                    {if $total_urgent_tickets > 0}
-                        <span class="badge" style="background: #ff4757; font-size: 16px; padding: 8px 12px;">{$total_urgent_tickets} {Lang::T('URGENT')}</span> 
-                        <span style="color: #fff;">{Lang::T('tickets need your attention!')}</span>
-                    {else}
-                        <span class="badge" style="background: #2ed573; font-size: 16px; padding: 8px 12px;"><i class="fa fa-check"></i></span>
-                        <span style="color: #fff;">{Lang::T('All caught up - no urgent tickets')}</span>
-                    {/if}
-                </p>
-            </div>
-            <div class="icon" style="top: 15px; right: 25px; font-size: 70px; opacity: 0.3;">
-                <i class="fa fa-headphones"></i>
-            </div>
-            <a href="{Text::url('ticket/list')}" class="small-box-footer" style="background: rgba(0,0,0,0.2) !important; padding: 15px; font-size: 16px; font-weight: 600; border-radius: 0 0 15px 15px;">
-                {if $total_urgent_tickets > 0}
-                    <span style="color: #ff4757;"><i class="fa fa-exclamation-circle"></i> {Lang::T('CLICK TO VIEW TICKETS')}</span>
-                {else}
-                    {Lang::T('View All Tickets')}
-                {/if}
-                <i class="fa fa-arrow-circle-right" style="margin-left: 10px;"></i>
-            </a>
-        </div>
-    </div>
-</div>
-
-<style>
-@keyframes pulse-ticket {
-    0% { box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    50% { box-shadow: 0 15px 40px rgba(255,107,107,0.4); }
-    100% { box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-}
-</style>
-
 {function showWidget pos=0}
     {foreach $widgets as $w}
         {if $w['position'] == $pos}
