@@ -14,7 +14,7 @@
                 {if $medium_priority_tickets > 0}
                     <span class="badge bg-yellow">{$medium_priority_tickets} {Lang::T('Medium Priority')}</span>
                 {/if}
-                <a href="{Text::url('tickets/list')}" class="btn btn-xs btn-default pull-right">{Lang::T('View Tickets')}</a>
+                <a href="{Text::url('ticket/list')}" class="btn btn-xs btn-default pull-right">{Lang::T('View Tickets')}</a>
             </p>
         </div>
     </div>
