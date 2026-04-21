@@ -8,23 +8,15 @@ test.php
 sms.php
 pages/
 system/cache/**
-system/plugin/*
-!system/cache/index.html
-!system/plugin/index.html
-!system/plugin/hotspot_settings.php
-!system/plugin/CreateHotspotUser.php
-system/paymentgateway/ui/**
-system/paymentgateway/**
-!system/paymentgateway/ui/
-!system/paymentgateway/ui/index.html
-!system/paymentgateway/index.html
-!system/plugin/ui/
-system/plugin/ui/*
-!system/plugin/ui/index.html
-!system/plugin/ui/hotspot_settings.tpl
-ui/ui_custom/**
-!ui/ui_custom/index.html
-!ui/ui_custom/README.md
+# Allow all plugins except index.html pattern
+!system/plugin/*.php
+!system/plugin/ui/*.tpl
+# Allow all payment gateways
+!system/paymentgateway/*.php
+!system/paymentgateway/ui/*.tpl
+# Allow custom UI
+!ui/ui_custom/*.tpl
+!ui/ui_custom/*.php
 system/uploads/**
 !system/uploads/*.default.png
 system/uploads/sms/**
@@ -43,18 +35,9 @@ system/lan/**
 !system/lan/english.json
 !system/lan/country.json
 *.zip
-system/devices/**
-!system/devices/readme.md
-!system/devices/Dummy.php
-!system/devices/Radius.php
-!system/devices/RadiusRest.php
-!system/devices/MikrotikPppoe.php
-!system/devices/MikrotikPppoeCustom.php
-!system/devices/MikrotikHotspot.php
-!system/devices/MikrotikVpn.php
-!system/devices/olt/
+# Allow all devices
+!system/devices/*.php
 !system/devices/olt/*.php
-!system/devices/cpe/
 !system/devices/cpe/*.php
 /.vs
 docker-compose.yml
