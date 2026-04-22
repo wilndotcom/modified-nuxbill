@@ -1,8 +1,8 @@
-[![ReadMeSupportPalestine](https://raw.githubusercontent.com/Safouene1/support-palestine-banner/master/banner-project.svg)](https://s.id/standwithpalestine)
+# Modified NuxBill - PHP Mikrotik Billing System
 
-# PHPNuxBill - PHP Mikrotik Billing
+A modified version of PHPNuxBill with enhanced features for device management, payment gateways, and improved customer experience.
 
-![PHPNuxBill](install/img/logo.png)
+![Modified NuxBill](install/img/logo.png)
 
 ## Feature
 
