@@ -32,7 +32,7 @@
 - **Customer Notifications** - Sound alerts and banner notifications for new messages
 - **Ticket Notifications** - Unread ticket reply alerts for customers
 - **Form Autofill** - Improved browser autocomplete support
-- **GPL-2.0 License** - Full rights protection
+- **GPL-2.0 License** - Open source with full rights, freedom to use/modify/distribute
 
 See [How it Works / Cara Kerja](https://github.com/hotspotbilling/phpnuxbill/wiki/How-It-Works---Cara-kerja)
 
