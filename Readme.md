@@ -1,58 +1,56 @@
-# 📡 Modified NuxBill
-### PHP Mikrotik Billing System
+# 📡 WilnISP
+### ISP Management & Billing System
 
-A modified version of PHPNuxBill with enhanced features for device management, payment gateways, and improved customer experience.
+A comprehensive PHP-based ISP management system for MikroTik networks with integrated device management, payment gateways, and customer portal.
 
-## Feature
+## Features
 
-- Voucher Generator and Print
-- [Freeradius](https://github.com/hotspotbilling/phpnuxbill/wiki/FreeRadius)
-- Self registration
-- User Balance
-- Auto Renewal Package using Balance
-- Multi Router Mikrotik
-- Hotspot & PPPOE
-- Easy Installation
-- Multi Language
-- Payment Gateway
-- SMS validation for login
-- Whatsapp Notification to Consumer
-- Telegram Notification for Admin
+### Core Features
+- **Voucher Generator** - Create and print hotspot vouchers
+- **User Management** - Self registration, balance tracking, auto-renewal
+- **Multi Router Support** - Manage multiple MikroTik routers
+- **Hotspot & PPPOE** - Full support for both connection types
+- **Multi Language** - Internationalization support
+- **Payment Gateway Integration** - M-Pesa, PayPal, and custom gateways
+- **SMS/WhatsApp Notifications** - Customer and admin alerts
+- **Telegram Integration** - Admin notifications via Telegram
 
-## Modified Features (wilndotcom Fork)
-
+### Advanced Features
 - **Device Access** - CPE Device Management Dashboard with statistics and charts
 - **Fiber Management** - OLT Devices, ONU Management, CPE Routers, Profiles
 - **Support Ticket System** - Customer tickets with notifications and admin replies
 - **Customer Wallet** - Balance/debt display with sidebar menu integration
 - **M-Pesa Payment Gateways** - STK Push, Paybill/Till/Bank integration
-- **Hotspot Plugin** - MikroTik Hotspot user management
-- **CPE Device Access** - Tenda, Ubiquiti, Huawei, TP-Link device management
-- **Customer Notifications** - Sound alerts and banner notifications for new messages
-- **Ticket Notifications** - Unread ticket reply alerts for customers
+- **Hotspot Management** - MikroTik Hotspot user creation and management
+- **CPE Device Support** - Tenda, Ubiquiti, Huawei, TP-Link device management
+- **Customer Notifications** - Sound alerts and banner notifications
 - **Form Autofill** - Improved browser autocomplete support
-- **GPL-2.0 License** - Open source with full rights, freedom to use/modify/distribute
 
-See [How it Works / Cara Kerja](https://github.com/hotspotbilling/phpnuxbill/wiki/How-It-Works---Cara-kerja)
+## License
+
+**GPL-2.0 License** - Open source with full rights, freedom to use/modify/distribute
+
+## Documentation
+
+See the documentation folder for setup guides and API references.
 
 ## Payment Gateway And Plugin
 
-### Available Payment Gateways:
+### Included Payment Gateways:
 - **M-Pesa STK Push** - STK push notification to customer phone
 - **M-Pesa Paybill/Till/Bank** - Paybill, Till Number, Bank Account integration
-- [More Payment Gateways](https://github.com/orgs/hotspotbilling/repositories?q=payment+gateway)
 
-### Available Plugins:
-- **Hotspot Plugin** - MikroTik Hotspot user creation and management
+### Included Plugins:
+- **Hotspot Management** - MikroTik Hotspot user creation and management
+- **Device Access** - CPE and OLT device management
 - **Asset Manager** - Equipment and asset tracking
 - **Speedtest** - Network speed testing
-- [More Plugins](https://github.com/orgs/hotspotbilling/repositories?q=plugin)
 
-You can download payment gateway and Plugin from Plugin Manager
+Additional payment gateways and plugins can be installed via the Plugin Manager.
 
 ## System Requirements
 
-Most current web servers with PHP & MySQL installed will be capable of running PHPNuxBill
+Most current web servers with PHP & MySQL installed will be capable of running WilnISP
 
 Minimum Requirements
 
@@ -133,9 +131,10 @@ Donations to the original PHPNuxBill author (Ibnu Maksum):
 - [mlink.id](https://mlink.id)
 - [https://github.com/sonyinside](https://github.com/sonyinside)
 
-## Thanks
-Special thanks to the original PHPNuxBill project by Ibnu Maksum and all contributors. This modified version by wilndotcom extends the original with additional features for device management, payment gateways, and enhanced customer experience.
+## Credits
 
-<a href="https://github.com/wilndotcom/modified-nuxbill/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=wilndotcom/modified-nuxbill" />
+WilnISP is built with inspiration from various open source ISP management solutions. Special thanks to the open source community for the tools and libraries that made this project possible.
+
+<a href="https://github.com/wilndotcom/wilnisp/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=wilndotcom/wilnisp" />
 </a>

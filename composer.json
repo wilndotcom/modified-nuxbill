@@ -1,16 +1,24 @@
 {
-    "name": "hotspotbilling/phpnuxbill",
-    "type": "template",
-    "description": "PHPNuxBill a Hotspot Billing Software.",
-    "keywords": ["template","PHPMixBill","PHPnuxBill","Mikrotik","Hotspot","Billing"],
-    "homepage": "https://github.com/hotspotbilling/phpnuxbill",
-    "license": "MIT",
+    "name": "wilndotcom/wilnisp",
+    "type": "project",
+    "description": "WilnISP - ISP Management and Billing System for MikroTik networks.",
+    "keywords": ["ISP","Billing","Mikrotik","Hotspot","PPPOE","Management","Network"],
+    "homepage": "https://github.com/wilndotcom/wilnisp",
+    "license": "GPL-2.0",
     "authors": [
         {
-            "name": "ibnux",
-            "email": "me@ibnux.net",
-            "homepage": "https://ibnux.net",
+            "name": "wilndotcom",
+            "email": "admin@wiln.com",
+            "homepage": "https://github.com/wilndotcom",
             "role": "Developer"
         }
-    ]
+    ],
+    "require": {
+        "php": ">=8.2",
+        "ext-pdo": "*",
+        "ext-gd": "*",
+        "ext-curl": "*",
+        "ext-mbstring": "*",
+        "ext-zip": "*"
+    }
 }
