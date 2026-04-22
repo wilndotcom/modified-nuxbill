@@ -118,15 +118,15 @@ GNU General Public License version 2 or later
 see [LICENSE](LICENSE) file
 
 
-## Donate to ibnux
+## Donate
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/ibnux)
+Support the ongoing development of this modified NuxBill project.
 
-BCA: 5410454825
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/wilndotcom)
 
-Mandiri: 163-000-1855-793
-
-a.n Ibnu Maksum
+### Original Project
+Donations to the original PHPNuxBill author (Ibnu Maksum):
+[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://paypal.me/ibnux)
 
 ## SPONSORS
 
