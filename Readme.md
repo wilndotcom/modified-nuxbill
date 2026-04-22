@@ -1,8 +1,7 @@
-# Modified NuxBill - PHP Mikrotik Billing System
+# 📡 Modified NuxBill
+### PHP Mikrotik Billing System
 
 A modified version of PHPNuxBill with enhanced features for device management, payment gateways, and improved customer experience.
-
-![Modified NuxBill](install/img/logo.png)
 
 ## Feature
 
