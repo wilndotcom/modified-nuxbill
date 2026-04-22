@@ -410,6 +410,22 @@
                             {$_MENU_FIBER}
                         </ul>
                     </li>
+                    <li class="{if $_system_menu eq 'device_access'}active{/if} treeview">
+                        <a href="#">
+                            <i class="fa fa-wifi"></i> <span>{Lang::T('Device Access')}</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li {if $_routes[1] eq 'dashboard' }class="active" {/if}><a
+                                    href="{Text::url('device_access/dashboard')}">{Lang::T('Dashboard')}</a></li>
+                            <li {if $_routes[1] eq 'list' }class="active" {/if}><a
+                                    href="{Text::url('device_access/list')}">{Lang::T('All Devices')}</a></li>
+                            <li {if $_routes[1] eq 'add' }class="active" {/if}><a
+                                    href="{Text::url('device_access/add')}">{Lang::T('Add Device')}</a></li>
+                        </ul>
+                    </li>
                     {if $_c['radius_enable']}
                         <li class="{if $_system_menu eq 'radius'}active{/if} treeview">
                             <a href="#">

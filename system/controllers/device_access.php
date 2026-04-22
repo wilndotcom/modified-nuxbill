@@ -21,6 +21,36 @@ $action = $routes['1'] ?? 'dashboard';
 
 switch ($action) {
     case 'dashboard':
+        // Check if table exists first
+        try {
+            $check = ORM::get_db()->query("SHOW TABLES LIKE 'tbl_cpe_devices'")->fetch();
+            if (!$check) {
+                // Table doesn't exist, show error message
+                $ui->assign('table_missing', true);
+                $ui->assign('totalDevices', 0);
+                $ui->assign('pppoeCount', 0);
+                $ui->assign('staticCount', 0);
+                $ui->assign('routerCount', 0);
+                $ui->assign('topDeviceTypes', []);
+                $ui->assign('typeLabels', []);
+                $ui->assign('typeValues', []);
+                $ui->assign('pppoeVsStaticLabels', []);
+                $ui->assign('pppoeVsStaticValues', []);
+                $ui->assign('devices', []);
+                $ui->assign('allDevices', []);
+                $ui->assign('categoryFilter', 'all');
+                $ui->assign('sortField', 'name');
+                $ui->assign('sortOrder', 'desc');
+                $ui->display('admin/device_access/dashboard.tpl');
+                break;
+            }
+        } catch (Exception $e) {
+            // Database error
+            $ui->assign('table_missing', true);
+            $ui->display('admin/device_access/dashboard.tpl');
+            break;
+        }
+
         // Fetch all devices with their router names
         $devices = ORM::for_table('tbl_cpe_devices')
             ->select('tbl_cpe_devices.*')
