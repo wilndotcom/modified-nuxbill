@@ -135,8 +135,8 @@ a.n Ibnu Maksum
 - [https://github.com/sonyinside](https://github.com/sonyinside)
 
 ## Thanks
-We appreciate all people who are participating in this project.
+Special thanks to the original PHPNuxBill project by Ibnu Maksum and all contributors. This modified version by wilndotcom extends the original with additional features for device management, payment gateways, and enhanced customer experience.
 
-<a href="https://github.com/hotspotbilling/phpnuxbill/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=hotspotbilling/phpnuxbill" />
+<a href="https://github.com/wilndotcom/modified-nuxbill/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=wilndotcom/modified-nuxbill" />
 </a>
